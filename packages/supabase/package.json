@@ -1,0 +1,26 @@
+{
+  "name": "@whiskyindex/supabase",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "exports": {
+    "./browser": "./src/browser.ts",
+    "./server": "./src/server.ts",
+    "./middleware": "./src/middleware.ts",
+    "./env": "./src/env.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.98.0"
+  },
+  "devDependencies": {
+    "@whiskyindex/config-typescript": "workspace:*",
+    "@types/node": "^20.17.57",
+    "next": "^15.3.3",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@whiskyindex/data",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@whiskyindex/schemas": "workspace:*"
+  },
+  "devDependencies": {
+    "@whiskyindex/config-typescript": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}

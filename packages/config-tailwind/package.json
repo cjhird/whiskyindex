@@ -1,0 +1,15 @@
+{
+  "name": "@whiskyindex/config-tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "exports": {
+    "./preset": "./preset.ts"
+  },
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

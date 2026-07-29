@@ -1,0 +1,33 @@
+{
+  "name": "@whiskyindex/ui",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "exports": {
+    "./globals.css": "./src/styles/globals.css",
+    "./lib/utils": "./src/lib/utils.ts",
+    "./button": "./src/components/ui/button.tsx",
+    "./input": "./src/components/ui/input.tsx",
+    "./table": "./src/components/ui/table.tsx"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "@whiskyindex/config-tailwind": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@whiskyindex/config-typescript": "workspace:*",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "react": "^19.1.0",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

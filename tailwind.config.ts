@@ -1,16 +1,60 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        ink: {
+          DEFAULT: 'var(--ink)',
+          muted: 'var(--ink-muted)',
+          faint: 'var(--ink-faint)',
+        },
+        line: {
+          DEFAULT: 'var(--line)',
+          strong: 'var(--line-strong)',
+        },
+        surface: {
+          DEFAULT: 'var(--bg-elevated)',
+          muted: 'var(--bg)',
+        },
+        up: {
+          DEFAULT: 'var(--up)',
+          soft: 'var(--up-soft)',
+        },
+        down: {
+          DEFAULT: 'var(--down)',
+          soft: 'var(--down-soft)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          soft: 'var(--accent-soft)',
+        },
+      },
+      fontFamily: {
+        sans: ['var(--font-public-sans)', 'Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-ibm-plex-mono)', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
+      },
+      boxShadow: {
+        soft: 'var(--shadow-soft)',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.55' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.55s ease-out both',
+        'pulse-soft': 'pulse-soft 2.4s ease-in-out infinite',
       },
     },
   },

@@ -3,18 +3,97 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --accent: #ffb347;
+  --bg: #f4f5f7;
+  --bg-elevated: #ffffff;
+  --ink: #0e1116;
+  --ink-muted: #5c6570;
+  --ink-faint: #8b939e;
+  --line: #dce1e6;
+  --line-strong: #c5ccd4;
+  --up: #0f7a45;
+  --up-soft: #e6f5ed;
+  --down: #c0292b;
+  --down-soft: #fceaea;
+  --accent: #1a1f27;
+  --accent-soft: #eef0f3;
+  --grid: rgba(14, 17, 22, 0.045);
+  --shadow-soft: 0 1px 0 rgba(14, 17, 22, 0.04), 0 12px 32px rgba(14, 17, 22, 0.06);
+  --font-sans: var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Segoe UI', Roboto, sans-serif;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(255, 255, 255, 0.9), transparent 60%),
+    linear-gradient(180deg, #f7f8fa 0%, var(--bg) 40%, #eef1f4 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
+  z-index: 0;
+}
+
+#__next,
+body > div {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: #d7dde5;
+  color: var(--ink);
 }
 
 @layer utilities {
+  .font-mono-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .surface {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .ticker-up {
+    color: var(--up);
+  }
+
+  .ticker-down {
+    color: var(--down);
+  }
+
+  .ticker-chip-up {
+    color: var(--up);
+    background: var(--up-soft);
+  }
+
+  .ticker-chip-down {
+    color: var(--down);
+    background: var(--down-soft);
+  }
+
   .text-balance {
     text-wrap: balance;
   }

@@ -40,9 +40,7 @@ const config: Config = {
         sans: ['var(--font-public-sans)', 'Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['var(--font-ibm-plex-mono)', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
-      boxShadow: {
-        soft: 'var(--shadow-soft)',
-      },
+      boxShadow: {},
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(10px)' },

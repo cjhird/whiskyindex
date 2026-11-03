@@ -47,10 +47,10 @@ export function PriceChart({ history, latestPrice }: { history: PricePoint[]; la
   const yTicks = [0, 0.25, 0.5, 0.75, 1].map((t) => min + span * (1 - t));
 
   return (
-    <div className="surface overflow-hidden rounded-lg">
-      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line bg-surface-muted px-5 py-4">
+    <div className="overflow-hidden rounded-2xl bg-surface-muted">
+      <div className="flex flex-wrap items-end justify-between gap-4 px-5 py-4">
         <div>
-          <p className="label-caps">Auction mark</p>
+          <p className="label-meta">Auction mark</p>
           <div className="mt-1 flex items-baseline gap-3">
             <p className="font-mono-num text-3xl font-semibold tracking-tight text-ink">
               {formatGBP(active?.price ?? latestPrice)}
@@ -66,14 +66,14 @@ export function PriceChart({ history, latestPrice }: { history: PricePoint[]; la
             </p>
           </div>
         </div>
-        <div className="flex gap-1 rounded-md border border-line bg-accent-soft p-1">
+        <div className="flex gap-1 rounded-lg bg-white/70 p-1">
           {RANGES.map((r) => (
             <button
               key={r.id}
               type="button"
               onClick={() => setRange(r.id)}
-              className={`rounded px-2.5 py-1 font-mono-num text-[11px] font-medium transition ${
-                range === r.id ? 'bg-white text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
+              className={`rounded-md px-2.5 py-1 font-mono-num text-[11px] font-medium transition ${
+                range === r.id ? 'bg-white text-ink' : 'text-ink-muted hover:text-ink'
               }`}
             >
               {r.label}

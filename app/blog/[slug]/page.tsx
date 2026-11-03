@@ -21,20 +21,17 @@ export default function ArticlePage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
-      <Link href="/blog" className="text-sm font-semibold text-ink-muted hover:text-ink">
+      <Link href="/blog" className="text-sm text-ink-muted hover:text-ink">
         ← Research
       </Link>
-      <div className="mt-5 flex flex-wrap items-center gap-2">
-        <span className="rounded-full border border-line bg-surface-muted px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted">
-          {article.category}
-        </span>
-        <span className="text-xs font-medium text-ink-muted">{article.readMinutes} min read</span>
-      </div>
-      <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
+      <p className="label-meta mt-5">
+        {article.category} · {article.readMinutes} min read
+      </p>
+      <h1 className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
         {article.title}
       </h1>
-      <p className="mt-3 text-sm font-medium text-ink-muted">
-        WhiskyIndex Research Desk ·{' '}
+      <p className="mt-3 text-sm text-ink-muted">
+        WhiskyIndex Research ·{' '}
         {new Date(article.publishedAt).toLocaleDateString('en-GB', {
           day: 'numeric',
           month: 'long',

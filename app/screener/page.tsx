@@ -128,7 +128,9 @@ function ScreenerContent() {
         </SelectField>
       </Field>
       <div className="flex items-end gap-2 md:col-span-4">
-        <Button type="submit">Apply filters</Button>
+        <Button type="submit" variant="ghost">
+          Apply filters
+        </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/screener')}>
           Clear
         </Button>
@@ -139,15 +141,8 @@ function ScreenerContent() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
-          <p className="mt-1 text-sm text-ink-muted">
-            Free bottle universe with latest auction marks and momentum.
-          </p>
-        </div>
-        <p className="surface-panel rounded-md px-2.5 py-1 font-mono-num text-xs font-semibold text-ink-muted">
-          {rows.length} results
-        </p>
+        <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
+        <p className="font-mono-num text-xs text-ink-muted">{rows.length} results</p>
       </div>
 
       <div className="mb-3 md:hidden">
@@ -156,7 +151,7 @@ function ScreenerContent() {
         </Button>
       </div>
 
-      <div className={`surface mb-4 rounded-lg p-4 ${filtersOpen ? 'block' : 'hidden md:block'}`}>
+      <div className={`surface-panel mb-4 rounded-xl p-4 ${filtersOpen ? 'block' : 'hidden md:block'}`}>
         {filterForm}
       </div>
 
@@ -167,7 +162,7 @@ function ScreenerContent() {
               key={f.key}
               type="button"
               onClick={() => clearKey(f.key)}
-              className="rounded-full border border-line bg-surface-muted px-3 py-1 text-xs font-medium text-ink-muted hover:border-line-strong hover:text-ink"
+              className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-ink-muted hover:bg-[#efeff1] hover:text-ink"
             >
               {f.label} ×
             </button>
@@ -177,7 +172,7 @@ function ScreenerContent() {
 
       <div className="mobile-card-list">
         {rows.map((b) => (
-          <Link key={b.id} href={`/bottle/${b.slug}`} className="surface block rounded-lg p-4">
+          <Link key={b.id} href={`/bottle/${b.slug}`} className="surface-panel block rounded-xl p-4">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <p className="font-semibold text-ink">{b.name}</p>
@@ -200,7 +195,7 @@ function ScreenerContent() {
         ))}
       </div>
 
-      <div className="desktop-table-only surface overflow-hidden rounded-lg">
+      <div className="desktop-table-only overflow-hidden rounded-xl">
         <div className="data-table-wrap max-h-[70vh]">
           <table className="data-table">
             <thead>

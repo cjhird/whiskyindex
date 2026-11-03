@@ -19,12 +19,12 @@ export function BottleStats({ bottle }: { bottle: Bottle }) {
   ];
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
       {items.map((item) => (
-        <div key={item.label} className="surface-panel rounded-lg px-4 py-3.5">
-          <p className="label-caps">{item.label}</p>
-          <p className="mt-1.5 font-mono-num text-lg font-semibold text-ink">{item.value}</p>
-          <p className="mt-1 text-xs font-medium text-ink-muted">{item.hint}</p>
+        <div key={item.label} className="rounded-xl px-3 py-3">
+          <p className="label-meta">{item.label}</p>
+          <p className="mt-1 font-mono-num text-lg font-semibold text-ink">{item.value}</p>
+          <p className="mt-0.5 text-xs text-ink-muted">{item.hint}</p>
         </div>
       ))}
     </div>

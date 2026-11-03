@@ -16,21 +16,18 @@ export default function PortfolioPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
-          <p className="mt-1 text-sm text-ink-muted">Member book marked to latest auction totals.</p>
-        </div>
-        <p className="surface-panel rounded-md px-2.5 py-1 text-xs font-semibold text-ink-muted">
+      <div className="mb-3 flex flex-wrap items-end justify-between gap-4">
+        <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
+        <p className="text-xs text-ink-muted">
           {summary.positions} positions · signed in
         </p>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-6">
         <DisclaimerBanner />
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard label="Market value" value={formatGBP(summary.marketValue)} />
         <SummaryCard label="Cost basis" value={formatGBP(summary.cost)} />
         <SummaryCard
@@ -47,9 +44,13 @@ export default function PortfolioPage() {
 
       <div className="mobile-card-list mt-6">
         {rows.map((r) => (
-          <Link key={r.bottleId} href={`/bottle/${r.bottle.slug}`} className="surface block rounded-lg p-4">
-            <p className="font-semibold text-ink">{r.bottle.name}</p>
-            <p className="mt-1 text-xs font-medium text-ink-muted">
+          <Link
+            key={r.bottleId}
+            href={`/bottle/${r.bottle.slug}`}
+            className="surface-panel block rounded-xl p-4"
+          >
+            <p className="font-medium text-ink">{r.bottle.name}</p>
+            <p className="mt-1 text-xs text-ink-muted">
               Bought {r.purchaseDate}
               {r.notes ? ` · ${r.notes}` : ''}
             </p>
@@ -58,7 +59,7 @@ export default function PortfolioPage() {
                 <p className="font-mono-num text-lg font-semibold">{formatGBP(r.marketValue)}</p>
                 <ChangeText value={r.pnlPct} className="text-xs" />
               </div>
-              <div className="text-right text-xs font-medium text-ink-muted">
+              <div className="text-right text-xs text-ink-muted">
                 <p>Qty {r.quantity}</p>
                 <p className="font-mono-num">Mark {formatGBP(r.bottle.latestPrice)}</p>
               </div>
@@ -67,7 +68,7 @@ export default function PortfolioPage() {
         ))}
       </div>
 
-      <div className="desktop-table-only surface mt-6 overflow-hidden rounded-lg">
+      <div className="desktop-table-only mt-6 overflow-hidden rounded-xl">
         <div className="data-table-wrap max-h-[70vh]">
           <table className="data-table">
             <thead>
@@ -85,23 +86,29 @@ export default function PortfolioPage() {
               {rows.map((r) => (
                 <tr key={r.bottleId}>
                   <td>
-                    <Link href={`/bottle/${r.bottle.slug}`} className="font-semibold hover:underline">
+                    <Link href={`/bottle/${r.bottle.slug}`} className="font-medium hover:underline">
                       {r.bottle.name}
                     </Link>
-                    <p className="text-xs font-medium text-ink-muted">
+                    <p className="text-xs text-ink-muted">
                       Bought {r.purchaseDate}
                       {r.notes ? ` · ${r.notes}` : ''}
                     </p>
                   </td>
                   <td className="text-right font-mono-num">{r.quantity}</td>
-                  <td className="text-right font-mono-num text-ink-muted">{formatGBP(r.purchasePrice)}</td>
-                  <td className="text-right font-mono-num">{formatGBP(r.bottle.latestPrice)}</td>
+                  <td className="text-right font-mono-num text-ink-muted">
+                    {formatGBP(r.purchasePrice)}
+                  </td>
+                  <td className="text-right font-mono-num">
+                    {formatGBP(r.bottle.latestPrice)}
+                  </td>
                   <td>
                     <Sparkline values={r.bottle.sparkline} />
                   </td>
-                  <td className="text-right font-mono-num font-semibold">{formatGBP(r.marketValue)}</td>
+                  <td className="text-right font-mono-num font-medium">
+                    {formatGBP(r.marketValue)}
+                  </td>
                   <td className="text-right">
-                    <div className="font-mono-num font-semibold">{formatGBP(r.pnl)}</div>
+                    <div className="font-mono-num font-medium">{formatGBP(r.pnl)}</div>
                     <ChangeText value={r.pnlPct} className="text-xs" />
                   </td>
                 </tr>
@@ -124,8 +131,8 @@ function SummaryCard({
   tone?: 'up' | 'down';
 }) {
   return (
-    <div className="surface rounded-lg p-4">
-      <p className="label-caps">{label}</p>
+    <div className="surface-panel rounded-xl p-4">
+      <p className="label-meta">{label}</p>
       <p
         className={`mt-2 font-mono-num text-xl font-semibold ${
           tone === 'up' ? 'text-up' : tone === 'down' ? 'text-down' : 'text-ink'

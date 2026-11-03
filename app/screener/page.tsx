@@ -64,7 +64,7 @@ function ScreenerContent() {
 
   const filterForm = (
     <form
-      className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end"
+      className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:items-end lg:gap-2"
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -147,9 +147,9 @@ function ScreenerContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-5 text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
+      <h1 className="mb-6 text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
 
-      <div className="mb-3 md:hidden">
+      <div className="mb-4 md:hidden">
         <Button type="button" variant="ghost" className="w-full" onClick={() => setFiltersOpen((v) => !v)}>
           {filtersOpen ? 'Hide filters' : 'Filters'}
         </Button>
@@ -160,42 +160,39 @@ function ScreenerContent() {
       {activeFilters.length > 0 && (
         <div className="mb-4 flex flex-wrap gap-2">
           {activeFilters.map((f) => (
-            <button
-              key={f.key}
-              type="button"
-              onClick={() => clearKey(f.key)}
-              className="rounded-full bg-surface-muted px-3 py-1 text-xs text-ink-muted hover:text-ink"
-            >
+            <button key={f.key} type="button" onClick={() => clearKey(f.key)} className="chip">
               {f.label} ×
             </button>
           ))}
         </div>
       )}
 
-      <div className="mobile-card-list">
-        <p className="label-meta mb-1">{rows.length} results</p>
-        {rows.map((b) => (
-          <Link key={b.id} href={`/bottle/${b.slug}`} className="block rounded-xl py-3">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="font-medium text-ink">{b.name}</p>
-                <p className="mt-1 text-xs text-ink-muted">
-                  {b.brand} · {b.region}
-                </p>
+      <div className="md:hidden">
+        <p className="label-meta mb-2">{rows.length} results</p>
+        <div className="mobile-card-list">
+          {rows.map((b) => (
+            <Link key={b.id} href={`/bottle/${b.slug}`} className="block">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="font-medium text-ink">{b.name}</p>
+                  <p className="mt-1 text-sm text-ink-muted">
+                    {b.brand} · {b.region}
+                  </p>
+                </div>
+                <Sparkline values={b.sparkline} />
               </div>
-              <Sparkline values={b.sparkline} />
-            </div>
-            <div className="mt-3 flex items-end justify-between">
-              <div>
-                <p className="font-mono-num text-lg font-semibold">{formatGBP(b.latestPrice)}</p>
-                <p className="text-xs text-ink-muted">
-                  1M <ChangeText value={b.change1m} />
-                </p>
+              <div className="mt-2 flex items-end justify-between">
+                <div>
+                  <p className="font-mono-num text-lg font-semibold">{formatGBP(b.latestPrice)}</p>
+                  <p className="text-sm text-ink-muted">
+                    1M <ChangeText value={b.change1m} />
+                  </p>
+                </div>
+                <p className="font-mono-num text-sm text-ink-muted">Vol {b.volume30d}</p>
               </div>
-              <p className="font-mono-num text-xs text-ink-muted">Vol {b.volume30d}</p>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div className="desktop-table-only overflow-hidden">
@@ -221,7 +218,7 @@ function ScreenerContent() {
                     <Link href={`/bottle/${b.slug}`} className="font-medium text-ink hover:underline">
                       {b.name}
                     </Link>
-                    <p className="text-xs text-ink-muted">{b.brand}</p>
+                    <p className="text-sm text-ink-muted">{b.brand}</p>
                   </td>
                   <td className="text-ink-muted">
                     {b.region}

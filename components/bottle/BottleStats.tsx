@@ -19,7 +19,7 @@ export function BottleStats({ bottle }: { bottle: Bottle }) {
   return (
     <dl className="divide-y divide-line">
       {items.map((item) => (
-        <div key={item.label} className="flex items-baseline justify-between gap-4 py-2.5">
+        <div key={item.label} className="flex items-baseline justify-between gap-4 py-3">
           <dt className="text-sm text-ink-muted">{item.label}</dt>
           <dd className="font-mono-num text-sm font-medium text-ink text-right">{item.value}</dd>
         </div>

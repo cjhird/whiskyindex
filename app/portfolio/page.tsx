@@ -18,7 +18,7 @@ export default function PortfolioPage() {
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
-        <p className="text-xs text-ink-muted">{summary.positions} positions</p>
+        <p className="text-sm text-ink-muted">{summary.positions} positions</p>
       </div>
       <div className="mb-8">
         <DisclaimerBanner />
@@ -39,20 +39,20 @@ export default function PortfolioPage() {
         />
       </div>
 
-      <div className="mobile-card-list mt-6">
+      <div className="mobile-card-list mt-8">
         {rows.map((r) => (
-          <Link key={r.bottleId} href={`/bottle/${r.bottle.slug}`} className="block py-4">
+          <Link key={r.bottleId} href={`/bottle/${r.bottle.slug}`} className="block">
             <p className="font-medium text-ink">{r.bottle.name}</p>
-            <p className="mt-1 text-xs text-ink-muted">
+            <p className="mt-1 text-sm text-ink-muted">
               Bought {r.purchaseDate}
               {r.notes ? ` · ${r.notes}` : ''}
             </p>
-            <div className="mt-3 flex items-end justify-between gap-3">
+            <div className="mt-2 flex items-end justify-between gap-4">
               <div>
                 <p className="font-mono-num text-lg font-semibold">{formatGBP(r.marketValue)}</p>
-                <ChangeText value={r.pnlPct} className="text-xs" />
+                <ChangeText value={r.pnlPct} className="text-sm" />
               </div>
-              <div className="text-right text-xs text-ink-muted">
+              <div className="text-right text-sm text-ink-muted">
                 <p>Qty {r.quantity}</p>
                 <p className="font-mono-num">Mark {formatGBP(r.bottle.latestPrice)}</p>
               </div>
@@ -61,7 +61,7 @@ export default function PortfolioPage() {
         ))}
       </div>
 
-      <div className="desktop-table-only mt-2 overflow-hidden">
+      <div className="desktop-table-only mt-8 overflow-hidden">
         <div className="data-table-wrap max-h-[70vh]">
           <table className="data-table">
             <thead>
@@ -82,7 +82,7 @@ export default function PortfolioPage() {
                     <Link href={`/bottle/${r.bottle.slug}`} className="font-medium hover:underline">
                       {r.bottle.name}
                     </Link>
-                    <p className="text-xs text-ink-muted">
+                    <p className="text-sm text-ink-muted">
                       Bought {r.purchaseDate}
                       {r.notes ? ` · ${r.notes}` : ''}
                     </p>
@@ -102,7 +102,7 @@ export default function PortfolioPage() {
                   </td>
                   <td className="text-right">
                     <div className="font-mono-num font-medium">{formatGBP(r.pnl)}</div>
-                    <ChangeText value={r.pnlPct} className="text-xs" />
+                    <ChangeText value={r.pnlPct} className="text-sm" />
                   </td>
                 </tr>
               ))}

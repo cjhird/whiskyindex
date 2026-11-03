@@ -37,12 +37,12 @@ export default function SignupPage() {
             placeholder="you@example.com"
           />
         </label>
-        <Button type="submit" disabled={busy} className="mt-6 px-8 py-2.5">
+        <Button type="submit" disabled={busy} className="mt-6 px-8 py-2">
           {busy ? 'Creating…' : 'Continue'}
         </Button>
       </form>
 
-      <p className="mt-8 text-xs text-ink-muted">
+      <p className="mt-8 text-sm text-ink-muted">
         Already collecting?{' '}
         <Link href="/login" className="text-ink underline-offset-2 hover:underline">
           Sign in

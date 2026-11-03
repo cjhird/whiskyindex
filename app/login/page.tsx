@@ -48,12 +48,12 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <Button type="submit" disabled={busy} className="mt-6 px-8 py-2.5">
+        <Button type="submit" disabled={busy} className="mt-6 px-8 py-2">
           {busy ? 'Signing in…' : 'Sign in'}
         </Button>
       </form>
 
-      <p className="mt-8 text-xs text-ink-muted">
+      <p className="mt-8 text-sm text-ink-muted">
         Demo mode — any email works; password is not validated.{' '}
         <Link href="/signup" className="text-ink underline-offset-2 hover:underline">
           Create account

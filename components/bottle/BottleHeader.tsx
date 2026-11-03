@@ -6,8 +6,8 @@ import { formatGBP } from '@/lib/format';
 export function BottleHeader({ bottle }: { bottle: Bottle }) {
   return (
     <div className="border-b border-line bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-        <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-ink-muted">
           <Link href="/screener" className="hover:text-ink">
             Screener
           </Link>

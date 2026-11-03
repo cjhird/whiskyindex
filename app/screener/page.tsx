@@ -7,7 +7,7 @@ import { brands, countries, regions, searchBottles } from '@/lib/mock/bottles';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
 import { Button } from '@/components/ui/Button';
-import { Field, SelectField, TextField } from '@/components/ui/Field';
+import { SelectField, TextField } from '@/components/ui/Field';
 import { formatGBP } from '@/lib/format';
 
 function ScreenerContent() {
@@ -38,7 +38,7 @@ function ScreenerContent() {
   );
 
   const activeFilters = [
-    q && { key: 'q', label: `Search: ${q}` },
+    q && { key: 'q', label: `“${q}”` },
     brand && { key: 'brand', label: brand },
     region && { key: 'region', label: region },
     country && { key: 'country', label: country },
@@ -64,7 +64,7 @@ function ScreenerContent() {
 
   const filterForm = (
     <form
-      className="grid gap-3 md:grid-cols-6"
+      className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end"
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -79,46 +79,53 @@ function ScreenerContent() {
         });
       }}
     >
-      <Field label="Search">
-        <TextField name="q" defaultValue={q} placeholder="Name or brand" />
-      </Field>
-      <Field label="Brand">
+      <label className="min-w-[10rem] flex-1">
+        <span className="sr-only">Search</span>
+        <TextField name="q" defaultValue={q} placeholder="Search…" />
+      </label>
+      <label className="w-full sm:w-36">
+        <span className="sr-only">Brand</span>
         <SelectField name="brand" defaultValue={brand}>
-          <option value="">All</option>
+          <option value="">Brand</option>
           {brands().map((b) => (
             <option key={b} value={b}>
               {b}
             </option>
           ))}
         </SelectField>
-      </Field>
-      <Field label="Region">
+      </label>
+      <label className="w-full sm:w-36">
+        <span className="sr-only">Region</span>
         <SelectField name="region" defaultValue={region}>
-          <option value="">All</option>
+          <option value="">Region</option>
           {regions().map((r) => (
             <option key={r} value={r}>
               {r}
             </option>
           ))}
         </SelectField>
-      </Field>
-      <Field label="Country">
+      </label>
+      <label className="w-full sm:w-36">
+        <span className="sr-only">Country</span>
         <SelectField name="country" defaultValue={country}>
-          <option value="">All</option>
+          <option value="">Country</option>
           {countries().map((c) => (
             <option key={c} value={c}>
               {c}
             </option>
           ))}
         </SelectField>
-      </Field>
-      <Field label="Min £">
-        <TextField name="min_price" defaultValue={minPrice ?? ''} type="number" />
-      </Field>
-      <Field label="Max £">
-        <TextField name="max_price" defaultValue={maxPrice ?? ''} type="number" />
-      </Field>
-      <Field label="Sort" className="md:col-span-2">
+      </label>
+      <label className="w-24">
+        <span className="sr-only">Min price</span>
+        <TextField name="min_price" defaultValue={minPrice ?? ''} type="number" placeholder="Min £" />
+      </label>
+      <label className="w-24">
+        <span className="sr-only">Max price</span>
+        <TextField name="max_price" defaultValue={maxPrice ?? ''} type="number" placeholder="Max £" />
+      </label>
+      <label className="w-full sm:w-44">
+        <span className="sr-only">Sort</span>
         <SelectField name="sort" defaultValue={sort}>
           <option value="latest_price_desc">Price high → low</option>
           <option value="latest_price_asc">Price low → high</option>
@@ -126,10 +133,10 @@ function ScreenerContent() {
           <option value="change1m_asc">1M decliners</option>
           <option value="name_asc">Name A → Z</option>
         </SelectField>
-      </Field>
-      <div className="flex items-end gap-2 md:col-span-4">
+      </label>
+      <div className="flex gap-2">
         <Button type="submit" variant="ghost">
-          Apply filters
+          Apply
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/screener')}>
           Clear
@@ -140,20 +147,15 @@ function ScreenerContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-        <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
-        <p className="font-mono-num text-xs text-ink-muted">{rows.length} results</p>
-      </div>
+      <h1 className="mb-5 text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
 
       <div className="mb-3 md:hidden">
         <Button type="button" variant="ghost" className="w-full" onClick={() => setFiltersOpen((v) => !v)}>
-          {filtersOpen ? 'Hide filters' : 'Show filters'}
+          {filtersOpen ? 'Hide filters' : 'Filters'}
         </Button>
       </div>
 
-      <div className={`surface-panel mb-4 rounded-xl p-4 ${filtersOpen ? 'block' : 'hidden md:block'}`}>
-        {filterForm}
-      </div>
+      <div className={`mb-4 ${filtersOpen ? 'block' : 'hidden md:block'}`}>{filterForm}</div>
 
       {activeFilters.length > 0 && (
         <div className="mb-4 flex flex-wrap gap-2">
@@ -162,7 +164,7 @@ function ScreenerContent() {
               key={f.key}
               type="button"
               onClick={() => clearKey(f.key)}
-              className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-ink-muted hover:bg-[#efeff1] hover:text-ink"
+              className="rounded-full bg-surface-muted px-3 py-1 text-xs text-ink-muted hover:text-ink"
             >
               {f.label} ×
             </button>
@@ -171,12 +173,13 @@ function ScreenerContent() {
       )}
 
       <div className="mobile-card-list">
+        <p className="label-meta mb-1">{rows.length} results</p>
         {rows.map((b) => (
-          <Link key={b.id} href={`/bottle/${b.slug}`} className="surface-panel block rounded-xl p-4">
+          <Link key={b.id} href={`/bottle/${b.slug}`} className="block rounded-xl py-3">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="font-semibold text-ink">{b.name}</p>
-                <p className="mt-1 text-xs font-medium text-ink-muted">
+                <p className="font-medium text-ink">{b.name}</p>
+                <p className="mt-1 text-xs text-ink-muted">
                   {b.brand} · {b.region}
                 </p>
               </div>
@@ -189,34 +192,36 @@ function ScreenerContent() {
                   1M <ChangeText value={b.change1m} />
                 </p>
               </div>
-              <p className="font-mono-num text-xs font-medium text-ink-muted">Vol {b.volume30d}</p>
+              <p className="font-mono-num text-xs text-ink-muted">Vol {b.volume30d}</p>
             </div>
           </Link>
         ))}
       </div>
 
-      <div className="desktop-table-only overflow-hidden rounded-xl">
+      <div className="desktop-table-only overflow-hidden">
         <div className="data-table-wrap max-h-[70vh]">
           <table className="data-table">
             <thead>
               <tr>
-                <th>Bottle</th>
+                <th>
+                  Bottle <span className="ml-2 font-normal normal-case tracking-normal text-ink-faint">{rows.length}</span>
+                </th>
                 <th>Region</th>
                 <th>Trend</th>
                 <th className="text-right">Mark</th>
                 <th className="text-right">1M</th>
                 <th className="text-right">1Y</th>
-                <th className="text-right">Vol 30D</th>
+                <th className="text-right">Vol</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((b) => (
                 <tr key={b.id}>
                   <td>
-                    <Link href={`/bottle/${b.slug}`} className="font-semibold text-ink hover:underline">
+                    <Link href={`/bottle/${b.slug}`} className="font-medium text-ink hover:underline">
                       {b.name}
                     </Link>
-                    <p className="text-xs font-medium text-ink-muted">{b.brand}</p>
+                    <p className="text-xs text-ink-muted">{b.brand}</p>
                   </td>
                   <td className="text-ink-muted">
                     {b.region}
@@ -225,7 +230,7 @@ function ScreenerContent() {
                   <td>
                     <Sparkline values={b.sparkline} />
                   </td>
-                  <td className="text-right font-mono-num font-semibold">{formatGBP(b.latestPrice)}</td>
+                  <td className="text-right font-mono-num font-medium">{formatGBP(b.latestPrice)}</td>
                   <td className="text-right">
                     <ChangeText value={b.change1m} />
                   </td>
@@ -248,7 +253,7 @@ export default function ScreenerPage() {
     <Suspense
       fallback={
         <div className="mx-auto max-w-7xl px-4 py-8">
-          <div className="h-64 animate-pulse rounded-lg border border-line bg-surface-muted" />
+          <div className="h-64 animate-pulse rounded-lg bg-surface-muted" />
         </div>
       }
     >

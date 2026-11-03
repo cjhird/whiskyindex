@@ -4,41 +4,37 @@ import Link from 'next/link';
 import { articles } from '@/lib/mock/articles';
 
 export default function HomePage() {
-  const latest = articles.slice(0, 3);
+  const latest = articles.slice(0, 4);
 
   return (
     <>
       <SearchHero />
       <HomeMarket />
       <section className="border-t border-line bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:py-14">
           <div className="mb-5 flex items-end justify-between gap-4">
             <h2 className="text-lg font-semibold tracking-[-0.03em] text-ink">Research</h2>
             <Link href="/blog" className="text-sm text-ink-muted hover:text-ink">
               All notes →
             </Link>
           </div>
-          <div className="grid gap-1 md:grid-cols-3 md:gap-2">
+          <ul className="divide-y divide-line">
             {latest.map((a) => (
-              <Link
-                key={a.slug}
-                href={`/blog/${a.slug}`}
-                className="group rounded-xl px-4 py-4 transition hover:bg-surface-muted"
-              >
-                <p className="label-meta">
-                  {a.category} · {a.readMinutes} min ·{' '}
-                  {new Date(a.publishedAt).toLocaleDateString('en-GB', {
-                    day: 'numeric',
-                    month: 'short',
-                  })}
-                </p>
-                <h3 className="mt-2 text-base font-semibold tracking-[-0.02em] text-ink group-hover:underline">
-                  {a.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-ink-muted">{a.excerpt}</p>
-              </Link>
+              <li key={a.slug}>
+                <Link href={`/blog/${a.slug}`} className="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6">
+                  <p className="label-meta shrink-0 sm:w-40">
+                    {a.category} · {a.readMinutes} min
+                  </p>
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold tracking-[-0.02em] text-ink group-hover:underline">
+                      {a.title}
+                    </h3>
+                    <p className="mt-1 text-sm leading-6 text-ink-muted line-clamp-2">{a.excerpt}</p>
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </>

@@ -8,7 +8,7 @@ import { BottleStats } from '@/components/bottle/BottleStats';
 import { AuctionCompsTable } from '@/components/bottle/AuctionCompsTable';
 import { DepthPanel } from '@/components/bottle/DepthPanel';
 import { PriceChart } from '@/components/ui/PriceChart';
-import { ChangeBadge, ChangeText } from '@/components/ui/ChangeBadge';
+import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
 import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { formatGBP } from '@/lib/format';
@@ -43,18 +43,17 @@ export default function BottlePage({ params }: Props) {
     <div>
       <BottleHeader bottle={bottle} />
 
-      <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
+      <div className="mx-auto max-w-7xl space-y-10 px-4 py-8">
         <DisclaimerBanner />
 
-        <div className="grid gap-6 xl:grid-cols-[1.55fr_0.85fr]">
-          <PriceChart history={bottle.history} latestPrice={bottle.latestPrice} />
-          <div className="space-y-4">
-            <BottleStats bottle={bottle} />
-            <DepthPanel bids={depth.bids} asks={depth.asks} />
-          </div>
+        <PriceChart history={bottle.history} latestPrice={bottle.latestPrice} />
+
+        <div className="grid gap-10 lg:grid-cols-2">
+          <BottleStats bottle={bottle} />
+          <DepthPanel bids={depth.bids} asks={depth.asks} />
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 border-y border-line py-6 sm:grid-cols-2 lg:grid-cols-4">
           <Metric label="Mark vs 8-lot avg" value={formatGBP(bottle.latestPrice - avgComp)} signed />
           <Metric label="Comp high" value={formatGBP(high)} />
           <Metric label="Comp low" value={formatGBP(low)} />
@@ -64,33 +63,27 @@ export default function BottlePage({ params }: Props) {
         <AuctionCompsTable comps={comps} />
 
         <section>
-          <div className="mb-3">
-            <h2 className="text-sm font-semibold text-ink">Performance</h2>
-          </div>
-          <div className="grid gap-2 sm:grid-cols-4">
+          <h2 className="mb-4 text-sm font-semibold text-ink">Performance</h2>
+          <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-4">
             {[
               { label: '1 day', value: bottle.change1d },
               { label: '1 month', value: bottle.change1m },
               { label: '1 year', value: bottle.change1y },
               { label: '3 years', value: bottle.change3y },
             ].map((row) => (
-              <div key={row.label} className="surface-panel rounded-xl px-4 py-4">
-                <p className="label-meta">{row.label}</p>
-                <div className="mt-2 flex items-center gap-2">
-                  <ChangeBadge value={row.value} />
+              <div key={row.label}>
+                <dt className="label-meta">{row.label}</dt>
+                <dd className="mt-1">
                   <ChangeText value={row.value} className="text-lg font-semibold" />
-                </div>
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </section>
 
         <section>
           <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <h2 className="text-sm font-semibold text-ink">Related bottles</h2>
-              <p className="mt-0.5 text-xs text-ink-muted">Around {bottle.brand}</p>
-            </div>
+            <h2 className="text-sm font-semibold text-ink">Related bottles</h2>
             <Link
               href={`/screener?brand=${encodeURIComponent(bottle.brand)}`}
               className="text-xs text-ink-muted hover:text-ink"
@@ -98,27 +91,30 @@ export default function BottlePage({ params }: Props) {
               More {bottle.brand} →
             </Link>
           </div>
-          <div className="grid gap-1 md:grid-cols-2 xl:grid-cols-4 md:gap-2">
+          <ul className="divide-y divide-line">
             {related.map((b) => (
-              <Link
-                key={b.id}
-                href={`/bottle/${b.slug}`}
-                className="group rounded-xl px-3 py-3 transition hover:bg-surface-muted"
-              >
-                <p className="truncate text-sm font-medium text-ink group-hover:underline">{b.name}</p>
-                <p className="mt-1 text-xs text-ink-muted">
-                  {b.brand} · {b.region}
-                </p>
-                <div className="mt-3 flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-mono-num text-sm font-medium">{formatGBP(b.latestPrice)}</p>
-                    <ChangeText value={b.change1m} className="text-xs" />
+              <li key={b.id}>
+                <Link
+                  href={`/bottle/${b.slug}`}
+                  className="group flex items-center gap-3 py-3.5 transition hover:bg-surface-muted/70"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-ink group-hover:underline">
+                      {b.name}
+                    </p>
+                    <p className="truncate text-xs text-ink-muted">
+                      {b.brand} · {b.region}
+                    </p>
                   </div>
                   <Sparkline values={b.sparkline} />
-                </div>
-              </Link>
+                  <div className="w-24 text-right">
+                    <p className="font-mono-num text-sm text-ink">{formatGBP(b.latestPrice)}</p>
+                    <ChangeText value={b.change1m} className="text-xs" />
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       </div>
     </div>
@@ -137,7 +133,7 @@ function Metric({
   const negative = signed && value.trim().startsWith('-');
   const positive = signed && !negative && !value.includes('£0');
   return (
-    <div className="rounded-xl px-3 py-3">
+    <div>
       <p className="label-meta">{label}</p>
       <p
         className={`mt-1 font-mono-num text-lg font-semibold ${

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/components/Providers';
 import { cn } from '@/lib/format';
+import { Button } from '@/components/ui/Button';
 
 const links = [
   { href: '/screener', label: 'Screener' },
@@ -17,7 +18,7 @@ export function Navbar() {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4">
         <Link href="/" className="group shrink-0">
           <span className="text-[15px] font-semibold tracking-[-0.03em] text-ink">
@@ -32,7 +33,7 @@ export function Navbar() {
               type="search"
               name="q"
               placeholder="Search any bottle, brand, region…"
-              className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-faint outline-none transition focus:border-line-strong"
+              className="field py-2"
             />
           </label>
         </form>
@@ -43,9 +44,9 @@ export function Navbar() {
               key={l.href}
               href={l.href}
               className={cn(
-                'rounded-md px-2.5 py-1.5 text-sm transition',
+                'rounded-md px-2.5 py-1.5 text-sm font-medium transition',
                 pathname === l.href || pathname.startsWith(`${l.href}/`)
-                  ? 'bg-accent-soft text-ink'
+                  ? 'bg-surface-muted text-ink'
                   : 'text-ink-muted hover:text-ink'
               )}
             >
@@ -56,22 +57,20 @@ export function Navbar() {
           {!isLoading && (
             <>
               {user ? (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  className="ml-1 px-3 py-1.5"
                   onClick={async () => {
                     await logout();
                     router.push('/');
                     router.refresh();
                   }}
-                  className="ml-1 rounded-md border border-line px-2.5 py-1.5 text-sm text-ink-muted hover:border-line-strong hover:text-ink"
                 >
                   Sign out
-                </button>
+                </Button>
               ) : (
-                <Link
-                  href="/login"
-                  className="ml-1 rounded-md bg-ink px-3 py-1.5 text-sm font-medium text-white hover:bg-black"
-                >
+                <Link href="/login" className="btn btn-primary ml-1 px-3 py-1.5">
                   Sign in
                 </Link>
               )}

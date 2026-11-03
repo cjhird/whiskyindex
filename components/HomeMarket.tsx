@@ -8,14 +8,14 @@ export function HomeMarket() {
   const { gainers, losers } = topMovers(5);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-12 px-4 py-12 sm:py-16">
+    <div className="mx-auto max-w-7xl space-y-10 px-4 py-8 sm:py-10">
       <section>
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <h2 className="text-lg font-semibold tracking-[-0.03em] text-ink">Market board</h2>
             <p className="mt-1 text-sm text-ink-muted">Segment indexes from closed UK auction months.</p>
           </div>
-          <Link href="/screener" className="text-sm text-ink-muted hover:text-ink">
+          <Link href="/screener" className="text-sm font-medium text-ink-muted hover:text-ink">
             Open screener →
           </Link>
         </div>
@@ -26,12 +26,12 @@ export function HomeMarket() {
               className="surface rounded-lg p-4 animate-fade-up"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{idx.name}</p>
+              <p className="label-caps">{idx.name}</p>
               <div className="mt-3 flex items-end justify-between">
                 <p className="font-mono-num text-2xl font-semibold text-ink">{idx.value.toFixed(1)}</p>
                 <ChangeBadge value={idx.change1d} />
               </div>
-              <p className="mt-2 text-xs text-ink-muted">
+              <p className="mt-2 text-xs font-medium text-ink-muted">
                 1M <ChangeText value={idx.change1m} />
               </p>
             </div>
@@ -39,7 +39,7 @@ export function HomeMarket() {
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-4 lg:grid-cols-2">
         <MoverPanel title="Top gainers · 1M" rows={gainers} />
         <MoverPanel title="Top decliners · 1M" rows={losers} />
       </section>
@@ -57,13 +57,13 @@ export function HomeMarket() {
               className="surface group rounded-lg p-4 transition hover:border-line-strong"
             >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-medium tracking-[-0.02em] text-ink group-hover:underline">
+                <h3 className="font-semibold tracking-[-0.02em] text-ink group-hover:underline">
                   {c.name}
                 </h3>
                 <ChangeBadge value={c.change1m} size="sm" />
               </div>
               <p className="mt-2 text-sm text-ink-muted">{c.description}</p>
-              <p className="mt-4 font-mono-num text-xs text-ink-faint">{c.count} bottles</p>
+              <p className="mt-4 font-mono-num text-xs font-medium text-ink-muted">{c.count} bottles</p>
             </Link>
           ))}
         </div>
@@ -81,25 +81,25 @@ function MoverPanel({
 }) {
   return (
     <div className="surface overflow-hidden rounded-lg">
-      <div className="border-b border-line px-4 py-3">
+      <div className="border-b border-line bg-surface-muted px-4 py-3">
         <h3 className="text-sm font-semibold text-ink">{title}</h3>
       </div>
-      <ul className="divide-y divide-line">
-        {rows.map((b) => (
-          <li key={b.id}>
+      <ul>
+        {rows.map((b, i) => (
+          <li key={b.id} className={i % 2 === 1 ? 'bg-surface-zebra' : 'bg-white'}>
             <Link
               href={`/bottle/${b.slug}`}
-              className="flex items-center gap-3 px-4 py-3 transition hover:bg-accent-soft/60"
+              className="flex items-center gap-3 px-4 py-3 transition hover:bg-[#eef1f4]"
             >
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-ink">{b.name}</p>
-                <p className="truncate text-xs text-ink-faint">
+                <p className="truncate text-sm font-semibold text-ink">{b.name}</p>
+                <p className="truncate text-xs font-medium text-ink-muted">
                   {b.brand} · {b.region}
                 </p>
               </div>
               <Sparkline values={b.sparkline} />
               <div className="w-24 text-right">
-                <p className="font-mono-num text-sm text-ink">{formatGBP(b.latestPrice)}</p>
+                <p className="font-mono-num text-sm font-semibold text-ink">{formatGBP(b.latestPrice)}</p>
                 <ChangeText value={b.change1m} className="text-xs" />
               </div>
             </Link>

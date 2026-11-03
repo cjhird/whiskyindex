@@ -7,27 +7,27 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
   return (
     <div className="border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-        <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs text-ink-faint">
+        <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs font-medium text-ink-muted">
           <Link href="/screener" className="hover:text-ink">
             Screener
           </Link>
-          <span>/</span>
+          <span className="text-ink-faint">/</span>
           <Link href={`/screener?brand=${encodeURIComponent(bottle.brand)}`} className="hover:text-ink">
             {bottle.brand}
           </Link>
-          <span>/</span>
-          <span className="text-ink-muted">{bottle.name}</span>
+          <span className="text-ink-faint">/</span>
+          <span className="text-ink">{bottle.name}</span>
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-ink-faint">
+            <p className="label-caps">
               {bottle.country} · {bottle.region}
             </p>
             <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
               {bottle.name}
             </h1>
-            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-muted">
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-ink-muted">
               <span>{bottle.distillery}</span>
               <span>{bottle.ageYears ? `${bottle.ageYears}yo` : 'NAS'}</span>
               <span>{bottle.abv}% ABV</span>
@@ -37,7 +37,7 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
           </div>
 
           <div className="surface rounded-lg p-5">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Last auction mark</p>
+            <p className="label-caps">Last auction mark</p>
             <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
               <p className="font-mono-num text-4xl font-semibold tracking-tight text-ink">
                 {formatGBP(bottle.latestPrice)}
@@ -59,8 +59,8 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
-      <p className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">{label}</p>
-      <div className="mt-1 font-mono-num">{value}</div>
+      <p className="label-caps">{label}</p>
+      <div className="mt-1 font-mono-num font-semibold">{value}</div>
     </div>
   );
 }

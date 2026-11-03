@@ -48,9 +48,9 @@ export function PriceChart({ history, latestPrice }: { history: PricePoint[]; la
 
   return (
     <div className="surface overflow-hidden rounded-lg">
-      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line px-5 py-4">
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line bg-surface-muted px-5 py-4">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Auction mark</p>
+          <p className="label-caps">Auction mark</p>
           <div className="mt-1 flex items-baseline gap-3">
             <p className="font-mono-num text-3xl font-semibold tracking-tight text-ink">
               {formatGBP(active?.price ?? latestPrice)}

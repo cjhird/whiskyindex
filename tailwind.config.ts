@@ -20,7 +20,8 @@ const config: Config = {
         },
         surface: {
           DEFAULT: 'var(--bg-elevated)',
-          muted: '#fafafa',
+          muted: 'var(--bg-panel)',
+          zebra: 'var(--bg-zebra)',
         },
         up: {
           DEFAULT: 'var(--up)',

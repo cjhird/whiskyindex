@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getPortfolioRows, portfolioSummary } from '@/lib/mock/portfolio';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
+import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { formatGBP, formatPct } from '@/lib/format';
 
 export const metadata: Metadata = {
@@ -15,12 +16,18 @@ export default function PortfolioPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
-          <p className="mt-1 text-sm text-ink-muted">Demo book marked to latest auction totals.</p>
+          <p className="mt-1 text-sm text-ink-muted">Member book marked to latest auction totals.</p>
         </div>
-        <p className="text-xs text-ink-faint">Signed-in view · mock holdings</p>
+        <p className="surface-panel rounded-md px-2.5 py-1 text-xs font-semibold text-ink-muted">
+          {summary.positions} positions · signed in
+        </p>
+      </div>
+
+      <div className="mb-5">
+        <DisclaimerBanner />
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -38,47 +45,63 @@ export default function PortfolioPage() {
         />
       </div>
 
-      <div className="surface mt-6 overflow-hidden rounded-lg">
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm">
-            <thead className="bg-accent-soft/70 text-[11px] uppercase tracking-[0.12em] text-ink-faint">
+      <div className="mobile-card-list mt-6">
+        {rows.map((r) => (
+          <Link key={r.bottleId} href={`/bottle/${r.bottle.slug}`} className="surface block rounded-lg p-4">
+            <p className="font-semibold text-ink">{r.bottle.name}</p>
+            <p className="mt-1 text-xs font-medium text-ink-muted">
+              Bought {r.purchaseDate}
+              {r.notes ? ` · ${r.notes}` : ''}
+            </p>
+            <div className="mt-3 flex items-end justify-between gap-3">
+              <div>
+                <p className="font-mono-num text-lg font-semibold">{formatGBP(r.marketValue)}</p>
+                <ChangeText value={r.pnlPct} className="text-xs" />
+              </div>
+              <div className="text-right text-xs font-medium text-ink-muted">
+                <p>Qty {r.quantity}</p>
+                <p className="font-mono-num">Mark {formatGBP(r.bottle.latestPrice)}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="desktop-table-only surface mt-6 overflow-hidden rounded-lg">
+        <div className="data-table-wrap max-h-[70vh]">
+          <table className="data-table">
+            <thead>
               <tr>
-                <th className="px-4 py-3 font-medium">Position</th>
-                <th className="px-4 py-3 font-medium text-right">Qty</th>
-                <th className="px-4 py-3 font-medium text-right">Cost</th>
-                <th className="px-4 py-3 font-medium text-right">Mark</th>
-                <th className="px-4 py-3 font-medium">Trend</th>
-                <th className="px-4 py-3 font-medium text-right">Value</th>
-                <th className="px-4 py-3 font-medium text-right">P&L</th>
+                <th>Position</th>
+                <th className="text-right">Qty</th>
+                <th className="text-right">Cost</th>
+                <th className="text-right">Mark</th>
+                <th>Trend</th>
+                <th className="text-right">Value</th>
+                <th className="text-right">P&L</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody>
               {rows.map((r) => (
-                <tr key={r.bottleId} className="hover:bg-accent-soft/40">
-                  <td className="px-4 py-3">
-                    <Link href={`/bottle/${r.bottle.slug}`} className="font-medium hover:underline">
+                <tr key={r.bottleId}>
+                  <td>
+                    <Link href={`/bottle/${r.bottle.slug}`} className="font-semibold hover:underline">
                       {r.bottle.name}
                     </Link>
-                    <p className="text-xs text-ink-faint">
+                    <p className="text-xs font-medium text-ink-muted">
                       Bought {r.purchaseDate}
                       {r.notes ? ` · ${r.notes}` : ''}
                     </p>
                   </td>
-                  <td className="px-4 py-3 text-right font-mono-num">{r.quantity}</td>
-                  <td className="px-4 py-3 text-right font-mono-num text-ink-muted">
-                    {formatGBP(r.purchasePrice)}
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono-num">
-                    {formatGBP(r.bottle.latestPrice)}
-                  </td>
-                  <td className="px-4 py-3">
+                  <td className="text-right font-mono-num">{r.quantity}</td>
+                  <td className="text-right font-mono-num text-ink-muted">{formatGBP(r.purchasePrice)}</td>
+                  <td className="text-right font-mono-num">{formatGBP(r.bottle.latestPrice)}</td>
+                  <td>
                     <Sparkline values={r.bottle.sparkline} />
                   </td>
-                  <td className="px-4 py-3 text-right font-mono-num font-medium">
-                    {formatGBP(r.marketValue)}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="font-mono-num">{formatGBP(r.pnl)}</div>
+                  <td className="text-right font-mono-num font-semibold">{formatGBP(r.marketValue)}</td>
+                  <td className="text-right">
+                    <div className="font-mono-num font-semibold">{formatGBP(r.pnl)}</div>
                     <ChangeText value={r.pnlPct} className="text-xs" />
                   </td>
                 </tr>
@@ -102,7 +125,7 @@ function SummaryCard({
 }) {
   return (
     <div className="surface rounded-lg p-4">
-      <p className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">{label}</p>
+      <p className="label-caps">{label}</p>
       <p
         className={`mt-2 font-mono-num text-xl font-semibold ${
           tone === 'up' ? 'text-up' : tone === 'down' ? 'text-down' : 'text-ink'

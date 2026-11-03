@@ -20,18 +20,29 @@ export default function ArticlePage({ params }: Props) {
   if (!article) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10">
-      <Link href="/blog" className="text-sm text-ink-muted hover:text-ink">
+    <article className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
+      <Link href="/blog" className="text-sm font-semibold text-ink-muted hover:text-ink">
         ← Research
       </Link>
-      <p className="mt-6 text-[11px] uppercase tracking-[0.14em] text-ink-faint">
-        {article.category} · {article.readMinutes} min read
-      </p>
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        <span className="rounded-full border border-line bg-surface-muted px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted">
+          {article.category}
+        </span>
+        <span className="text-xs font-medium text-ink-muted">{article.readMinutes} min read</span>
+      </div>
       <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
         {article.title}
       </h1>
+      <p className="mt-3 text-sm font-medium text-ink-muted">
+        WhiskyIndex Research Desk ·{' '}
+        {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}
+      </p>
       <p className="mt-4 text-ink-muted">{article.excerpt}</p>
-      <div className="prose-wi mt-10 space-y-5 text-[15px] leading-7 text-ink">
+      <div className="mt-8 space-y-5 border-t border-line pt-8 text-[15px] leading-7 text-ink">
         {article.body.map((p) => (
           <p key={p.slice(0, 24)}>{p}</p>
         ))}

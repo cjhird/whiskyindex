@@ -4,45 +4,67 @@ import { formatGBP } from '@/lib/format';
 export function AuctionCompsTable({ comps }: { comps: AuctionComp[] }) {
   return (
     <div className="surface overflow-hidden rounded-lg">
-      <div className="flex items-center justify-between border-b border-line px-4 py-3">
-        <div>
-          <h2 className="text-sm font-semibold text-ink">Auction comps</h2>
-          <p className="text-xs text-ink-muted">Total = hammer + buyer premium</p>
-        </div>
+      <div className="border-b border-line bg-surface-muted px-4 py-3">
+        <h2 className="text-sm font-semibold text-ink">Auction comps</h2>
+        <p className="mt-0.5 text-xs font-medium text-ink-muted">Total = hammer + buyer premium</p>
       </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-left text-sm">
-          <thead className="bg-accent-soft/70 text-[11px] uppercase tracking-[0.12em] text-ink-faint">
-            <tr>
-              <th className="px-4 py-2.5 font-medium">Date</th>
-              <th className="px-4 py-2.5 font-medium">House</th>
-              <th className="px-4 py-2.5 font-medium">Lot</th>
-              <th className="px-4 py-2.5 font-medium">Condition</th>
-              <th className="px-4 py-2.5 font-medium text-right">Hammer</th>
-              <th className="px-4 py-2.5 font-medium text-right">Premium</th>
-              <th className="px-4 py-2.5 font-medium text-right">Total</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-line">
-            {comps.map((c) => (
-              <tr key={c.id} className="hover:bg-accent-soft/40">
-                <td className="whitespace-nowrap px-4 py-2.5 font-mono-num text-ink-muted">
-                  {c.date}
-                </td>
-                <td className="px-4 py-2.5 text-ink">{c.house}</td>
-                <td className="px-4 py-2.5 font-mono-num text-ink-muted">{c.lot}</td>
-                <td className="px-4 py-2.5 text-ink-muted">{c.condition}</td>
-                <td className="px-4 py-2.5 text-right font-mono-num">{formatGBP(c.hammer)}</td>
-                <td className="px-4 py-2.5 text-right font-mono-num text-ink-muted">
-                  {formatGBP(c.premium)}
-                </td>
-                <td className="px-4 py-2.5 text-right font-mono-num font-medium">
-                  {formatGBP(c.total)}
-                </td>
+
+      <div className="mobile-card-list p-3">
+        {comps.map((c) => (
+          <div key={c.id} className="surface-panel rounded-lg p-3">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-ink">{c.house}</p>
+                <p className="mt-1 text-xs font-medium text-ink-muted">
+                  {c.date} · Lot {c.lot}
+                </p>
+              </div>
+              <p className="font-mono-num text-sm font-semibold">{formatGBP(c.total)}</p>
+            </div>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
+              <span className="rounded-full border border-line bg-white px-2 py-0.5 font-medium text-ink">
+                {c.condition}
+              </span>
+              <span>Hammer {formatGBP(c.hammer)}</span>
+              <span>Premium {formatGBP(c.premium)}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="desktop-table-only">
+        <div className="data-table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>House</th>
+                <th>Lot</th>
+                <th>Condition</th>
+                <th className="text-right">Hammer</th>
+                <th className="text-right">Premium</th>
+                <th className="text-right">Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {comps.map((c) => (
+                <tr key={c.id}>
+                  <td className="whitespace-nowrap font-mono-num text-ink-muted">{c.date}</td>
+                  <td className="font-medium text-ink">{c.house}</td>
+                  <td className="font-mono-num text-ink-muted">{c.lot}</td>
+                  <td>
+                    <span className="rounded-full border border-line bg-white px-2 py-0.5 text-xs font-medium text-ink">
+                      {c.condition}
+                    </span>
+                  </td>
+                  <td className="text-right font-mono-num">{formatGBP(c.hammer)}</td>
+                  <td className="text-right font-mono-num text-ink-muted">{formatGBP(c.premium)}</td>
+                  <td className="text-right font-mono-num font-semibold">{formatGBP(c.total)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

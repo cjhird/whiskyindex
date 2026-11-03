@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 import { useAuth } from '@/components/Providers';
+import { Button } from '@/components/ui/Button';
+import { FieldLabel, TextField } from '@/components/ui/Field';
+import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 
 function LoginForm() {
   const { login } = useAuth();
@@ -24,50 +26,50 @@ function LoginForm() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center px-4 py-12">
-      <div className="grid w-full gap-10 lg:grid-cols-2 lg:items-center">
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-ink-faint">Member access</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
-            Sign in to WhiskyIndex
+    <div className="mx-auto flex max-w-7xl items-center px-4 py-10 sm:py-14">
+      <div className="mx-auto grid w-full max-w-5xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+        <div className="surface-panel flex flex-col justify-center rounded-xl p-6 sm:p-8">
+          <p className="label-caps">Portfolio access</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-[2.15rem]">
+            Access your portfolio marks
           </h1>
-          <p className="mt-4 max-w-md text-ink-muted">
-            Portfolio marks, private watchlists, and deeper lot history unlock after sign-in. Demo mode
-            accepts any email.
+          <p className="mt-3 max-w-md text-sm leading-6 text-ink-muted">
+            Sign in to review holdings, unrealised P&amp;L, and bottle-level auction marks. Screener
+            and research stay public.
           </p>
+          <div className="mt-6">
+            <DisclaimerBanner>
+              <span className="font-semibold text-ink">Demo mode.</span> Any email works — password is
+              not validated in this build.
+            </DisclaimerBanner>
+          </div>
         </div>
 
-        <form onSubmit={onSubmit} className="surface mx-auto w-full max-w-md rounded-xl p-6 sm:p-8">
+        <form onSubmit={onSubmit} className="surface flex flex-col justify-center rounded-xl p-6 sm:p-8">
           <label className="block">
-            <span className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">Email</span>
-            <input
+            <FieldLabel>Email</FieldLabel>
+            <TextField
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1.5 w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm outline-none focus:border-line-strong"
             />
           </label>
           <label className="mt-4 block">
-            <span className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">Password</span>
-            <input
+            <FieldLabel>Password</FieldLabel>
+            <TextField
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1.5 w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm outline-none focus:border-line-strong"
             />
           </label>
-          <button
-            type="submit"
-            disabled={busy}
-            className="mt-6 w-full rounded-md bg-ink py-2.5 text-sm font-medium text-white hover:bg-black disabled:opacity-60"
-          >
+          <Button type="submit" disabled={busy} className="mt-6 w-full py-3">
             {busy ? 'Signing in…' : 'Sign in'}
-          </button>
-          <p className="mt-4 text-center text-xs text-ink-faint">
+          </Button>
+          <p className="mt-4 text-center text-xs font-medium text-ink-muted">
             No account yet?{' '}
-            <Link href="/signup" className="text-ink-muted underline hover:text-ink">
+            <Link href="/signup" className="font-semibold text-ink underline-offset-2 hover:underline">
               Create one
             </Link>
           </p>

@@ -32,7 +32,7 @@ export function Navbar() {
               type="search"
               name="q"
               placeholder="Search any bottle, brand, region…"
-              className="w-full rounded-md border border-line bg-surface-muted px-3 py-2 text-sm text-ink placeholder:text-ink-faint outline-none transition focus:border-line-strong focus:bg-white"
+              className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-faint outline-none transition focus:border-line-strong"
             />
           </label>
         </form>

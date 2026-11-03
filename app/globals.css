@@ -3,21 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f4f5f7;
+  --bg: #ffffff;
   --bg-elevated: #ffffff;
   --ink: #0e1116;
   --ink-muted: #5c6570;
   --ink-faint: #8b939e;
-  --line: #dce1e6;
-  --line-strong: #c5ccd4;
+  --line: #e6e8eb;
+  --line-strong: #cfd3d8;
   --up: #0f7a45;
   --up-soft: #e6f5ed;
   --down: #c0292b;
   --down-soft: #fceaea;
   --accent: #1a1f27;
-  --accent-soft: #eef0f3;
-  --grid: rgba(14, 17, 22, 0.045);
-  --shadow-soft: 0 1px 0 rgba(14, 17, 22, 0.04), 0 12px 32px rgba(14, 17, 22, 0.06);
+  --accent-soft: #f5f6f7;
+  --shadow-soft: 0 1px 0 rgba(14, 17, 22, 0.03), 0 8px 24px rgba(14, 17, 22, 0.04);
   --font-sans: var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
 }
@@ -27,32 +26,10 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(255, 255, 255, 0.9), transparent 60%),
-    linear-gradient(180deg, #f7f8fa 0%, var(--bg) 40%, #eef1f4 100%);
-  background-attachment: fixed;
+  background: #ffffff;
   color: var(--ink);
   font-family: var(--font-sans);
   min-height: 100vh;
-}
-
-body::before {
-  content: '';
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
-  z-index: 0;
-}
-
-#__next,
-body > div {
-  position: relative;
-  z-index: 1;
 }
 
 ::selection {

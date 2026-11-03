@@ -10,7 +10,7 @@ export default function HomePage() {
     <>
       <SearchHero />
       <HomeMarket />
-      <section className="border-t border-line bg-white/60">
+      <section className="border-t border-line bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>

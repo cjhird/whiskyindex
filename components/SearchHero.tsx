@@ -17,8 +17,7 @@ export function SearchHero() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-line">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(15,122,69,0.06),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(192,41,43,0.05),transparent_30%)]" />
+    <section className="relative overflow-hidden border-b border-line bg-white">
       <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-14 sm:pb-20 sm:pt-20">
         <p className="animate-fade-up text-[11px] font-medium uppercase tracking-[0.22em] text-ink-faint">
           Secondary auction analytics

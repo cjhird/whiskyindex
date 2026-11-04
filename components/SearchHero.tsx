@@ -53,7 +53,7 @@ export function SearchHero() {
             {watched.map((b) => (
               <li key={b.id}>
                 <Link
-                  href={`/bottle/${b.slug}`}
+                  href={`/bottles/${b.slug}`}
                   className="group row-hover flex items-center justify-between gap-4 py-3"
                 >
                   <div className="min-w-0">

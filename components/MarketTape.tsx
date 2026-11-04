@@ -21,7 +21,7 @@ export function MarketTape() {
         {gainers.map((b) => (
           <Link
             key={b.id}
-            href={`/bottle/${b.slug}`}
+            href={`/bottles/${b.slug}`}
             className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-white/55 hover:text-white/90"
           >
             <span>{b.brand}</span>

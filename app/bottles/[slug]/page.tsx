@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { bottles, getBottleBySlug } from '@/lib/mock/bottles';
+import { bottles, getBottleBySlug, slugifyName } from '@/lib/mock/bottles';
 import { getAuctionComps, getOrderBook, getRelatedBottles } from '@/lib/mock/auctions';
 import { BottleHeader } from '@/components/bottle/BottleHeader';
 import { BottleStats } from '@/components/bottle/BottleStats';
@@ -13,14 +13,14 @@ import { Sparkline } from '@/components/ui/Sparkline';
 import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { formatGBP } from '@/lib/format';
 
-type Props = { params: { id: string } };
+type Props = { params: { slug: string } };
 
 export function generateStaticParams() {
-  return bottles.map((b) => ({ id: b.slug }));
+  return bottles.map((b) => ({ slug: b.slug }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const bottle = getBottleBySlug(params.id);
+  const bottle = getBottleBySlug(params.slug);
   if (!bottle) return { title: 'Bottle' };
   return {
     title: bottle.name,
@@ -29,7 +29,7 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function BottlePage({ params }: Props) {
-  const bottle = getBottleBySlug(params.id);
+  const bottle = getBottleBySlug(params.slug);
   if (!bottle) notFound();
 
   const comps = getAuctionComps(bottle);
@@ -38,6 +38,7 @@ export default function BottlePage({ params }: Props) {
   const avgComp = comps.reduce((s, c) => s + c.total, 0) / Math.max(comps.length, 1);
   const high = Math.max(...comps.map((c) => c.total));
   const low = Math.min(...comps.map((c) => c.total));
+  const distillerySlug = slugifyName(bottle.distillery);
 
   return (
     <div>
@@ -84,21 +85,16 @@ export default function BottlePage({ params }: Props) {
         <section>
           <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-sm font-semibold text-ink">Related bottles</h2>
-            <Link
-              href={`/screener?brand=${encodeURIComponent(bottle.brand)}`}
-              className="text-sm text-ink-muted hover:text-ink"
-            >
-              More {bottle.brand} →
+            <Link href={`/distilleries/${distillerySlug}`} className="text-sm text-ink-muted hover:text-ink">
+              {bottle.distillery} profile →
             </Link>
           </div>
           <ul className="divide-y divide-line">
             {related.map((b) => (
               <li key={b.id}>
-                <Link href={`/bottle/${b.slug}`} className="group row-hover flex items-center gap-4 py-4">
+                <Link href={`/bottles/${b.slug}`} className="group row-hover flex items-center gap-4 py-4">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink group-hover:underline">
-                      {b.name}
-                    </p>
+                    <p className="truncate text-sm font-medium text-ink group-hover:underline">{b.name}</p>
                     <p className="truncate text-sm text-ink-muted">
                       {b.brand} · {b.region}
                     </p>

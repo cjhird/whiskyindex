@@ -11,18 +11,18 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const article = getArticle(params.slug);
-  if (!article) return { title: 'Research' };
+  if (!article) return { title: 'Insights' };
   return { title: article.title, description: article.excerpt };
 }
 
-export default function ArticlePage({ params }: Props) {
+export default function InsightArticlePage({ params }: Props) {
   const article = getArticle(params.slug);
   if (!article) notFound();
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
-      <Link href="/blog" className="text-sm text-ink-muted hover:text-ink">
-        ← Research
+      <Link href="/insights" className="text-sm text-ink-muted hover:text-ink">
+        ← Insights
       </Link>
       <p className="label-meta mt-8">
         {article.category} · {article.readMinutes} min read ·{' '}
@@ -35,7 +35,7 @@ export default function ArticlePage({ params }: Props) {
       <h1 className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
         {article.title}
       </h1>
-      <p className="mt-2 text-sm text-ink-muted">WhiskyIndex Research</p>
+      <p className="mt-2 text-sm text-ink-muted">WhiskyIndex Insights</p>
       <p className="mt-4 text-ink-muted">{article.excerpt}</p>
       <div className="mt-8 space-y-6 border-t border-line pt-8 text-[15px] leading-7 text-ink">
         {article.body.map((p) => (

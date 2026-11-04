@@ -362,11 +362,81 @@ export const collections: Collection[] = [
 ];
 
 export const marketIndices: MarketIndex[] = [
-  { name: 'WI Broad', value: 214.6, change1d: 0.32, change1m: 1.4 },
-  { name: 'WI Scotch', value: 198.2, change1d: 0.18, change1m: 0.9 },
-  { name: 'WI Japan', value: 276.4, change1d: -0.41, change1m: -1.2 },
-  { name: 'WI Rare', value: 341.8, change1d: 0.77, change1m: 3.1 },
+  {
+    slug: 'wi-broad',
+    name: 'WI Broad',
+    value: 214.6,
+    change1d: 0.32,
+    change1m: 1.4,
+    change1y: 6.8,
+    description: 'Volume-weighted basket of frequently traded bottles across regions.',
+  },
+  {
+    slug: 'wi-scotch',
+    name: 'WI Scotch',
+    value: 198.2,
+    change1d: 0.18,
+    change1m: 0.9,
+    change1y: 4.2,
+    description: 'Scottish whisky continuum — Speyside, Islay, Campbeltown, Highlands.',
+  },
+  {
+    slug: 'wi-japan',
+    name: 'WI Japan',
+    value: 276.4,
+    change1d: -0.41,
+    change1m: -1.2,
+    change1y: -9.4,
+    description: 'Japanese flagships and closed-distillery icons with auction history.',
+  },
+  {
+    slug: 'wi-rare',
+    name: 'WI Rare',
+    value: 341.8,
+    change1d: 0.77,
+    change1m: 3.1,
+    change1y: 14.6,
+    description: 'Low-liquidity trophies — capped weights so single lots cannot dominate.',
+  },
 ];
+
+export function getIndexBySlug(slug: string) {
+  return marketIndices.find((i) => i.slug === slug);
+}
+
+export function slugifyName(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function distilleries() {
+  const map = new Map<string, { name: string; region: string; country: string; count: number }>();
+  for (const b of bottles) {
+    const key = b.distillery;
+    const prev = map.get(key);
+    if (prev) prev.count += 1;
+    else map.set(key, { name: b.distillery, region: b.region, country: b.country, count: 1 });
+  }
+  return Array.from(map.values())
+    .map((d) => ({
+      ...d,
+      slug: slugifyName(d.name),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getDistilleryBySlug(slug: string) {
+  return distilleries().find((d) => d.slug === slug);
+}
+
+export function bottlesForDistillery(slug: string) {
+  const d = getDistilleryBySlug(slug);
+  if (!d) return [];
+  return bottles.filter((b) => b.distillery === d.name);
+}
 
 export function getBottleBySlug(slug: string) {
   return bottles.find((b) => b.slug === slug || b.id === slug);

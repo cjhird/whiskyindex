@@ -41,7 +41,7 @@ export default function PortfolioPage() {
 
       <div className="mobile-card-list mt-8">
         {rows.map((r) => (
-          <Link key={r.bottleId} href={`/bottle/${r.bottle.slug}`} className="block">
+          <Link key={r.bottleId} href={`/bottles/${r.bottle.slug}`} className="block">
             <p className="font-medium text-ink">{r.bottle.name}</p>
             <p className="mt-1 text-sm text-ink-muted">
               Bought {r.purchaseDate}
@@ -79,7 +79,7 @@ export default function PortfolioPage() {
               {rows.map((r) => (
                 <tr key={r.bottleId}>
                   <td>
-                    <Link href={`/bottle/${r.bottle.slug}`} className="font-medium hover:underline">
+                    <Link href={`/bottles/${r.bottle.slug}`} className="font-medium hover:underline">
                       {r.bottle.name}
                     </Link>
                     <p className="text-sm text-ink-muted">

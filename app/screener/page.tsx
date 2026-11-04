@@ -147,7 +147,7 @@ function ScreenerContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-semibold tracking-[-0.03em] text-ink">Screener</h1>
+      <h1 className="mb-6 text-2xl font-semibold tracking-[-0.03em] text-ink">Whisky screener</h1>
 
       <div className="mb-4 md:hidden">
         <Button type="button" variant="ghost" className="w-full" onClick={() => setFiltersOpen((v) => !v)}>
@@ -171,7 +171,7 @@ function ScreenerContent() {
         <p className="label-meta mb-2">{rows.length} results</p>
         <div className="mobile-card-list">
           {rows.map((b) => (
-            <Link key={b.id} href={`/bottle/${b.slug}`} className="block">
+            <Link key={b.id} href={`/bottles/${b.slug}`} className="block">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <p className="font-medium text-ink">{b.name}</p>
@@ -215,7 +215,7 @@ function ScreenerContent() {
               {rows.map((b) => (
                 <tr key={b.id}>
                   <td>
-                    <Link href={`/bottle/${b.slug}`} className="font-medium text-ink hover:underline">
+                    <Link href={`/bottles/${b.slug}`} className="font-medium text-ink hover:underline">
                       {b.name}
                     </Link>
                     <p className="text-sm text-ink-muted">{b.brand}</p>

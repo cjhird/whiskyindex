@@ -2,20 +2,34 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/components/Providers';
 import { cn } from '@/lib/format';
-import { Button } from '@/components/ui/Button';
 
-const links = [
+const mainLinks = [
+  { href: '/market', label: 'Market' },
   { href: '/screener', label: 'Screener' },
-  { href: '/blog', label: 'Research' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/insights', label: 'Insights' },
 ];
 
 export function Navbar() {
   const { user, isLoading, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [accountOpen, setAccountOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (!menuRef.current?.contains(e.target as Node)) setAccountOpen(false);
+    }
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
+  }, []);
+
+  useEffect(() => {
+    setAccountOpen(false);
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
@@ -26,20 +40,8 @@ export function Navbar() {
           </span>
         </Link>
 
-        <form action="/screener" method="get" className="mx-auto hidden min-w-0 flex-1 md:block md:max-w-md">
-          <label className="relative block">
-            <span className="sr-only">Search bottles</span>
-            <input
-              type="search"
-              name="q"
-              placeholder="Search any bottle, brand, region…"
-              className="field border-transparent bg-surface-muted py-2 focus:border-line-strong focus:bg-white"
-            />
-          </label>
-        </form>
-
-        <nav className="ml-auto flex items-center gap-1 sm:gap-2">
-          {links.map((l) => (
+        <nav className="hidden items-center gap-1 sm:flex">
+          {mainLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -53,31 +55,120 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+        </nav>
+
+        <form action="/screener" method="get" className="mx-auto hidden min-w-0 flex-1 md:block md:max-w-md">
+          <label className="relative block">
+            <span className="sr-only">Search bottles</span>
+            <input
+              type="search"
+              name="q"
+              placeholder="Search any bottle, brand, region…"
+              className="field border-transparent bg-surface-muted py-2 focus:border-line-strong focus:bg-white"
+            />
+          </label>
+        </form>
+
+        <div className="ml-auto flex items-center gap-2">
+          <Link
+            href="/pricing"
+            className="hidden rounded-md px-2.5 py-1.5 text-sm font-medium text-ink-muted transition hover:text-ink sm:inline"
+          >
+            Pricing
+          </Link>
 
           {!isLoading && (
             <>
               {user ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="ml-1 px-3 py-1.5"
-                  onClick={async () => {
-                    await logout();
-                    router.push('/');
-                    router.refresh();
-                  }}
-                >
-                  Sign out
-                </Button>
+                <div className="relative" ref={menuRef}>
+                  <button
+                    type="button"
+                    onClick={() => setAccountOpen((v) => !v)}
+                    className={cn(
+                      'rounded-md px-2.5 py-1.5 text-sm font-medium transition',
+                      accountOpen || pathname.startsWith('/portfolio') || pathname.startsWith('/watchlist')
+                        ? 'bg-surface-muted text-ink'
+                        : 'text-ink-muted hover:text-ink'
+                    )}
+                    aria-expanded={accountOpen}
+                    aria-haspopup="menu"
+                  >
+                    Account
+                  </button>
+                  {accountOpen && (
+                    <div
+                      role="menu"
+                      className="absolute right-0 mt-2 w-44 overflow-hidden rounded-lg border border-line bg-white py-1 shadow-sm"
+                    >
+                      <Link
+                        href="/portfolio"
+                        role="menuitem"
+                        className="block px-3 py-2 text-sm text-ink hover:bg-surface-hover"
+                      >
+                        Portfolio
+                      </Link>
+                      <Link
+                        href="/watchlist"
+                        role="menuitem"
+                        className="block px-3 py-2 text-sm text-ink hover:bg-surface-hover"
+                      >
+                        Watchlist
+                      </Link>
+                      <Link
+                        href="/pricing"
+                        role="menuitem"
+                        className="block px-3 py-2 text-sm text-ink hover:bg-surface-hover"
+                      >
+                        Pricing
+                      </Link>
+                      <button
+                        type="button"
+                        role="menuitem"
+                        className="block w-full px-3 py-2 text-left text-sm text-ink-muted hover:bg-surface-hover hover:text-ink"
+                        onClick={async () => {
+                          await logout();
+                          setAccountOpen(false);
+                          router.push('/');
+                          router.refresh();
+                        }}
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
-                <Link href="/login" className="btn btn-primary ml-1 px-3 py-1.5">
-                  Sign in
-                </Link>
+                <>
+                  <Link href="/login" className="btn btn-ghost px-3 py-1.5">
+                    Sign in
+                  </Link>
+                  <Link href="/pricing" className="btn btn-primary px-3 py-1.5 sm:hidden">
+                    Pricing
+                  </Link>
+                </>
               )}
             </>
           )}
-        </nav>
+        </div>
       </div>
+
+      {/* Mobile main nav */}
+      <nav className="flex gap-1 overflow-x-auto border-t border-line px-4 py-2 sm:hidden">
+        {mainLinks.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className={cn(
+              'shrink-0 rounded-md px-2.5 py-1 text-sm font-medium',
+              pathname === l.href || pathname.startsWith(`${l.href}/`)
+                ? 'bg-surface-muted text-ink'
+                : 'text-ink-muted'
+            )}
+          >
+            {l.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

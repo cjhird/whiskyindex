@@ -1,19 +1,22 @@
 import Link from 'next/link';
 import type { Bottle } from '@/lib/mock/types';
+import { slugifyName } from '@/lib/mock/bottles';
 import { ChangeBadge, ChangeText } from '@/components/ui/ChangeBadge';
 import { formatGBP } from '@/lib/format';
 
 export function BottleHeader({ bottle }: { bottle: Bottle }) {
+  const distillerySlug = slugifyName(bottle.distillery);
+
   return (
     <div className="border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4 py-8">
         <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-ink-muted">
-          <Link href="/screener" className="hover:text-ink">
-            Screener
+          <Link href="/bottles" className="hover:text-ink">
+            Bottles
           </Link>
           <span className="text-ink-faint">/</span>
-          <Link href={`/screener?brand=${encodeURIComponent(bottle.brand)}`} className="hover:text-ink">
-            {bottle.brand}
+          <Link href={`/distilleries/${distillerySlug}`} className="hover:text-ink">
+            {bottle.distillery}
           </Link>
           <span className="text-ink-faint">/</span>
           <span className="text-ink">{bottle.name}</span>
@@ -27,7 +30,9 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
             <p className="mt-2 text-sm text-ink-muted">
               {bottle.country} · {bottle.region}
               <span className="text-ink-faint"> · </span>
-              {bottle.distillery}
+              <Link href={`/distilleries/${distillerySlug}`} className="hover:text-ink">
+                {bottle.distillery}
+              </Link>
               <span className="text-ink-faint"> · </span>
               {bottle.ageYears ? `${bottle.ageYears}yo` : 'NAS'}
               <span className="text-ink-faint"> · </span>

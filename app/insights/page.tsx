@@ -3,19 +3,20 @@ import type { Metadata } from 'next';
 import { articles } from '@/lib/mock/articles';
 
 export const metadata: Metadata = {
-  title: 'Research',
+  title: 'Insights',
   description: 'Whisky secondary-market notes, methodology, and collector guides from WhiskyIndex.',
 };
 
-export default function BlogPage() {
+export default function InsightsPage() {
   const [featured, ...rest] = articles;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Market notes</h1>
+      <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Insights</h1>
+      <p className="mt-2 text-sm text-ink-muted">Market notes, methodology, and collector guides.</p>
 
       {featured && (
-        <Link href={`/blog/${featured.slug}`} className="group mt-8 block">
+        <Link href={`/insights/${featured.slug}`} className="group mt-8 block">
           <p className="label-meta">
             {featured.category} ·{' '}
             {new Date(featured.publishedAt).toLocaleDateString('en-GB', {
@@ -35,7 +36,7 @@ export default function BlogPage() {
       <ul className="mt-8 divide-y divide-line border-t border-line">
         {rest.map((a) => (
           <li key={a.slug}>
-            <Link href={`/blog/${a.slug}`} className="group row-hover block py-6">
+            <Link href={`/insights/${a.slug}`} className="group row-hover block py-6">
               <p className="label-meta">
                 {a.category} ·{' '}
                 {new Date(a.publishedAt).toLocaleDateString('en-GB', {

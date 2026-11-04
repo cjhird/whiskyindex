@@ -17,14 +17,14 @@ export function HomeMarket() {
       <section>
         <div className="mb-6 flex items-end justify-between gap-4">
           <h2 className="text-lg font-semibold tracking-[-0.03em] text-ink">Market board</h2>
-          <Link href="/screener" className="text-sm text-ink-muted hover:text-ink">
-            Screener →
+          <Link href="/market/indices" className="text-sm text-ink-muted hover:text-ink">
+            All indices →
           </Link>
         </div>
         <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
           {marketIndices.map((idx) => (
-            <div key={idx.name}>
-              <p className="label-meta">{idx.name}</p>
+            <Link key={idx.slug} href="/market/indices" className="group block">
+              <p className="label-meta group-hover:text-ink">{idx.name}</p>
               <div className="mt-2 flex items-baseline gap-2">
                 <p className="font-mono-num text-2xl font-semibold text-ink">{idx.value.toFixed(1)}</p>
                 <ChangeBadge value={idx.change1d} size="sm" />
@@ -32,7 +32,7 @@ export function HomeMarket() {
               <p className="mt-1 text-sm text-ink-muted">
                 1M <ChangeText value={idx.change1m} />
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -66,10 +66,7 @@ export function HomeMarket() {
         <ul className="divide-y divide-line">
           {rows.map((b) => (
             <li key={b.id}>
-              <Link
-                href={`/bottle/${b.slug}`}
-                className="row-hover flex items-center gap-4 py-4"
-              >
+              <Link href={`/bottles/${b.slug}`} className="row-hover flex items-center gap-4 py-4">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-ink">{b.name}</p>
                   <p className="truncate text-sm text-ink-muted">

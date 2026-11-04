@@ -59,8 +59,27 @@ export type PortfolioHolding = {
 };
 
 export type MarketIndex = {
+  slug: string;
   name: string;
   value: number;
   change1d: number;
   change1m: number;
+  change1y: number;
+  description: string;
+};
+
+export type Distillery = {
+  slug: string;
+  name: string;
+  region: string;
+  country: string;
+  founded: number | null;
+  status: 'Operating' | 'Closed' | 'Mothballed';
+  summary: string;
+};
+
+export type WatchlistItem = {
+  bottleId: string;
+  addedAt: string;
+  note?: string;
 };

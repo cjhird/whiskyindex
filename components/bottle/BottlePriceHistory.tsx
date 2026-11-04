@@ -110,20 +110,19 @@ export function BottlePriceHistory({
 
   return (
     <section>
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Price History</h2>
           <p className="mt-1 text-sm text-ink-muted">
-            Observed auction totals in {currency}. Months without sales are left blank — no
-            interpolation.
+            {currency} auction totals. Blank months = no sales.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex gap-1 rounded-lg bg-surface-muted p-1">
             {(
               [
-                { id: 'trend', label: 'Price trend' },
-                { id: 'sales', label: 'Individual sales' },
+                { id: 'trend', label: 'Trend' },
+                { id: 'sales', label: 'Sales' },
               ] as const
             ).map((m) => (
               <button
@@ -152,7 +151,7 @@ export function BottlePriceHistory({
                   setHover(null);
                 }}
                 className={cn(
-                  'rounded-md px-2.5 py-1 font-mono-num text-[11px] font-medium transition',
+                  'rounded-md px-2 py-1 font-mono-num text-[11px] font-medium transition',
                   range === r.id ? 'bg-white text-ink' : 'text-ink-muted hover:text-ink'
                 )}
               >
@@ -193,12 +192,9 @@ export function BottlePriceHistory({
 
         <div className="relative px-2 pb-2 pt-3 sm:px-4">
           {empty ? (
-            <div className="flex h-52 flex-col items-center justify-center gap-2 px-4 text-center">
+            <div className="flex h-48 flex-col items-center justify-center gap-2 px-4 text-center">
               <p className="text-sm font-medium text-ink">No sales in this range</p>
-              <p className="max-w-sm text-sm text-ink-muted">
-                Try a longer window or switch to Individual sales. Months without lots stay blank —
-                we do not interpolate prices.
-              </p>
+              <p className="text-sm text-ink-muted">Try a longer window or switch to Sales.</p>
             </div>
           ) : (
             <svg

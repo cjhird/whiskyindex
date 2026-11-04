@@ -39,13 +39,13 @@ export function HomeMarketGlance() {
 
   return (
     <section className="border-b border-line bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:py-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
               The whisky market at a glance
             </h2>
-            <p className="mt-2 text-sm text-ink-muted">{marketSnapshot.updatedLabel}</p>
+            <p className="mt-2 text-sm text-ink-muted">{marketSnapshot.periodLabel} close</p>
           </div>
           <Link href="/market" className="text-sm font-medium text-ink hover:underline">
             Explore Market Data →
@@ -68,7 +68,6 @@ export function HomeMarketGlance() {
           <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
             <div>
               <h3 className="text-lg font-semibold tracking-[-0.02em] text-ink">Notable moves · 1M</h3>
-              <p className="mt-1 text-sm text-ink-muted">Illustrative bottle marks from the demo tape.</p>
             </div>
             <Link href="/screener" className="text-sm text-ink-muted hover:text-ink">
               Open Screener →
@@ -98,8 +97,8 @@ export function HomeMarketGlance() {
         <div className="mt-10 border border-line">
           <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line px-4 py-3">
             <div>
-              <p className="text-sm font-semibold text-ink">WI Broad · preceding 12 months</p>
-              <p className="mt-1 text-sm text-ink-muted">Monthly closes · illustrative series</p>
+              <p className="text-sm font-semibold text-ink">WI Broad · 12M</p>
+              <p className="mt-1 text-sm text-ink-muted">Monthly closes</p>
             </div>
             <Link
               href="/indices"

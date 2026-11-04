@@ -1,18 +1,23 @@
 import Link from 'next/link';
 
-/** Single site-level honesty line — avoid repeating on every section. */
+/** Single honesty line in the sticky header — not a second chrome bar below the tape. */
 export function SiteDisclaimer() {
   return (
-    <div className="border-b border-line bg-surface-muted">
-      <p className="mx-auto max-w-7xl px-4 py-2 text-sm text-ink-muted">
-        Demo marks for product design — not live auction prints or investment advice.{' '}
-        <Link href="/methodology" className="text-ink hover:underline">
-          Methodology
-        </Link>
-        {' · '}
-        <Link href="/data-sources" className="text-ink hover:underline">
-          Data sources
-        </Link>
+    <div className="border-b border-line bg-surface-muted/90">
+      <p className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-1.5 text-xs text-ink-muted sm:text-sm">
+        <span className="font-mono-num text-[10px] font-medium uppercase tracking-[0.08em] text-ink-faint">
+          Demo
+        </span>
+        <span>
+          Marks for product design — not live auction prints or investment advice.{' '}
+          <Link href="/methodology" className="text-ink hover:underline">
+            Methodology
+          </Link>
+          {' · '}
+          <Link href="/data-sources" className="text-ink hover:underline">
+            Data sources
+          </Link>
+        </span>
       </p>
     </div>
   );

@@ -71,7 +71,7 @@ export default function InsightsPage({ searchParams }: Props) {
   const report = latestMarketReport();
 
   return (
-    <div className="mx-auto max-w-7xl space-y-14 px-4 py-10 sm:space-y-16 sm:py-12">
+    <div className="mx-auto max-w-7xl space-y-14 px-4 py-8 sm:py-10">
       <header className="max-w-2xl">
         <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
           Insights

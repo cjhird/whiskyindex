@@ -21,7 +21,7 @@ export function HomeHero() {
   }
 
   return (
-    <section className="flex min-h-[calc(100svh-7.5rem)] border-b border-line bg-white">
+    <section className="flex min-h-[calc(100svh-5.5rem)] border-b border-line bg-white">
       <div className="mx-auto grid w-full max-w-7xl content-center gap-10 px-4 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:py-16">
         <div>
           <p className="text-sm font-semibold tracking-[-0.02em] text-ink">WhiskyIndex</p>
@@ -62,13 +62,12 @@ export function HomeHero() {
         <div className="border-y border-line bg-white sm:border sm:border-line">
           <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line px-4 py-3">
             <div>
-              <p className="label-meta">WI Broad · 12M · illustrative</p>
+              <p className="label-meta">WI Broad · 12M</p>
               <div className="mt-1 flex items-baseline gap-2">
                 <p className="font-mono-num text-2xl font-semibold text-ink">{idx.value.toFixed(1)}</p>
                 <ChangeBadge value={idx.change1m} size="sm" />
               </div>
             </div>
-            <p className="text-sm text-ink-muted">{marketSnapshot.updatedLabel}</p>
           </div>
           <IndexMiniChart points={chart} className="px-2 py-3" />
         </div>

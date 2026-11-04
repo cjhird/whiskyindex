@@ -56,7 +56,18 @@ export function ActivityBarChart({
               <span className="font-mono-num text-ink">{formatTick(activeValue ?? 0)}</span>
             </>
           ) : (
-            <span>Hover a bar for period detail</span>
+            <>
+              <span className="font-medium text-ink">{rows[rows.length - 1]?.month}</span>
+              <span className="text-ink-faint"> · </span>
+              {metric === 'turnover' ? 'Turnover' : 'Volume'}{' '}
+              <span className="font-mono-num text-ink">
+                {formatTick(
+                  metric === 'turnover'
+                    ? rows[rows.length - 1]?.turnover ?? 0
+                    : rows[rows.length - 1]?.volume ?? 0
+                )}
+              </span>
+            </>
           )}
         </p>
       </div>

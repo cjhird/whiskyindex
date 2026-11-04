@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getIndexProfile, indexHistory, indexProfiles } from '@/lib/mock/indices';
-import { ChangeBadge, ChangeText } from '@/components/ui/ChangeBadge';
+import { ChangeBadge } from '@/components/ui/ChangeBadge';
 import { IndexMiniChart } from '@/components/home/IndexMiniChart';
 import { StatusChip } from '@/components/ui/StatusChip';
 
@@ -82,16 +82,9 @@ export default function IndexDetailPage({ params }: Props) {
       </header>
 
       <section className="mt-10 border border-line">
-        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line px-4 py-3">
-          <div>
-            <p className="text-sm font-semibold text-ink">Illustrative path · 24M</p>
-            <p className="mt-1 text-sm text-ink-muted">
-              Monthly closes for layout — not a production index print.
-            </p>
-          </div>
-          <p className="text-sm text-ink-muted">
-            1M <ChangeText value={idx.change1m} />
-          </p>
+        <div className="border-b border-line px-4 py-3">
+          <p className="text-sm font-semibold text-ink">Path · 24M</p>
+          <p className="mt-1 text-sm text-ink-muted">Monthly closes for layout</p>
         </div>
         <IndexMiniChart points={chart} className="px-2 py-3 sm:px-4" />
       </section>

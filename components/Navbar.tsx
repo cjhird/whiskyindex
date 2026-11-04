@@ -99,7 +99,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
+    <header>
       <div className="relative mx-auto flex h-14 max-w-7xl items-center px-4">
         <Link href="/" className="group z-10 flex shrink-0 items-center gap-0.5">
           <span className="text-base font-semibold leading-none tracking-[-0.03em] text-ink">

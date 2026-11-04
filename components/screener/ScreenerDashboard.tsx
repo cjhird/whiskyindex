@@ -203,28 +203,46 @@ function ScreenerInner() {
               type="button"
               className="flex w-full flex-col items-center gap-2 py-4 text-ink-muted hover:text-ink"
               onClick={() => setSidebarCollapsed(false)}
-              aria-label="Expand filters"
+              aria-expanded={false}
+              aria-controls="screener-filter-panel"
+              title="Show filters"
             >
-              <SlidersHorizontal className="size-4" />
+              <SlidersHorizontal className="size-4" aria-hidden />
+              <span className="text-[10px] font-medium uppercase tracking-[0.06em]">Filters</span>
             </button>
           ) : (
             <>
-              <div className="flex justify-end border-b border-line px-2 py-1">
-                <button
-                  type="button"
-                  className="rounded-md px-2 py-1 text-xs text-ink-muted hover:text-ink"
-                  onClick={() => setSidebarCollapsed(true)}
-                >
-                  Collapse
-                </button>
+              <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-2">
+                <p className="text-sm font-medium text-ink">Filters</p>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="rounded-md px-2 py-1 text-xs text-ink-muted hover:text-ink"
+                    onClick={resetAll}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-md px-2 py-1 text-xs text-ink-muted hover:text-ink"
+                    onClick={() => setSidebarCollapsed(true)}
+                    aria-expanded={true}
+                    aria-controls="screener-filter-panel"
+                  >
+                    Hide
+                  </button>
+                </div>
               </div>
-              <ScreenerFilterPanel
-                draft={draft}
-                setDraft={setDraft}
-                onApply={applyDraft}
-                onReset={resetAll}
-                className="max-h-[calc(100vh-8rem)]"
-              />
+              <div id="screener-filter-panel">
+                <ScreenerFilterPanel
+                  draft={draft}
+                  setDraft={setDraft}
+                  onApply={applyDraft}
+                  onReset={resetAll}
+                  hideChrome
+                  className="max-h-[calc(100vh-8rem)]"
+                />
+              </div>
             </>
           )}
         </aside>
@@ -432,7 +450,6 @@ function ScreenerInner() {
             </>
           )}
 
-          <p className="mt-6 text-sm text-ink-faint">{screenerMeta.disclaimer}</p>
         </div>
       </div>
 
@@ -457,8 +474,14 @@ function ScreenerInner() {
               setDraft={setDraft}
               onApply={applyDraft}
               onReset={resetAll}
+              hideChrome
               className="min-h-0 flex-1"
             />
+            <div className="border-t border-line px-4 py-3">
+              <button type="button" onClick={resetAll} className="text-sm text-ink-muted hover:text-ink">
+                Reset filters
+              </button>
+            </div>
           </div>
         </div>
       )}

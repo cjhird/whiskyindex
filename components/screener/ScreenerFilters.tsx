@@ -16,6 +16,8 @@ type Props = {
   onApply: () => void;
   onReset: () => void;
   className?: string;
+  /** Hide the top Filters / Reset chrome when the parent already provides it */
+  hideChrome?: boolean;
 };
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
@@ -73,17 +75,26 @@ function MultiSelect({
   );
 }
 
-export function ScreenerFilterPanel({ draft, setDraft, onApply, onReset, className }: Props) {
+export function ScreenerFilterPanel({
+  draft,
+  setDraft,
+  onApply,
+  onReset,
+  className,
+  hideChrome = false,
+}: Props) {
   const patch = (partial: Partial<ScreenerFilters>) => setDraft({ ...draft, ...partial, page: 1 });
 
   return (
     <div className={cn('flex h-full flex-col', className)}>
-      <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-        <p className="text-sm font-semibold text-ink">Filters</p>
-        <button type="button" onClick={onReset} className="text-sm text-ink-muted hover:text-ink">
-          Reset filters
-        </button>
-      </div>
+      {!hideChrome && (
+        <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
+          <p className="text-sm font-semibold text-ink">Filters</p>
+          <button type="button" onClick={onReset} className="text-sm text-ink-muted hover:text-ink">
+            Reset filters
+          </button>
+        </div>
+      )}
 
       <div className="flex-1 space-y-6 overflow-y-auto px-4 py-4">
         <section>

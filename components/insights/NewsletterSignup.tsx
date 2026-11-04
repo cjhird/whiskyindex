@@ -1,3 +1,5 @@
+import { StatusChip } from '@/components/ui/StatusChip';
+
 export function NewsletterSignup({
   variant = 'hub',
 }: {
@@ -8,11 +10,14 @@ export function NewsletterSignup({
   const copy =
     variant === 'article'
       ? 'When live, this list will send market reports and auction analysis from WhiskyIndex.'
-      : 'Optional digest of index closes and notable bottle moves. Demo only — nothing is collected yet.';
+      : 'Optional digest of index closes and notable bottle moves. Nothing is collected on this form.';
 
   return (
     <section className="border border-line bg-surface-muted px-4 py-8 sm:px-6">
-      <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">{heading}</h2>
+      <div className="flex flex-wrap items-center gap-3">
+        <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">{heading}</h2>
+        <StatusChip tone="planned">Planned</StatusChip>
+      </div>
       <p className="mt-2 max-w-xl text-sm leading-6 text-ink-muted">{copy}</p>
       <div className="mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
         <label className="sr-only" htmlFor={`newsletter-email-${variant}`}>

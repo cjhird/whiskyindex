@@ -1,100 +1,61 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { articles } from '@/lib/mock/articles';
-import type { ArticleCategory } from '@/lib/mock/types';
+import {
+  featuredArticles,
+  latestMarketReport,
+} from '@/lib/mock/articles';
+import { FeaturedInsights } from '@/components/insights/FeaturedInsights';
+import { InsightsListing } from '@/components/insights/InsightsListing';
+import { MarketReportFeature } from '@/components/insights/MarketReportFeature';
+import { NewsletterSignup } from '@/components/insights/NewsletterSignup';
+import { InsightsSupportNav } from '@/components/insights/InsightsSupportNav';
 
 export const metadata: Metadata = {
   title: 'Insights',
-  description: 'Whisky secondary-market notes, methodology, and collector guides from WhiskyIndex.',
+  description:
+    'News, analysis and expert perspectives on the global secondary whisky market from WhiskyIndex.',
+  alternates: { canonical: '/insights' },
+  openGraph: {
+    title: 'Insights · WhiskyIndex',
+    description:
+      'News, analysis and expert perspectives on the global secondary whisky market.',
+    type: 'website',
+  },
 };
 
-const categories: Array<ArticleCategory | 'All'> = [
-  'All',
-  'News',
-  'Guide',
-  'Analysis',
-  'Market Report',
-];
-
-type Props = { searchParams?: { category?: string } };
+type Props = {
+  searchParams?: {
+    q?: string;
+    topic?: string;
+    distillery?: string;
+    sort?: string;
+    page?: string;
+  };
+};
 
 export default function InsightsPage({ searchParams }: Props) {
-  const category = searchParams?.category;
-  const filtered =
-    category && category !== 'All'
-      ? articles.filter((a) => a.category === category)
-      : [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-
-  const [featured, ...rest] = filtered;
+  const featured = featuredArticles();
+  const report = latestMarketReport();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Insights</h1>
-      <p className="mt-2 text-sm text-ink-muted">Market intelligence and industry knowledge.</p>
+    <div className="mx-auto max-w-7xl space-y-14 px-4 py-10 sm:space-y-16 sm:py-12">
+      <header className="max-w-2xl">
+        <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">
+          Insights
+        </h1>
+        <p className="mt-3 text-sm leading-6 text-ink-muted sm:text-base">
+          News, analysis and expert perspectives on the global secondary whisky market.
+        </p>
+      </header>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        {categories.map((c) => {
-          const href = c === 'All' ? '/insights' : `/insights?category=${encodeURIComponent(c)}`;
-          const active = c === 'All' ? !category : category === c;
-          return (
-            <Link
-              key={c}
-              href={href}
-              className={
-                active
-                  ? 'rounded-md bg-surface-muted px-3 py-1.5 text-sm font-medium text-ink'
-                  : 'rounded-md px-3 py-1.5 text-sm font-medium text-ink-muted hover:text-ink'
-              }
-            >
-              {c === 'Guide' ? 'Guides' : c === 'Market Report' ? 'Market Reports' : c}
-            </Link>
-          );
-        })}
-      </div>
+      <FeaturedInsights primary={featured.primary} secondary={featured.secondary} />
 
-      {featured ? (
-        <>
-          <Link href={`/insights/${featured.slug}`} className="group mt-8 block">
-            <p className="label-meta">
-              {featured.category} ·{' '}
-              {new Date(featured.publishedAt).toLocaleDateString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-              })}{' '}
-              · {featured.readMinutes} min
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink group-hover:underline sm:text-[1.75rem]">
-              {featured.title}
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-ink-muted sm:text-base">{featured.excerpt}</p>
-          </Link>
+      <InsightsListing searchParams={searchParams} />
 
-          <ul className="mt-8 divide-y divide-line border-t border-line">
-            {rest.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/insights/${a.slug}`} className="group row-hover block py-6">
-                  <p className="label-meta">
-                    {a.category} ·{' '}
-                    {new Date(a.publishedAt).toLocaleDateString('en-GB', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric',
-                    })}{' '}
-                    · {a.readMinutes} min
-                  </p>
-                  <h2 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-ink group-hover:underline">
-                    {a.title}
-                  </h2>
-                  <p className="mt-2 text-sm leading-6 text-ink-muted line-clamp-2">{a.excerpt}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <p className="mt-10 text-sm text-ink-muted">No articles in this category yet.</p>
-      )}
+      <MarketReportFeature report={report} />
+
+      <NewsletterSignup variant="hub" />
+
+      <InsightsSupportNav />
     </div>
   );
 }

@@ -1,56 +1,85 @@
 import Link from 'next/link';
+import { ChartNoAxesCombined } from 'lucide-react';
+
+const groups = [
+  {
+    title: 'Platform',
+    links: [
+      { href: '/market', label: 'Market' },
+      { href: '/screener', label: 'Screener' },
+      { href: '/bottles', label: 'Bottles' },
+      { href: '/auctions', label: 'Auctions' },
+      { href: '/pricing', label: 'Pricing' },
+    ],
+  },
+  {
+    title: 'Insights',
+    links: [
+      { href: '/insights?category=News', label: 'News' },
+      { href: '/insights?category=Guide', label: 'Guides' },
+      { href: '/insights?category=Analysis', label: 'Analysis' },
+      { href: '/insights?category=Market%20Report', label: 'Market Reports' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/contact', label: 'Contact' },
+      { href: '/data-sources', label: 'Data Sources' },
+      { href: '/methodology', label: 'Methodology' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacy', label: 'Privacy Policy' },
+      { href: '/terms', label: 'Terms of Service' },
+      { href: '/disclaimer', label: 'Disclaimer' },
+    ],
+  },
+];
 
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-line bg-white">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold tracking-[-0.03em] text-ink">WhiskyIndex</p>
-          <p className="mt-2 max-w-sm text-sm text-ink-muted">
-            Secondary-market marks, auction comps, and portfolio analytics for whisky collectors.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-ink-muted sm:grid-cols-3">
-          <Link href="/market" className="hover:text-ink">
-            Market
-          </Link>
-          <Link href="/screener" className="hover:text-ink">
-            Screener
-          </Link>
-          <Link href="/insights" className="hover:text-ink">
-            Insights
-          </Link>
-          <Link href="/bottles" className="hover:text-ink">
-            Bottles
-          </Link>
-          <Link href="/auctions" className="hover:text-ink">
-            Auctions
-          </Link>
-          <Link href="/market/indices" className="hover:text-ink">
-            Indices
-          </Link>
-          <Link href="/portfolio" className="hover:text-ink">
-            Portfolio
-          </Link>
-          <Link href="/watchlist" className="hover:text-ink">
-            Watchlist
-          </Link>
-          <Link href="/pricing" className="hover:text-ink">
-            Pricing
-          </Link>
-          <Link href="/terms" className="hover:text-ink">
-            Terms
-          </Link>
-          <Link href="/privacy" className="hover:text-ink">
-            Privacy
-          </Link>
+      <div className="mx-auto max-w-7xl px-4 py-12">
+        <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
+          <div className="max-w-xs">
+            <Link href="/" className="inline-flex items-center gap-2">
+              <ChartNoAxesCombined aria-hidden className="size-4 stroke-[1.75] text-ink" />
+              <span className="text-sm font-semibold tracking-[-0.03em] text-ink">WhiskyIndex</span>
+            </Link>
+            <p className="mt-3 text-sm leading-6 text-ink-muted">
+              Market intelligence for the secondary whisky market — auction marks, comps, and
+              collector analytics.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:gap-12">
+            {groups.map((g) => (
+              <div key={g.title}>
+                <p className="text-sm font-semibold text-ink">{g.title}</p>
+                <ul className="mt-3 space-y-2">
+                  {g.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm text-ink-muted hover:text-ink">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
       <div className="border-t border-line">
-        <p className="mx-auto max-w-7xl px-4 py-4 text-sm text-ink-faint">
-          Data for illustration only. Not investment advice. Auction marks can diverge from private
-          transaction prices.
-        </p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-sm text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} WhiskyIndex. All rights reserved.</p>
+          <p>Illustrative data for product design — not investment advice.</p>
+        </div>
       </div>
     </footer>
   );

@@ -40,14 +40,18 @@ export type Collection = {
   change1m: number;
 };
 
+export type ArticleCategory = 'News' | 'Guide' | 'Analysis' | 'Market Report';
+
 export type Article = {
   slug: string;
   title: string;
   excerpt: string;
-  category: string;
+  category: ArticleCategory;
   publishedAt: string;
   readMinutes: number;
   body: string[];
+  /** Soft illustrative cover tone — not a stock photo */
+  cover: 'slate' | 'oak' | 'peat' | 'amber';
 };
 
 export type PortfolioHolding = {

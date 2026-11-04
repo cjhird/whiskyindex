@@ -9,7 +9,7 @@ export function MarketTape() {
   return (
     <div className="border-b border-line bg-[#1c1f24] text-white/80">
       <div className="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-4 py-1.5 text-[10px] tracking-wide">
-        <span className="shrink-0 font-mono-num uppercase text-white/35">Live</span>
+        <span className="shrink-0 font-mono-num uppercase text-white/35">Demo</span>
         {marketIndices.map((idx) => (
           <div key={idx.name} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap">
             <span className="text-white/45">{idx.name}</span>

@@ -441,7 +441,7 @@ export function MarketDashboard() {
                       </p>
                     </div>
                     <p className="shrink-0 font-mono-num text-sm font-medium text-ink">
-                      {formatGBP(r.total)}
+                      {formatGBP(r.totalGbp)}
                     </p>
                   </Link>
                 </li>
@@ -471,7 +471,7 @@ export function MarketDashboard() {
                       </Link>
                     </td>
                     <td className="text-ink-muted">{r.house}</td>
-                    <td className="text-right font-mono-num font-medium">{formatGBP(r.total)}</td>
+                    <td className="text-right font-mono-num font-medium">{formatGBP(r.totalGbp)}</td>
                   </tr>
                 ))}
               </tbody>

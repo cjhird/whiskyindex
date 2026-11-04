@@ -165,9 +165,9 @@ export function topAuctionHouses(limit = 5) {
     const prev = map.get(r.house);
     if (prev) {
       prev.lots += 1;
-      prev.turnover += r.total;
+      prev.turnover += r.totalGbp;
     } else {
-      map.set(r.house, { house: r.house, lots: 1, turnover: r.total });
+      map.set(r.house, { house: r.house, lots: 1, turnover: r.totalGbp });
     }
   }
   return Array.from(map.values())
@@ -177,7 +177,7 @@ export function topAuctionHouses(limit = 5) {
 
 export function highestValueRecentSales(limit = 5) {
   return getRecentAuctionResults(80)
-    .sort((a, b) => b.total - a.total)
+    .sort((a, b) => b.totalGbp - a.totalGbp)
     .slice(0, limit);
 }
 

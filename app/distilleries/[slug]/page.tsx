@@ -63,7 +63,7 @@ export default function DistilleryPage({ params }: Props) {
             Avg mark <span className="font-mono-num text-ink">{formatGBP(avgMark)}</span>
           </p>
           <Link
-            href={`/screener?brand=${encodeURIComponent(distillery.name)}`}
+            href={`/screener?distillery=${encodeURIComponent(distillery.name)}`}
             className="mt-4 inline-block text-sm text-ink-muted hover:text-ink"
           >
             Open in screener →

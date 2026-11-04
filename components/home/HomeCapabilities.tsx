@@ -20,11 +20,11 @@ const capabilities = [
   },
   {
     icon: Briefcase,
-    title: 'Track Your Investments',
+    title: 'Track Your Collection',
     description:
-      'Monitor bottles and personal collections, follow estimated market values and understand historical investment performance.',
+      'Monitor bottles you own against observed auction marks. Sign in when you are ready to save a demo portfolio.',
     href: '/portfolio',
-    cta: 'Track Your Collection',
+    cta: 'Open Portfolio',
   },
 ];
 

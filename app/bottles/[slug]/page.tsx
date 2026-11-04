@@ -12,6 +12,7 @@ import {
   relatedInsightArticles,
 } from '@/lib/mock/auctions';
 import { articles } from '@/lib/mock/articles';
+import { buildScreenerHref } from '@/lib/mock/screener';
 import { BottleHeader } from '@/components/bottle/BottleHeader';
 import { BottleMarketStats } from '@/components/bottle/BottleMarketStats';
 import { BottlePriceHistory } from '@/components/bottle/BottlePriceHistory';
@@ -64,9 +65,12 @@ export default function BottlePage({ params }: Props) {
   const medians = getMonthlyMedians(bottle, history);
   const comparables = getComparableBottles(bottle, bottles, 5);
   const insights = relatedInsightArticles(bottle, articles, 3);
-  const screenerHref = `/screener?distillery=${encodeURIComponent(bottle.distillery)}${
-    bottle.ageYears != null ? `&minAge=${bottle.ageYears}&maxAge=${bottle.ageYears}` : ''
-  }`;
+  const screenerHref = buildScreenerHref({
+    distillery: [bottle.distillery],
+    ...(bottle.ageYears != null
+      ? { minAge: bottle.ageYears, maxAge: bottle.ageYears }
+      : {}),
+  });
 
   const jsonLd = {
     '@context': 'https://schema.org',

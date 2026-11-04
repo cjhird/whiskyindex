@@ -4,7 +4,7 @@ const COLLECTIONS = [
   { name: 'Japanese', href: '/screener?country=Japan', description: 'Bottles from Japan' },
   { name: 'Scotch', href: '/screener?region=Scotland', description: 'Scottish whisky' },
   { name: 'Macallan', href: '/screener?brand=Macallan', description: 'Macallan bottlings' },
-  { name: 'Springbank', href: '/screener?brand=Springbank', description: 'Springbank distillery' },
+  { name: 'Springbank', href: '/screener?brand=Springbank', description: 'Springbank bottlings' },
 ] as const;
 
 export function CollectionCards() {

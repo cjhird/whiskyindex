@@ -17,7 +17,7 @@ export default function AuctionsPage() {
         <div>
           <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Auction results</h1>
           <p className="mt-2 text-sm text-ink-muted">
-            Recent closed lots with hammer, premium, and landed total.
+            Recent closed lots with hammer, premium, and landed total (GBP comparison).
           </p>
         </div>
         <Link href="/bottles" className="text-sm text-ink-muted hover:text-ink">
@@ -35,10 +35,11 @@ export default function AuctionsPage() {
                   {r.house} · {r.date} · Lot {r.lot}
                 </p>
               </div>
-              <p className="font-mono-num text-sm font-semibold">{formatGBP(r.total)}</p>
+              <p className="font-mono-num text-sm font-semibold">{formatGBP(r.totalGbp)}</p>
             </div>
             <p className="mt-2 text-sm text-ink-muted">
-              {r.condition} · Hammer {formatGBP(r.hammer)} · Premium {formatGBP(r.premium)}
+              {r.condition} · {r.currency} {r.hammer.toLocaleString('en-GB')} hammer
+              {r.currency !== 'GBP' ? ` · ${formatGBP(r.totalGbp)} GBP` : ''}
             </p>
           </Link>
         ))}
@@ -55,8 +56,8 @@ export default function AuctionsPage() {
                 <th>Lot</th>
                 <th>Condition</th>
                 <th className="text-right">Hammer</th>
-                <th className="text-right">Premium</th>
-                <th className="text-right">Total</th>
+                <th className="text-right">Currency</th>
+                <th className="text-right">Total (GBP)</th>
               </tr>
             </thead>
             <tbody>
@@ -72,9 +73,11 @@ export default function AuctionsPage() {
                   <td className="text-ink-muted">{r.house}</td>
                   <td className="font-mono-num text-ink-muted">{r.lot}</td>
                   <td className="text-ink-muted">{r.condition}</td>
-                  <td className="text-right font-mono-num">{formatGBP(r.hammer)}</td>
-                  <td className="text-right font-mono-num text-ink-muted">{formatGBP(r.premium)}</td>
-                  <td className="text-right font-mono-num font-semibold">{formatGBP(r.total)}</td>
+                  <td className="text-right font-mono-num">
+                    {r.currency} {r.hammer.toLocaleString('en-GB')}
+                  </td>
+                  <td className="text-right font-mono-num text-ink-muted">{r.currency}</td>
+                  <td className="text-right font-mono-num font-semibold">{formatGBP(r.totalGbp)}</td>
                 </tr>
               ))}
             </tbody>

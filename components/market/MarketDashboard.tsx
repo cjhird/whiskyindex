@@ -16,6 +16,7 @@ import {
   sliceActivity,
   topAuctionHouses,
 } from '@/lib/mock/market';
+import { auctionHouseSlug } from '@/lib/mock/auctionHouses';
 import { ActivityBarChart } from '@/components/market/ActivityBarChart';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { cn, formatGBP, formatPct } from '@/lib/format';
@@ -177,7 +178,7 @@ export function MarketDashboard() {
             </p>
           </div>
           <Link
-            href="/market/indices"
+            href="/indices"
             className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
           >
             Indices
@@ -483,7 +484,12 @@ export function MarketDashboard() {
               {houses.map((h) => (
                 <li key={h.house} className="flex items-center justify-between gap-4 py-3">
                   <div>
-                    <p className="text-sm font-medium text-ink">{h.house}</p>
+                    <Link
+                      href={`/auctions/${auctionHouseSlug(h.house)}`}
+                      className="text-sm font-medium text-ink hover:underline"
+                    >
+                      {h.house}
+                    </Link>
                     <p className="text-sm text-ink-muted">{h.lots} lots in sample</p>
                   </div>
                   <p className="font-mono-num text-sm text-ink">{formatGBP(h.turnover, { compact: true })}</p>

@@ -102,7 +102,7 @@ export function HomeMarketGlance() {
               <p className="mt-1 text-sm text-ink-muted">Monthly closes · illustrative series</p>
             </div>
             <Link
-              href="/market/indices"
+              href="/indices"
               className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
             >
               All indices

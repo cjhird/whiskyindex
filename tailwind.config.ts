@@ -22,6 +22,7 @@ const config: Config = {
           DEFAULT: 'var(--bg-elevated)',
           muted: 'var(--bg-panel)',
           zebra: 'var(--bg-zebra)',
+          hover: 'var(--bg-hover)',
         },
         up: {
           DEFAULT: 'var(--up)',
@@ -40,7 +41,9 @@ const config: Config = {
         sans: ['var(--font-public-sans)', 'Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['var(--font-ibm-plex-mono)', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
-      boxShadow: {},
+      boxShadow: {
+        focus: 'var(--shadow-focus)',
+      },
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(10px)' },

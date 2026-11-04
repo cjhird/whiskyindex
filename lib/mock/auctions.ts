@@ -1,3 +1,4 @@
+import { bottles } from './bottles';
 import type { Bottle } from './types';
 
 export type AuctionComp = {
@@ -81,4 +82,26 @@ export function getRelatedBottles(bottle: Bottle, all: Bottle[], limit = 4) {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map((x) => x.bottle);
+}
+
+export type AuctionResultRow = AuctionComp & {
+  bottleSlug: string;
+  bottleName: string;
+  brand: string;
+};
+
+/** Flat recent auction results across the mock bottle universe. */
+export function getRecentAuctionResults(limit = 40): AuctionResultRow[] {
+  const rows: AuctionResultRow[] = [];
+  for (const bottle of bottles) {
+    for (const comp of getAuctionComps(bottle, 3)) {
+      rows.push({
+        ...comp,
+        bottleSlug: bottle.slug,
+        bottleName: bottle.name,
+        brand: bottle.brand,
+      });
+    }
+  }
+  return rows.sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
 }

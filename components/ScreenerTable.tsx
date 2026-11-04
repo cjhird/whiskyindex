@@ -96,11 +96,11 @@ export function ScreenerTable({
                 <tr
                   key={row.id}
                   className="cursor-pointer border-b border-gray-100 transition hover:bg-gray-50"
-                  onClick={() => window.location.assign(`/bottle/${row.id}`)}
+                  onClick={() => window.location.assign(`/bottles/${row.id}`)}
                 >
                   <td className="py-3 pl-4 pr-2">
                     <Link
-                      href={`/bottle/${row.id}`}
+                      href={`/bottles/${row.id}`}
                       className="font-medium text-gray-900 hover:text-[#ffb347]"
                       onClick={(e) => e.stopPropagation()}
                     >

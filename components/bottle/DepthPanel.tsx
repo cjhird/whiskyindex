@@ -15,24 +15,24 @@ export function DepthPanel({
   const spread = bestAsk - bestBid;
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-surface-muted">
-      <div className="px-4 py-3">
-        <h2 className="text-sm font-semibold text-ink">Indicative depth</h2>
-        <p className="mt-0.5 text-xs text-ink-muted">
+    <div>
+      <div className="mb-4 flex items-baseline justify-between gap-4">
+        <h2 className="text-sm font-semibold text-ink">Depth</h2>
+        <p className="text-sm text-ink-muted">
           Mid {formatGBP(mid)} · Spread {formatGBP(spread)}
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-px bg-line/60">
-        <div className="bg-surface-muted p-3">
+      <div className="grid grid-cols-2 gap-8">
+        <div>
           <p className="label-meta mb-2 text-up">Bids</p>
-          <ul className="space-y-1.5">
+          <ul className="space-y-1">
             {bids.map((b) => (
-              <li key={`bid-${b.price}`} className="relative overflow-hidden rounded-md px-2 py-1.5">
+              <li key={`bid-${b.price}`} className="relative overflow-hidden px-1 py-1">
                 <span
-                  className="absolute inset-y-0 right-0 bg-up-soft"
+                  className="absolute inset-y-0 right-0 bg-up-soft/70"
                   style={{ width: `${(b.size / maxSize) * 100}%` }}
                 />
-                <span className="relative flex justify-between font-mono-num text-xs">
+                <span className="relative flex justify-between font-mono-num text-sm">
                   <span className="text-up">{formatGBP(b.price)}</span>
                   <span className="text-ink-muted">×{b.size}</span>
                 </span>
@@ -40,16 +40,16 @@ export function DepthPanel({
             ))}
           </ul>
         </div>
-        <div className="bg-surface-muted p-3">
+        <div>
           <p className="label-meta mb-2 text-down">Asks</p>
-          <ul className="space-y-1.5">
+          <ul className="space-y-1">
             {asks.map((a) => (
-              <li key={`ask-${a.price}`} className="relative overflow-hidden rounded-md px-2 py-1.5">
+              <li key={`ask-${a.price}`} className="relative overflow-hidden px-1 py-1">
                 <span
-                  className="absolute inset-y-0 left-0 bg-down-soft"
+                  className="absolute inset-y-0 left-0 bg-down-soft/70"
                   style={{ width: `${(a.size / maxSize) * 100}%` }}
                 />
-                <span className="relative flex justify-between font-mono-num text-xs">
+                <span className="relative flex justify-between font-mono-num text-sm">
                   <span className="text-down">{formatGBP(a.price)}</span>
                   <span className="text-ink-muted">×{a.size}</span>
                 </span>

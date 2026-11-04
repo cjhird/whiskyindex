@@ -16,50 +16,43 @@ export default function PortfolioPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-3 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
-        <p className="text-xs text-ink-muted">
-          {summary.positions} positions · signed in
-        </p>
+        <p className="text-sm text-ink-muted">{summary.positions} positions</p>
       </div>
-
-      <div className="mb-6">
+      <div className="mb-8">
         <DisclaimerBanner />
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        <SummaryCard label="Market value" value={formatGBP(summary.marketValue)} />
-        <SummaryCard label="Cost basis" value={formatGBP(summary.cost)} />
-        <SummaryCard
+      <div className="grid gap-6 border-b border-line pb-8 sm:grid-cols-2 lg:grid-cols-4">
+        <Metric label="Market value" value={formatGBP(summary.marketValue)} />
+        <Metric label="Cost basis" value={formatGBP(summary.cost)} />
+        <Metric
           label="Unrealised P&L"
           value={`${formatGBP(summary.pnl)} (${formatPct(summary.pnlPct)})`}
           tone={summary.pnl >= 0 ? 'up' : 'down'}
         />
-        <SummaryCard
+        <Metric
           label="Est. day P&L"
           value={formatGBP(summary.dayPnl)}
           tone={summary.dayPnl >= 0 ? 'up' : 'down'}
         />
       </div>
 
-      <div className="mobile-card-list mt-6">
+      <div className="mobile-card-list mt-8">
         {rows.map((r) => (
-          <Link
-            key={r.bottleId}
-            href={`/bottle/${r.bottle.slug}`}
-            className="surface-panel block rounded-xl p-4"
-          >
+          <Link key={r.bottleId} href={`/bottles/${r.bottle.slug}`} className="block">
             <p className="font-medium text-ink">{r.bottle.name}</p>
-            <p className="mt-1 text-xs text-ink-muted">
+            <p className="mt-1 text-sm text-ink-muted">
               Bought {r.purchaseDate}
               {r.notes ? ` · ${r.notes}` : ''}
             </p>
-            <div className="mt-3 flex items-end justify-between gap-3">
+            <div className="mt-2 flex items-end justify-between gap-4">
               <div>
                 <p className="font-mono-num text-lg font-semibold">{formatGBP(r.marketValue)}</p>
-                <ChangeText value={r.pnlPct} className="text-xs" />
+                <ChangeText value={r.pnlPct} className="text-sm" />
               </div>
-              <div className="text-right text-xs text-ink-muted">
+              <div className="text-right text-sm text-ink-muted">
                 <p>Qty {r.quantity}</p>
                 <p className="font-mono-num">Mark {formatGBP(r.bottle.latestPrice)}</p>
               </div>
@@ -68,7 +61,7 @@ export default function PortfolioPage() {
         ))}
       </div>
 
-      <div className="desktop-table-only mt-6 overflow-hidden rounded-xl">
+      <div className="desktop-table-only mt-8 overflow-hidden">
         <div className="data-table-wrap max-h-[70vh]">
           <table className="data-table">
             <thead>
@@ -86,10 +79,10 @@ export default function PortfolioPage() {
               {rows.map((r) => (
                 <tr key={r.bottleId}>
                   <td>
-                    <Link href={`/bottle/${r.bottle.slug}`} className="font-medium hover:underline">
+                    <Link href={`/bottles/${r.bottle.slug}`} className="font-medium hover:underline">
                       {r.bottle.name}
                     </Link>
-                    <p className="text-xs text-ink-muted">
+                    <p className="text-sm text-ink-muted">
                       Bought {r.purchaseDate}
                       {r.notes ? ` · ${r.notes}` : ''}
                     </p>
@@ -109,7 +102,7 @@ export default function PortfolioPage() {
                   </td>
                   <td className="text-right">
                     <div className="font-mono-num font-medium">{formatGBP(r.pnl)}</div>
-                    <ChangeText value={r.pnlPct} className="text-xs" />
+                    <ChangeText value={r.pnlPct} className="text-sm" />
                   </td>
                 </tr>
               ))}
@@ -121,7 +114,7 @@ export default function PortfolioPage() {
   );
 }
 
-function SummaryCard({
+function Metric({
   label,
   value,
   tone,
@@ -131,10 +124,10 @@ function SummaryCard({
   tone?: 'up' | 'down';
 }) {
   return (
-    <div className="surface-panel rounded-xl p-4">
+    <div>
       <p className="label-meta">{label}</p>
       <p
-        className={`mt-2 font-mono-num text-xl font-semibold ${
+        className={`mt-1.5 font-mono-num text-xl font-semibold ${
           tone === 'up' ? 'text-up' : tone === 'down' ? 'text-down' : 'text-ink'
         }`}
       >

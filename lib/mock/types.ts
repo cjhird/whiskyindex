@@ -40,14 +40,18 @@ export type Collection = {
   change1m: number;
 };
 
+export type ArticleCategory = 'News' | 'Guide' | 'Analysis' | 'Market Report';
+
 export type Article = {
   slug: string;
   title: string;
   excerpt: string;
-  category: string;
+  category: ArticleCategory;
   publishedAt: string;
   readMinutes: number;
   body: string[];
+  /** Soft illustrative cover tone — not a stock photo */
+  cover: 'slate' | 'oak' | 'peat' | 'amber';
 };
 
 export type PortfolioHolding = {
@@ -59,8 +63,27 @@ export type PortfolioHolding = {
 };
 
 export type MarketIndex = {
+  slug: string;
   name: string;
   value: number;
   change1d: number;
   change1m: number;
+  change1y: number;
+  description: string;
+};
+
+export type Distillery = {
+  slug: string;
+  name: string;
+  region: string;
+  country: string;
+  founded: number | null;
+  status: 'Operating' | 'Closed' | 'Mothballed';
+  summary: string;
+};
+
+export type WatchlistItem = {
+  bottleId: string;
+  addedAt: string;
+  note?: string;
 };

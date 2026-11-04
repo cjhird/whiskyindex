@@ -8,7 +8,7 @@ export function FieldLabel({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <span className={cn('label-meta mb-1.5 block', className)}>{children}</span>;
+  return <span className={cn('label-meta mb-2 block', className)}>{children}</span>;
 }
 
 export function TextField({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {

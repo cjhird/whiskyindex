@@ -4,11 +4,12 @@ import { AUTH_COOKIE } from '@/lib/mock/auth';
 export function middleware(request: NextRequest) {
   const session = request.cookies.get(AUTH_COOKIE)?.value;
   const isAuthed = Boolean(session);
+  const path = request.nextUrl.pathname;
 
-  if (!isAuthed && request.nextUrl.pathname.startsWith('/portfolio')) {
+  if (!isAuthed && (path.startsWith('/portfolio') || path.startsWith('/watchlist'))) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
-    url.searchParams.set('redirect', '/portfolio');
+    url.searchParams.set('redirect', path);
     return NextResponse.redirect(url);
   }
 
@@ -16,5 +17,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/portfolio/:path*'],
+  matcher: ['/portfolio/:path*', '/watchlist/:path*'],
 };

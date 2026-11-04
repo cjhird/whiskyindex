@@ -452,7 +452,7 @@ export const collections: Collection[] = [
     id: 'c3',
     name: 'Macallan Watchlist',
     description: 'Sherry oak, rare cask & limited releases',
-    href: '/screener?brand=Macallan', // brand= supported by Screener parser
+    href: '/screener?distillery=Macallan',
     count: 112,
     change1m: -1.9,
   },

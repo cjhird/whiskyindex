@@ -7,6 +7,7 @@ import { getWatchlistRows } from '@/lib/mock/watchlist';
 import { AccountGatePreview } from '@/components/AccountGatePreview';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
+import { StatusChip } from '@/components/ui/StatusChip';
 import { formatGBP } from '@/lib/format';
 
 export const metadata: Metadata = {
@@ -42,8 +43,12 @@ export default function WatchlistPage({ searchParams }: Props) {
         <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Watchlist</h1>
         <p className="text-sm text-ink-muted">{rows.length} bottles</p>
       </div>
-      <p className="mb-8 text-sm text-ink-muted">
-        Demo watchlist. Alerts for new lots and price moves ship with live accounts.
+      <p className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-muted">
+        <span>Demo watchlist for saved bottles.</span>
+        <span className="inline-flex items-center gap-2">
+          Alerts for new lots
+          <StatusChip>Planned</StatusChip>
+        </span>
       </p>
 
       {addBottle && (

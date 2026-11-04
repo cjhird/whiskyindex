@@ -35,10 +35,15 @@ export function HomeFinalCta() {
         </div>
 
         <div className="mt-12 max-w-lg border-t border-line pt-8">
-          <p className="text-sm font-semibold text-ink">Monthly market briefing</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm font-semibold text-ink">Monthly market briefing</p>
+            <span className="font-mono-num text-[11px] font-medium uppercase tracking-[0.06em] text-ink-muted">
+              Planned
+            </span>
+          </div>
           <p className="mt-1 text-sm text-ink-muted">
-            Optional email digest of index closes and notable bottle moves. Demo only — nothing is
-            sent.
+            Optional email digest of index closes and notable bottle moves. Nothing is sent in this
+            demo.
           </p>
           {done ? (
             <p className="mt-4 text-sm text-ink">Thanks — we&apos;ll keep this illustrative for now.</p>

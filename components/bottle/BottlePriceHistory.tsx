@@ -193,8 +193,12 @@ export function BottlePriceHistory({
 
         <div className="relative px-2 pb-2 pt-3 sm:px-4">
           {empty ? (
-            <div className="flex h-48 items-center justify-center text-sm text-ink-muted">
-              Insufficient auction observations for this window.
+            <div className="flex h-52 flex-col items-center justify-center gap-2 px-4 text-center">
+              <p className="text-sm font-medium text-ink">No sales in this range</p>
+              <p className="max-w-sm text-sm text-ink-muted">
+                Try a longer window or switch to Individual sales. Months without lots stay blank —
+                we do not interpolate prices.
+              </p>
             </div>
           ) : (
             <svg
@@ -282,6 +286,33 @@ export function BottlePriceHistory({
                     stroke="var(--ink-faint)"
                     strokeDasharray="3 4"
                   />
+                  <g>
+                    <rect
+                      x={Math.min(Math.max(active.x - 70, pad.l), width - pad.r - 140)}
+                      y={Math.max(pad.t + 4, active.y - 48)}
+                      width="140"
+                      height="40"
+                      fill="#fff"
+                      stroke="var(--line)"
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={Math.min(Math.max(active.x - 70, pad.l), width - pad.r - 140) + 10}
+                      y={Math.max(pad.t + 4, active.y - 48) + 16}
+                      className="fill-[var(--ink)]"
+                      style={{ fontSize: 11, fontFamily: 'var(--font-mono)' }}
+                    >
+                      {formatGBP(active.price)}
+                    </text>
+                    <text
+                      x={Math.min(Math.max(active.x - 70, pad.l), width - pad.r - 140) + 10}
+                      y={Math.max(pad.t + 4, active.y - 48) + 30}
+                      className="fill-[var(--ink-muted)]"
+                      style={{ fontSize: 10, fontFamily: 'var(--font-sans)' }}
+                    >
+                      {(active.label || active.date).slice(0, 28)}
+                    </text>
+                  </g>
                 </>
               )}
             </svg>

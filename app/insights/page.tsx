@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import {
+  CATEGORY_META,
   featuredArticles,
   latestMarketReport,
 } from '@/lib/mock/articles';
+import type { ArticleCategory } from '@/lib/mock/types';
 import { FeaturedInsights } from '@/components/insights/FeaturedInsights';
 import { InsightsListing } from '@/components/insights/InsightsListing';
 import { MarketReportFeature } from '@/components/insights/MarketReportFeature';
@@ -29,10 +32,41 @@ type Props = {
     distillery?: string;
     sort?: string;
     page?: string;
+    category?: string;
   };
 };
 
+function categoryRedirect(raw?: string): string | null {
+  if (!raw) return null;
+  const key = raw.trim().toLowerCase();
+  const aliases: Record<string, ArticleCategory> = {
+    news: 'News',
+    guide: 'Guide',
+    guides: 'Guide',
+    analysis: 'Analysis',
+    report: 'Market Report',
+    reports: 'Market Report',
+    'market report': 'Market Report',
+    'market-report': 'Market Report',
+  };
+  const category = aliases[key];
+  if (!category) return null;
+  return `/insights/${CATEGORY_META[category].route}`;
+}
+
 export default function InsightsPage({ searchParams }: Props) {
+  const legacy = categoryRedirect(searchParams?.category);
+  if (legacy) {
+    const params = new URLSearchParams();
+    if (searchParams?.q) params.set('q', searchParams.q);
+    if (searchParams?.topic) params.set('topic', searchParams.topic);
+    if (searchParams?.distillery) params.set('distillery', searchParams.distillery);
+    if (searchParams?.sort) params.set('sort', searchParams.sort);
+    if (searchParams?.page) params.set('page', searchParams.page);
+    const qs = params.toString();
+    redirect(qs ? `${legacy}?${qs}` : legacy);
+  }
+
   const featured = featuredArticles();
   const report = latestMarketReport();
 

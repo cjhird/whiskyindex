@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { marketIndices } from '@/lib/mock/bottles';
+import { StatusChip } from '@/components/ui/StatusChip';
 
 export const metadata: Metadata = {
   title: 'Market indices',
@@ -26,7 +27,10 @@ export default function MarketIndicesPage() {
         <span className="text-ink-faint"> / </span>
         <span className="text-ink">Indices</span>
       </nav>
-      <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Market indices</h1>
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Market indices</h1>
+        <StatusChip>Planned</StatusChip>
+      </div>
       <p className="mt-2 max-w-2xl text-sm text-ink-muted">
         Proprietary price benchmarks are not yet live. Placeholder WI series below are illustrative
         only and must not be treated as production index prints.

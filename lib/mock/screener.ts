@@ -144,10 +144,20 @@ export function parseScreenerParams(sp: URLSearchParams): ScreenerFilters {
     const n = Number(v);
     return Number.isFinite(n) ? n : undefined;
   };
+  // Legacy `brand=` deep-links alias into distillery when distillery is absent
+  const brand = list('brand');
+  const distilleryRaw = list('distillery');
+  const distillery =
+    distilleryRaw?.length
+      ? distilleryRaw
+      : brand?.length
+        ? brand
+        : undefined;
+
   return {
     q: sp.get('q') || undefined,
-    distillery: list('distillery'),
-    brand: list('brand'),
+    distillery,
+    brand: distilleryRaw?.length ? brand : undefined,
     country: list('country'),
     region: list('region'),
     bottler: sp.get('bottler') || undefined,

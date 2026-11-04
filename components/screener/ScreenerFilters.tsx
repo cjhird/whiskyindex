@@ -191,7 +191,7 @@ export function ScreenerFilterPanel({ draft, setDraft, onApply, onReset, classNa
         <section>
           <p className="label-meta mb-3">Pricing</p>
           <p className="mb-3 text-xs leading-5 text-ink-faint">
-            Buyer-inclusive totals where recorded. Illustrative mock data.
+            Buyer-inclusive totals where recorded.
           </p>
           <div className="space-y-4">
             <div>

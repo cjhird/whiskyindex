@@ -27,8 +27,15 @@ export function ChangeBadge({
 }
 
 export function ChangeText({ value, className }: { value: number; className?: string }) {
+  const up = value >= 0;
   return (
-    <span className={cn('font-mono-num', value >= 0 ? 'ticker-up' : 'ticker-down', className)}>
+    <span
+      className={cn('inline-flex items-center gap-1 font-mono-num', up ? 'ticker-up' : 'ticker-down', className)}
+    >
+      <span aria-hidden className="text-[0.65em]">
+        {up ? '▲' : '▼'}
+      </span>
+      <span className="sr-only">{up ? 'Up' : 'Down'} </span>
       {formatPct(value)}
     </span>
   );

@@ -7,7 +7,6 @@ import { getPortfolioRows, portfolioSummary } from '@/lib/mock/portfolio';
 import { AccountGatePreview } from '@/components/AccountGatePreview';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
-import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { formatGBP, formatPct } from '@/lib/format';
 
 export const metadata: Metadata = {
@@ -42,12 +41,9 @@ export default function PortfolioPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
         <p className="text-sm text-ink-muted">{summary.positions} positions</p>
-      </div>
-      <div className="mb-8">
-        <DisclaimerBanner />
       </div>
 
       {addBottle && (

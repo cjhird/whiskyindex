@@ -4,11 +4,11 @@ export function NewsletterSignup({
   variant?: 'hub' | 'article';
 }) {
   const heading =
-    variant === 'article' ? 'Get more whisky market insights.' : 'Stay ahead of the whisky market.';
+    variant === 'article' ? 'Follow more auction research.' : 'Optional market briefing.';
   const copy =
     variant === 'article'
-      ? 'Receive market reports, auction analysis and research from WhiskyIndex.'
-      : 'Get the latest auction trends, market analysis and WhiskyIndex reports delivered to your inbox.';
+      ? 'When live, this list will send market reports and auction analysis from WhiskyIndex.'
+      : 'Optional digest of index closes and notable bottle moves. Demo only — nothing is collected yet.';
 
   return (
     <section className="border border-line bg-surface-muted px-4 py-8 sm:px-6">

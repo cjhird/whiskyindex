@@ -23,7 +23,6 @@ import { DistilleryOverview } from '@/components/bottle/DistilleryOverview';
 import { ComparableBottles } from '@/components/bottle/ComparableBottles';
 import { RelatedInsights } from '@/components/bottle/RelatedInsights';
 import { DataTransparency } from '@/components/bottle/DataTransparency';
-import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 
 type Props = { params: { slug: string } };
 
@@ -105,11 +104,6 @@ export default function BottlePage({ params }: Props) {
       <BottleHeader bottle={bottle} />
 
       <div className="mx-auto max-w-7xl space-y-12 px-4 py-8 sm:space-y-16">
-        <DisclaimerBanner>
-          <span className="text-ink">Illustrative auction evidence.</span> Marks and histories on
-          this page are for product design — not live prints or investment advice.
-        </DisclaimerBanner>
-
         <BottleMarketStats stats={stats} />
 
         <BottlePriceHistory

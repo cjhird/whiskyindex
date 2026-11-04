@@ -83,7 +83,9 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-sm text-ink-faint sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} WhiskyIndex. All rights reserved.</p>
-          <p>Illustrative data for product design — not investment advice.</p>
+          <Link href="/disclaimer" className="hover:text-ink-muted">
+            Disclaimer
+          </Link>
         </div>
       </div>
     </footer>

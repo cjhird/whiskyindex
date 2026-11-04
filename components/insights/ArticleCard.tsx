@@ -16,6 +16,7 @@ export function ArticleCard({
         cover={article.cover}
         alt={article.coverAlt}
         size={compact ? 'sm' : 'md'}
+        label={CATEGORY_META[article.category].label}
       />
       <p className="label-meta mt-4">
         {CATEGORY_META[article.category].label}

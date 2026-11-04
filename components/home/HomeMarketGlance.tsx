@@ -75,7 +75,6 @@ export function HomeMarketGlance() {
           <IndexMiniChart points={chart} className="px-2 py-3 sm:px-4" />
         </div>
 
-        <p className="mt-4 text-sm text-ink-faint">{marketSnapshot.disclaimer}</p>
       </div>
     </section>
   );

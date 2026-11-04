@@ -7,7 +7,7 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
   return (
     <div className="border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-        <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs font-medium text-ink-muted">
+        <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
           <Link href="/screener" className="hover:text-ink">
             Screener
           </Link>
@@ -21,13 +21,13 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div>
-            <p className="label-caps">
-              {bottle.country} · {bottle.region}
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
               {bottle.name}
             </h1>
-            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-ink-muted">
+            <p className="mt-2 text-sm text-ink-muted">
+              {bottle.country} · {bottle.region}
+            </p>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-muted">
               <span>{bottle.distillery}</span>
               <span>{bottle.ageYears ? `${bottle.ageYears}yo` : 'NAS'}</span>
               <span>{bottle.abv}% ABV</span>
@@ -36,8 +36,8 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
             </p>
           </div>
 
-          <div className="surface rounded-lg p-5">
-            <p className="label-caps">Last auction mark</p>
+          <div className="surface-panel rounded-2xl p-5">
+            <p className="label-meta">Last auction mark</p>
             <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
               <p className="font-mono-num text-4xl font-semibold tracking-tight text-ink">
                 {formatGBP(bottle.latestPrice)}
@@ -59,8 +59,8 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
-      <p className="label-caps">{label}</p>
-      <div className="mt-1 font-mono-num font-semibold">{value}</div>
+      <p className="label-meta">{label}</p>
+      <div className="mt-1 font-mono-num font-medium">{value}</div>
     </div>
   );
 }

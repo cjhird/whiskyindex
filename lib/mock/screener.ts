@@ -99,7 +99,7 @@ export function toScreenerRow(b: Bottle): ScreenerRow {
   const reliable = b.lotCount >= MIN_TXNS_FOR_PERFORMANCE;
   return {
     ...b,
-    bottler: b.brand === b.distillery ? 'Official' : 'Independent',
+    bottler: b.officialBottling ? 'Official' : 'Independent',
     median12m: med != null ? Math.round(med) : null,
     sales12m: Math.max(b.volume30d * 4, Math.round(b.lotCount * 0.35)),
     lastSold: b.history.at(-1)?.date ?? null,

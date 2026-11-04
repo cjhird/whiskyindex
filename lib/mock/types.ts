@@ -3,6 +3,8 @@ export type PricePoint = {
   price: number;
 };
 
+export type LiquidityTier = 'High' | 'Medium' | 'Low';
+
 export type Bottle = {
   id: string;
   slug: string;
@@ -15,8 +17,18 @@ export type Bottle = {
   abv: number;
   volumeMl: number;
   releaseYear: number | null;
+  /** Distillation / vintage year when distinct from bottling */
+  vintageYear: number | null;
+  bottlingYear: number | null;
+  edition: string | null;
+  bottler: string;
+  whiskyType: string;
+  officialBottling: boolean;
   caskType: string;
+  caskNumber: string | null;
   bottleCount: number | null;
+  /** Short factual release note — omit rather than invent */
+  description: string | null;
   latestPrice: number;
   currency: 'GBP';
   change1d: number;
@@ -24,7 +36,7 @@ export type Bottle = {
   change1y: number;
   change3y: number;
   volume30d: number;
-  liquidity: 'High' | 'Medium' | 'Low';
+  liquidity: LiquidityTier;
   sparkline: number[];
   history: PricePoint[];
   lastAuction: string;

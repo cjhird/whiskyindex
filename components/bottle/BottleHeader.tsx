@@ -6,12 +6,18 @@ import { BottleActions } from '@/components/bottle/BottleActions';
 
 export function BottleHeader({ bottle }: { bottle: Bottle }) {
   const distillerySlug = slugifyName(bottle.distillery);
-  const meta = [
+  const identity = [
     bottle.ageYears != null ? `${bottle.ageYears} Year Old` : 'No age statement',
-    bottle.vintageYear ? `Distilled ${bottle.vintageYear}` : null,
-    bottle.bottlingYear ? `Bottled ${bottle.bottlingYear}` : null,
     bottle.edition,
     bottle.officialBottling ? 'Official bottling' : `Bottled by ${bottle.bottler}`,
+  ].filter(Boolean) as string[];
+
+  const technical = [
+    bottle.vintageYear ? `Distilled ${bottle.vintageYear}` : null,
+    bottle.bottlingYear ? `Bottled ${bottle.bottlingYear}` : null,
+    `${bottle.abv}% ABV`,
+    `${bottle.volumeMl} ml`,
+    bottle.caskType,
   ].filter(Boolean) as string[];
 
   return (
@@ -52,18 +58,10 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">
-              {meta.join(' · ')}
+              {identity.join(' · ')}
             </p>
-            <p className="mt-1 text-sm text-ink-muted">
-              {bottle.abv}% ABV
-              <span className="text-ink-faint"> · </span>
-              {bottle.volumeMl} ml
-              {bottle.caskType ? (
-                <>
-                  <span className="text-ink-faint"> · </span>
-                  {bottle.caskType}
-                </>
-              ) : null}
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-faint">
+              {technical.join(' · ')}
             </p>
 
             {bottle.description && (

@@ -14,12 +14,10 @@ export function ComparableBottles({
 }) {
   return (
     <section>
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+      <div className="section-head flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Comparable Bottles</h2>
-          <p className="mt-1 text-sm text-ink-muted">
-            Similar distillery, age, vintage, or price range — each links to its own profile.
-          </p>
+          <h2>Comparable Bottles</h2>
+          <p>Similar distillery, age, vintage, or price range — each links to its own profile.</p>
         </div>
         <Link href={screenerHref} className="text-sm text-ink-muted hover:text-ink">
           Open in screener →

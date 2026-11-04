@@ -56,9 +56,9 @@ export function BottleMarketStats({ stats }: { stats: Stats }) {
 
   return (
     <section aria-label="Auction market statistics">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Market statistics</h2>
-        <p className="mt-1 text-sm text-ink-muted">Recorded auction totals — not estimated values.</p>
+      <div className="section-head">
+        <h2>Market statistics</h2>
+        <p>Recorded auction totals — not estimated values.</p>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -110,12 +110,10 @@ export function BottlePriceHistory({
 
   return (
     <section>
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div className="section-head flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Price History</h2>
-          <p className="mt-1 text-sm text-ink-muted">
-            {currency} auction totals. Blank months = no sales.
-          </p>
+          <h2>Price History</h2>
+          <p>{currency} auction totals. Blank months = no sales.</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex gap-1 rounded-lg bg-surface-muted p-1">

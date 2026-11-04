@@ -167,10 +167,10 @@ export function MarketDashboard() {
 
       {/* Market performance = trading activity centrepiece (no fabricated index) */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Market Performance</h2>
-            <p className="mt-1 text-sm text-ink-muted">
+            <h2>Market Performance</h2>
+            <p className="mt-1 text-sm">
               Historical auction turnover — primary dashboard chart until a defensible price index
               ships.
             </p>
@@ -200,12 +200,10 @@ export function MarketDashboard() {
 
       {/* Trading activity controls */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">
-              Market Trading Activity
-            </h2>
-            <p className="mt-1 text-sm text-ink-muted">
+            <h2>Market Trading Activity</h2>
+            <p className="mt-1 text-sm">
               How actively whisky is trading — separate from price appreciation.
             </p>
           </div>
@@ -264,12 +262,10 @@ export function MarketDashboard() {
 
       {/* Segments */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">
-              Explore Market Performance
-            </h2>
-            <p className="mt-1 text-sm text-ink-muted">
+            <h2>Explore Market Performance</h2>
+            <p className="mt-1 text-sm">
               Segment comparison from recorded auction activity (not segment price indices).
             </p>
           </div>
@@ -391,10 +387,10 @@ export function MarketDashboard() {
 
       {/* Most traded (initial movers substitute) */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Market Movers</h2>
-            <p className="mt-1 text-sm text-ink-muted">
+            <h2>Market Movers</h2>
+            <p className="mt-1 text-sm">
               Most traded bottles for the initial release. Percentage price movers require minimum
               sample sizes and will ship with the index methodology.
             </p>
@@ -460,8 +456,8 @@ export function MarketDashboard() {
 
       {/* Auction activity */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Auction Activity</h2>
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
+          <h2>Auction Activity</h2>
           <Link href="/auctions" className="text-sm font-medium text-ink hover:underline">
             View All Auction Results →
           </Link>
@@ -543,8 +539,8 @@ export function MarketDashboard() {
 
       {/* Insights */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Market Insights</h2>
+        <div className="section-head flex flex-wrap items-end justify-between gap-4">
+          <h2>Market Insights</h2>
           <Link href="/insights" className="text-sm font-medium text-ink hover:underline">
             View All Insights →
           </Link>
@@ -575,7 +571,9 @@ export function MarketDashboard() {
 
       {/* Methodology */}
       <section className="border-t border-line pt-10">
-        <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">Data coverage & methodology</h2>
+        <div className="section-head">
+          <h2>Data coverage & methodology</h2>
+        </div>
         <dl className="mt-4 grid gap-4 sm:grid-cols-2">
           <MetaItem label="Auction houses (sample)" value={marketSnapshot.houses.join(', ')} />
           <MetaItem label="Period covered" value={`${marketSnapshot.periodLabel} close · charts use illustrative monthly series`} />

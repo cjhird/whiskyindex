@@ -84,15 +84,17 @@ export default function IndexDetailPage({ params }: Props) {
       <section className="mt-10 border border-line">
         <div className="border-b border-line px-4 py-3">
           <p className="text-sm font-semibold text-ink">Path · 24M</p>
-          <p className="mt-1 text-sm text-ink-muted">Monthly closes for layout</p>
+          <p className="mt-1 text-sm text-ink-faint">Monthly closes for layout</p>
         </div>
         <IndexMiniChart points={chart} className="px-2 py-3 sm:px-4" />
       </section>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-2">
         <section>
-          <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">Construction</h2>
-          <p className="mt-3 text-sm leading-7 text-ink-muted">{idx.construction}</p>
+          <div className="section-head">
+            <h2>Construction</h2>
+          </div>
+          <p className="text-sm leading-7 text-ink-muted">{idx.construction}</p>
           <p className="mt-4 text-sm leading-7 text-ink-muted">
             <span className="font-medium text-ink">Constituents. </span>
             {idx.constituents}
@@ -105,8 +107,10 @@ export default function IndexDetailPage({ params }: Props) {
           </Link>
         </section>
         <section>
-          <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">Limitations</h2>
-          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-ink-muted">
+          <div className="section-head">
+            <h2>Limitations</h2>
+          </div>
+          <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-ink-muted">
             {idx.limitations.map((l) => (
               <li key={l}>{l}</li>
             ))}
@@ -114,9 +118,11 @@ export default function IndexDetailPage({ params }: Props) {
         </section>
       </div>
 
-      <section className="mt-12">
-        <h2 className="text-sm font-semibold text-ink">Other series</h2>
-        <ul className="mt-2 divide-y divide-line border-y border-line">
+      <section className="list-rail mt-12">
+        <div className="section-head">
+          <h2>Other series</h2>
+        </div>
+        <ul className="divide-y divide-line border-y border-line">
           {siblings.map((s) => (
             <li key={s.slug}>
               <Link

@@ -52,7 +52,9 @@ export function BottleDetails({ bottle }: { bottle: Bottle }) {
 
   return (
     <section>
-      <h2 className="mb-4 text-xl font-semibold tracking-[-0.03em] text-ink">Bottle Details</h2>
+      <div className="section-head">
+        <h2>Bottle Details</h2>
+      </div>
       {bottle.description && (
         <p className="mb-6 max-w-3xl text-sm leading-6 text-ink-muted">{bottle.description}</p>
       )}

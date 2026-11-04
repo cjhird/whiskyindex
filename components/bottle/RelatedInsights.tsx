@@ -14,8 +14,8 @@ export function RelatedInsights({ articles }: { articles: ArticleCard[] }) {
 
   return (
     <section>
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
-        <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Related insights</h2>
+      <div className="section-head flex flex-wrap items-end justify-between gap-4">
+        <h2>Related insights</h2>
         <Link href="/insights" className="text-sm text-ink-muted hover:text-ink">
           All insights →
         </Link>

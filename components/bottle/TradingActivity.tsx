@@ -28,9 +28,9 @@ export function TradingActivity({
 
   return (
     <section>
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Trading Activity</h2>
-        <p className="mt-1 text-sm text-ink-muted">
+      <div className="section-head">
+        <h2>Trading Activity</h2>
+        <p>
           How often this exact release appears and clears at auction. Low volume does not imply
           rarity or value.
         </p>

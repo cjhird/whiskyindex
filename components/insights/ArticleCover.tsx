@@ -26,9 +26,7 @@ export function ArticleCover({
   const aspect =
     size === 'hero'
       ? 'aspect-[21/9] sm:aspect-[2.4/1]'
-      : size === 'lg'
-        ? 'aspect-[16/9]'
-        : 'aspect-[16/10]';
+      : 'aspect-[16/10]';
   const tone = TONE[cover];
 
   return (

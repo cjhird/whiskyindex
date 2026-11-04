@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description:
+    'How the WhiskyIndex demo handles session cookies. Production privacy terms will expand with live accounts.',
+};
+
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

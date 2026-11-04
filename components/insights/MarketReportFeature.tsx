@@ -50,7 +50,12 @@ export function MarketReportFeature({ report }: { report: Article | null }) {
           </Link>
         </div>
         <div className="lg:col-span-5">
-          <ArticleCover cover={report.cover} alt={report.coverAlt} size="lg" />
+          <ArticleCover
+            cover={report.cover}
+            alt={report.coverAlt}
+            size="lg"
+            label="Market Report"
+          />
         </div>
       </div>
     </section>

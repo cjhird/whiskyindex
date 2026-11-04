@@ -16,7 +16,12 @@ export function FeaturedInsights({
     <section aria-label="Featured insights">
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
         <Link href={`/insights/${primary.slug}`} className="group block lg:col-span-7">
-          <ArticleCover cover={primary.cover} alt={primary.coverAlt} size="lg" />
+          <ArticleCover
+            cover={primary.cover}
+            alt={primary.coverAlt}
+            size="lg"
+            label={CATEGORY_META[primary.category].label}
+          />
           <p className="label-meta mt-4">
             {CATEGORY_META[primary.category].label}
             <span className="text-ink-faint"> · </span>
@@ -39,6 +44,7 @@ export function FeaturedInsights({
                 cover={a.cover}
                 alt={a.coverAlt}
                 size="sm"
+                label={CATEGORY_META[a.category].label}
                 className="w-32 shrink-0 sm:w-40"
               />
               <div className="min-w-0">

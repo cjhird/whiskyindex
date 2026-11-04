@@ -165,6 +165,7 @@ export default function InsightArticlePage({ params }: Props) {
           alt={article.coverAlt}
           caption={article.coverCaption}
           size="hero"
+          label={catMeta.label}
         />
       </div>
 
@@ -188,25 +189,20 @@ export default function InsightArticlePage({ params }: Props) {
                 </ul>
               ) : (
                 <p className="mt-3 text-sm leading-6 text-ink-muted">
-                  Figures referenced in this article are illustrative auction evidence for product
-                  design. See{' '}
+                  See{' '}
                   <Link href="/methodology" className="text-ink hover:underline">
                     methodology
                   </Link>{' '}
                   and{' '}
                   <Link href="/data-sources" className="text-ink hover:underline">
                     data sources
-                  </Link>
-                  .
+                  </Link>{' '}
+                  for how auction evidence is treated.
                 </p>
               )}
-              <p className="mt-4 text-sm leading-6 text-ink-faint">
-                Auction results are historical market observations — not guaranteed resale values or
-                investment advice.
-              </p>
               <Link
                 href="/methodology"
-                className="mt-3 inline-block text-sm font-medium text-ink hover:underline"
+                className="mt-4 inline-block text-sm font-medium text-ink hover:underline"
               >
                 Full methodology →
               </Link>

@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = { title: 'Disclaimer' };
+export const metadata: Metadata = {
+  title: 'Disclaimer',
+  description:
+    'WhiskyIndex provides illustrative secondary-market analytics for product demonstration — not investment advice.',
+};
 
 export default function DisclaimerPage() {
   return (

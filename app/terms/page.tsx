@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description:
+    'Terms for using WhiskyIndex illustrative secondary-market analytics. Not investment, legal, or tax advice.',
+};
+
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

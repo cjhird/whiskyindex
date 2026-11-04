@@ -147,7 +147,6 @@ export function MarketDashboard() {
             </label>
           </div>
         </div>
-        <p className="mt-4 text-sm text-ink-faint">{marketSnapshot.disclaimer}</p>
       </header>
 
       {/* Headline metrics */}

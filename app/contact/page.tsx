@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = { title: 'Contact' };
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Contact WhiskyIndex for partnerships, data licensing, or product feedback.',
+};
 
 export default function ContactPage() {
   return (

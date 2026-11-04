@@ -145,9 +145,6 @@ function ScreenerInner() {
           </button>
         </form>
         <div className="flex flex-wrap items-center gap-3 text-sm text-ink-muted">
-          <span>
-            <span className="font-mono-num text-ink">{result.total}</span> bottles match
-          </span>
           <label className="flex items-center gap-2">
             <span className="sr-only">Currency</span>
             <select className="field w-auto py-1.5" defaultValue="GBP" disabled title="GBP for this build">
@@ -194,7 +191,7 @@ function ScreenerInner() {
         {/* Desktop sidebar */}
         <aside
           className={cn(
-            'sticky top-[4.5rem] hidden shrink-0 self-start overflow-hidden rounded-lg border border-line bg-white lg:block',
+            'sticky top-[5.75rem] hidden shrink-0 self-start overflow-hidden rounded-lg border border-line bg-white lg:block',
             sidebarCollapsed ? 'w-12' : 'w-72'
           )}
         >
@@ -212,19 +209,19 @@ function ScreenerInner() {
             </button>
           ) : (
             <>
-              <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-2">
+              <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2.5">
                 <p className="text-sm font-medium text-ink">Filters</p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="rounded-md px-2 py-1 text-xs text-ink-muted hover:text-ink"
+                    className="rounded-md px-2.5 py-1 text-xs text-ink-muted hover:text-ink"
                     onClick={resetAll}
                   >
                     Reset
                   </button>
                   <button
                     type="button"
-                    className="rounded-md px-2 py-1 text-xs text-ink-muted hover:text-ink"
+                    className="rounded-md px-2.5 py-1 text-xs text-ink-muted hover:text-ink"
                     onClick={() => setSidebarCollapsed(true)}
                     aria-expanded={true}
                     aria-controls="screener-filter-panel"
@@ -257,7 +254,10 @@ function ScreenerInner() {
               <SlidersHorizontal className="size-4" aria-hidden />
               Filters
             </button>
-            <div className="ml-auto flex items-center gap-2 text-sm">
+            <div className="ml-auto flex flex-wrap items-center gap-4 text-sm">
+              <p className="text-ink-muted">
+                <span className="font-mono-num text-ink">{result.total}</span> bottles match
+              </p>
               <label className="flex items-center gap-2 text-ink-muted">
                 Sort
                 <select
@@ -275,7 +275,9 @@ function ScreenerInner() {
             </div>
           </div>
 
-          <p className="mb-3 text-xs text-ink-faint">{screenerMeta.priceBasis}</p>
+          <p className="mb-3 text-xs text-ink-faint" title={screenerMeta.priceBasis}>
+            {screenerMeta.priceBasis}
+          </p>
 
           {result.total === 0 ? (
             <div className="border border-line px-6 py-16 text-center">

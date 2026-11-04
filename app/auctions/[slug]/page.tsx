@@ -59,11 +59,11 @@ export default function AuctionHousePage({ params }: Props) {
         </div>
         <div className="grid shrink-0 grid-cols-2 gap-6 sm:grid-cols-4 lg:text-right">
           <div>
-            <p className="label-meta">Lots in sample</p>
+            <p className="label-meta">Lots</p>
             <p className="mt-1 font-mono-num text-2xl font-semibold text-ink">{stats.lots}</p>
           </div>
           <div>
-            <p className="label-meta">Sample turnover</p>
+            <p className="label-meta">Turnover</p>
             <p className="mt-1 font-mono-num text-2xl font-semibold text-ink">
               {formatGBP(stats.turnover, { compact: true })}
             </p>
@@ -75,7 +75,7 @@ export default function AuctionHousePage({ params }: Props) {
             </p>
           </div>
           <div>
-            <p className="label-meta">Unique bottles</p>
+            <p className="label-meta">Bottles</p>
             <p className="mt-1 font-mono-num text-2xl font-semibold text-ink">
               {stats.uniqueBottles}
             </p>
@@ -83,10 +83,12 @@ export default function AuctionHousePage({ params }: Props) {
         </div>
       </header>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="mt-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <section>
-          <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">House details</h2>
-          <dl className="mt-4 divide-y divide-line border-y border-line text-sm">
+          <div className="section-head">
+            <h2>House details</h2>
+          </div>
+          <dl className="divide-y divide-line border-y border-line text-sm">
             <div className="flex justify-between gap-4 py-3">
               <dt className="text-ink-muted">Sale cadence</dt>
               <dd className="max-w-sm text-right text-ink">{house.cadence}</dd>
@@ -120,9 +122,11 @@ export default function AuctionHousePage({ params }: Props) {
           </ul>
         </section>
 
-        <section>
-          <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">Other houses</h2>
-          <ul className="mt-4 divide-y divide-line border-y border-line">
+        <section className="list-rail">
+          <div className="section-head">
+            <h2>Other houses</h2>
+          </div>
+          <ul className="divide-y divide-line border-y border-line">
             {others.map((h) => (
               <li key={h.slug}>
                 <Link
@@ -139,12 +143,10 @@ export default function AuctionHousePage({ params }: Props) {
       </div>
 
       <section className="mt-12">
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div className="section-head flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Recent lots</h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Closed comps attributed to {house.name} in the demo dataset.
-            </p>
+            <h2>Recent lots</h2>
+            <p>Closed comps attributed to {house.name} in the demo dataset.</p>
           </div>
           <Link href="/auctions" className="text-sm text-ink-muted hover:text-ink">
             All auction results →

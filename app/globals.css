@@ -205,6 +205,38 @@ body {
     background: var(--bg-hover);
   }
 
+  /* Mid-page section titles — clear break from prior module */
+  .section-head {
+    margin-bottom: var(--space-3);
+    padding-top: var(--space-1);
+  }
+
+  .section-head h2 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .section-head p {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+
+  .list-rail {
+    border-left: 1px solid var(--line);
+    padding-left: var(--space-3);
+    background: linear-gradient(90deg, var(--bg-panel) 0%, transparent 56px);
+  }
+
+  .list-rail > ul,
+  .list-rail > .divide-y {
+    border-color: var(--line);
+  }
+
   /* Mobile stacks: same restraint as desktop — hairlines, no filled cards */
   .mobile-card-list {
     display: grid;
@@ -216,7 +248,7 @@ body {
     border-radius: 0;
     background: transparent;
     box-shadow: none;
-    padding-block: var(--space-2);
+    padding-block: 0.75rem;
   }
 
   .mobile-card-list > *:first-child {

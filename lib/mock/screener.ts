@@ -117,7 +117,7 @@ export const screenerUniverse: ScreenerRow[] = bottles.map(toScreenerRow);
 export const screenerMeta = {
   updatedLabel: marketSnapshot.updatedLabel,
   periodLabel: `${marketSnapshot.periodLabel} close`,
-  priceBasis: 'Buyer-inclusive totals where recorded.',
+  priceBasis: 'Buyer-inclusive totals.',
   disclaimer: marketSnapshot.disclaimer,
 };
 

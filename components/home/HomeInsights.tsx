@@ -24,7 +24,7 @@ export function HomeInsights() {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-8 md:grid-cols-3">
+        <div className="mt-10 grid gap-10 md:grid-cols-3">
           {items.map((a) => (
             <Link key={a.slug} href={`/insights/${a.slug}`} className="group block">
               <div
@@ -35,10 +35,10 @@ export function HomeInsights() {
                 aria-hidden
               />
               <p className="label-meta mt-4">{a.category}</p>
-              <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-ink group-hover:underline">
+              <h3 className="mt-3 text-lg font-semibold tracking-[-0.02em] text-ink group-hover:underline">
                 {a.title}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-ink-muted line-clamp-2">{a.excerpt}</p>
+              <p className="mt-3 text-sm leading-6 text-ink-muted line-clamp-2">{a.excerpt}</p>
               <p className="mt-3 text-sm text-ink-faint">
                 {new Date(a.publishedAt).toLocaleDateString('en-GB', {
                   day: 'numeric',

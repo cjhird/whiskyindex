@@ -65,10 +65,10 @@ export function AuctionHistory({ sales }: { sales: AuctionComp[] }) {
 
   return (
     <section>
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+      <div className="section-head flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-[-0.03em] text-ink">Auction History</h2>
-          <p className="mt-1 text-sm text-ink-muted">
+          <h2>Auction History</h2>
+          <p>
             Every recorded sale for this exact release. Totals preserve original currency; GBP shown
             for comparison.
           </p>

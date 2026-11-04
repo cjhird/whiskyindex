@@ -19,8 +19,6 @@ export function ArticleCard({
         label={CATEGORY_META[article.category].label}
       />
       <p className="label-meta mt-4">
-        {CATEGORY_META[article.category].label}
-        <span className="text-ink-faint"> · </span>
         {formatArticleDate(article.publishedAt)}
         {!compact && (
           <>
@@ -30,14 +28,14 @@ export function ArticleCard({
         )}
       </p>
       <h3
-        className={`mt-2 font-semibold tracking-[-0.02em] text-ink group-hover:underline ${
+        className={`mt-3 font-semibold tracking-[-0.02em] text-ink group-hover:underline ${
           compact ? 'text-base' : 'text-lg'
         }`}
       >
         {article.title}
       </h3>
       {!compact && (
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-muted">{article.excerpt}</p>
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-ink-muted">{article.excerpt}</p>
       )}
     </Link>
   );

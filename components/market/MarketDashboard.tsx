@@ -113,8 +113,6 @@ export function MarketDashboard() {
             </p>
             <p className="mt-3 text-sm text-ink-muted">
               Reporting month <span className="text-ink">{marketSnapshot.periodLabel}</span>
-              <span className="text-ink-faint"> · </span>
-              {marketSnapshot.updatedLabel}
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -195,17 +193,8 @@ export function MarketDashboard() {
                 Period change <ChangeText value={change.turnoverPct} /> · activity, not bottle price
               </p>
             </div>
-            <p className="text-sm text-ink-faint">Hover bars for month values</p>
           </div>
           <ActivityBarChart rows={activity} metric="turnover" />
-          <p className="border-t border-line px-4 py-2 text-sm text-ink-faint">
-            Proprietary benchmarks (WhiskyIndex 100, Scotch, Japan, Speyside, Islay, Macallan) will
-            appear here once methodology is implemented — see{' '}
-            <Link href="/methodology" className="underline-offset-2 hover:underline">
-              methodology
-            </Link>
-            .
-          </p>
         </div>
       </section>
 

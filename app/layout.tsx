@@ -4,7 +4,6 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { MarketTape } from '@/components/MarketTape';
 import { SiteDisclaimer } from '@/components/SiteDisclaimer';
 
 const publicSans = Public_Sans({
@@ -37,9 +36,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-GB" className={`${publicSans.variable} ${ibmPlexMono.variable}`}>
       <body className="flex min-h-screen flex-col antialiased">
         <Providers>
-          <MarketTape />
-          <SiteDisclaimer />
-          <Navbar />
+          <div className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
+            <SiteDisclaimer />
+            <Navbar />
+          </div>
           <main className="flex-1">{children}</main>
           <Footer />
         </Providers>

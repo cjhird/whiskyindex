@@ -12,7 +12,7 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
     bottle.bottlingYear ? `Bottled ${bottle.bottlingYear}` : null,
     bottle.edition,
     bottle.officialBottling ? 'Official bottling' : `Bottled by ${bottle.bottler}`,
-  ].filter(Boolean);
+  ].filter(Boolean) as string[];
 
   return (
     <header className="border-b border-line bg-white">
@@ -53,10 +53,17 @@ export function BottleHeader({ bottle }: { bottle: Bottle }) {
 
             <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">
               {meta.join(' · ')}
-              <span className="text-ink-faint"> · </span>
+            </p>
+            <p className="mt-1 text-sm text-ink-muted">
               {bottle.abv}% ABV
               <span className="text-ink-faint"> · </span>
               {bottle.volumeMl} ml
+              {bottle.caskType ? (
+                <>
+                  <span className="text-ink-faint"> · </span>
+                  {bottle.caskType}
+                </>
+              ) : null}
             </p>
 
             {bottle.description && (

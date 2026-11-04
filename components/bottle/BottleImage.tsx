@@ -83,7 +83,7 @@ export function BottleImage({
         )}
       </svg>
       {size === 'lg' && (
-        <p className="relative z-[1] mb-3 px-2 text-center font-mono-num text-[10px] uppercase tracking-[0.08em] text-white/70">
+        <p className="relative z-[1] mb-3 px-2 text-center font-mono-num text-[10px] uppercase tracking-[0.08em] text-white/40">
           Illustrative
         </p>
       )}

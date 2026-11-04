@@ -103,7 +103,7 @@ export default function BottlePage({ params }: Props) {
 
       <BottleHeader bottle={bottle} />
 
-      <div className="mx-auto max-w-7xl space-y-12 px-4 py-8 sm:space-y-16">
+      <div className="mx-auto max-w-7xl space-y-14 px-4 py-8 sm:py-10">
         <BottleMarketStats stats={stats} />
 
         <BottlePriceHistory

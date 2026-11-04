@@ -31,7 +31,7 @@ const capabilities = [
 export function HomeCapabilities() {
   return (
     <section className="border-b border-line bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:py-16">
         <h2 className="max-w-2xl text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
           Everything you need to understand the whisky market
         </h2>

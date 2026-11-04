@@ -154,7 +154,7 @@ function ScreenerInner() {
               <option value="GBP">GBP</option>
             </select>
           </label>
-          <span className="text-ink-faint">{screenerMeta.updatedLabel}</span>
+          <span className="text-ink-faint">{screenerMeta.periodLabel}</span>
         </div>
       </div>
 

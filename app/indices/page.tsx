@@ -32,20 +32,24 @@ export default function IndicesHubPage() {
         notes.
       </p>
 
-      <div className="mt-8 border border-line px-4 py-4 text-sm text-ink-muted">
-        <p className="font-medium text-ink">Methodology pending</p>
-        <p className="mt-2 leading-6">
+      <div className="mt-8 border-t border-line pt-5 text-sm text-ink-muted">
+        <p className="flex flex-wrap items-center gap-2">
+          <StatusChip>Methodology pending</StatusChip>
+        </p>
+        <p className="mt-3 max-w-2xl leading-6">
           WhiskyIndex will not publish a market index calculated from simple average auction prices.
           When a defensible construction ships, each series will keep its own historical view and
-          constituent rules here.
+          constituent rules here.{' '}
+          <Link href="/methodology" className="font-medium text-ink hover:underline">
+            Read methodology →
+          </Link>
         </p>
-        <Link href="/methodology" className="mt-3 inline-block font-medium text-ink hover:underline">
-          Read methodology →
-        </Link>
       </div>
 
-      <h2 className="mt-12 text-sm font-semibold text-ink">Illustrative series</h2>
-      <ul className="mt-2 divide-y divide-line border-y border-line">
+      <div className="section-head mt-12">
+        <h2>Illustrative series</h2>
+      </div>
+      <ul className="divide-y divide-line border-y border-line">
         {indexProfiles.map((idx) => (
           <li key={idx.slug}>
             <Link
@@ -70,10 +74,17 @@ export default function IndicesHubPage() {
         ))}
       </ul>
 
-      <h2 className="mt-12 text-sm font-semibold text-ink">Also planned</h2>
-      <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-muted">
+      <div className="section-head mt-12">
+        <h2>Also planned</h2>
+      </div>
+      <ul className="flex flex-wrap gap-2">
         {plannedIndexNames.map((name) => (
-          <li key={name}>{name}</li>
+          <li
+            key={name}
+            className="rounded-md border border-line px-2.5 py-1 text-sm text-ink-muted"
+          >
+            {name}
+          </li>
         ))}
       </ul>
     </div>

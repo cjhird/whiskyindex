@@ -313,10 +313,10 @@ function ScreenerInner() {
                       type="button"
                       aria-label="Watchlist"
                       onClick={() => toggleWatch(b.id, b.name)}
-                      className="self-start rounded-md p-2 text-ink-muted hover:bg-surface-hover hover:text-ink"
+                      className="self-start rounded-md p-2.5 text-ink-muted hover:bg-surface-hover hover:text-ink"
                     >
                       <Bookmark
-                        className={cn('size-4', localWatch.has(b.id) && 'fill-ink text-ink')}
+                        className={cn('size-5', localWatch.has(b.id) && 'fill-ink text-ink')}
                       />
                     </button>
                   </div>
@@ -356,10 +356,10 @@ function ScreenerInner() {
                               type="button"
                               aria-label={`Watch ${b.name}`}
                               onClick={() => toggleWatch(b.id, b.name)}
-                              className="rounded p-1 text-ink-muted hover:bg-surface-hover hover:text-ink"
+                              className="rounded-md p-2 text-ink-muted hover:bg-surface-hover hover:text-ink"
                             >
                               <Bookmark
-                                className={cn('size-4', localWatch.has(b.id) && 'fill-ink text-ink')}
+                                className={cn('size-5', localWatch.has(b.id) && 'fill-ink text-ink')}
                               />
                             </button>
                           </td>

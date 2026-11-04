@@ -44,7 +44,7 @@ const groups = [
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-line bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:py-16">
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
           <div className="max-w-xs">
             <Link href="/" className="inline-flex items-center gap-0.5">
@@ -62,7 +62,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:gap-12">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-10 lg:gap-12">
             {groups.map((g) => (
               <div key={g.title}>
                 <p className="text-sm font-semibold text-ink">{g.title}</p>

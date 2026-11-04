@@ -15,10 +15,10 @@ const groups = [
   {
     title: 'Insights',
     links: [
-      { href: '/insights?category=News', label: 'News' },
-      { href: '/insights?category=Guide', label: 'Guides' },
-      { href: '/insights?category=Analysis', label: 'Analysis' },
-      { href: '/insights?category=Market%20Report', label: 'Market Reports' },
+      { href: '/insights/news', label: 'News' },
+      { href: '/insights/guides', label: 'Guides' },
+      { href: '/insights/analysis', label: 'Analysis' },
+      { href: '/insights/reports', label: 'Market Reports' },
     ],
   },
   {
@@ -46,9 +46,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
           <div className="max-w-xs">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <ChartNoAxesCombined aria-hidden className="size-4 stroke-[1.75] text-ink" />
-              <span className="text-sm font-semibold tracking-[-0.03em] text-ink">WhiskyIndex</span>
+            <Link href="/" className="inline-flex items-center gap-0.5">
+              <span className="text-base font-semibold leading-none tracking-[-0.03em] text-ink">
+                WhiskyIndex
+              </span>
+              <ChartNoAxesCombined
+                aria-hidden
+                className="size-3.5 shrink-0 translate-y-px stroke-[1.75] text-ink"
+              />
             </Link>
             <p className="mt-3 text-sm leading-6 text-ink-muted">
               Market intelligence for the secondary whisky market — auction marks, comps, and

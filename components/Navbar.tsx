@@ -55,32 +55,40 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:gap-4">
-        <Link href="/" className="group flex shrink-0 items-center gap-2">
-          <ChartNoAxesCombined aria-hidden className="size-[1.125rem] stroke-[1.75] text-ink" />
-          <span className="text-[15px] font-semibold tracking-[-0.03em] text-ink">
+      <div className="relative mx-auto flex h-14 max-w-7xl items-center px-4">
+        <Link href="/" className="group z-10 flex shrink-0 items-center gap-0.5">
+          <span className="text-base font-semibold leading-none tracking-[-0.03em] text-ink">
             Whisky<span className="text-ink-muted group-hover:text-ink">Index</span>
           </span>
+          <ChartNoAxesCombined
+            aria-hidden
+            className="size-3.5 shrink-0 translate-y-px stroke-[1.75] text-ink"
+          />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {mainLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={cn(
-                'rounded-md px-2.5 py-1.5 text-sm font-medium transition',
-                pathname === l.href || pathname.startsWith(`${l.href}/`)
-                  ? 'bg-surface-muted text-ink'
-                  : 'text-ink-muted hover:text-ink'
-              )}
-            >
-              {l.label}
-            </Link>
-          ))}
+        <nav
+          aria-label="Primary"
+          className="pointer-events-none absolute inset-x-0 hidden justify-center md:flex"
+        >
+          <div className="pointer-events-auto flex items-center gap-1">
+            {mainLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={cn(
+                  'rounded-md px-2.5 py-1.5 text-sm font-medium transition',
+                  pathname === l.href || pathname.startsWith(`${l.href}/`)
+                    ? 'bg-surface-muted text-ink'
+                    : 'text-ink-muted hover:text-ink'
+                )}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        <div className="z-10 ml-auto flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             aria-label="Search bottles, releases and distilleries"
@@ -153,7 +161,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <nav className="flex gap-1 overflow-x-auto border-t border-line px-4 py-2 md:hidden">
+      <nav className="flex justify-center gap-1 overflow-x-auto border-t border-line px-4 py-2 md:hidden">
         {mainLinks.map((l) => (
           <Link
             key={l.href}

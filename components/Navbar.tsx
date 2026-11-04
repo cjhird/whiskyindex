@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { ChartNoAxesCombined } from 'lucide-react';
 import { useAuth } from '@/components/Providers';
 import { cn } from '@/lib/format';
 
@@ -34,7 +35,11 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4">
-        <Link href="/" className="group shrink-0">
+        <Link href="/" className="group flex shrink-0 items-center gap-2">
+          <ChartNoAxesCombined
+            aria-hidden
+            className="size-[1.125rem] stroke-[1.75] text-ink"
+          />
           <span className="text-[15px] font-semibold tracking-[-0.03em] text-ink">
             Whisky<span className="text-ink-muted group-hover:text-ink">Index</span>
           </span>

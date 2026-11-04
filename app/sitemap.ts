@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { bottles, distilleries } from '@/lib/mock/bottles';
 import { allArticleSlugs, CATEGORY_META } from '@/lib/mock/articles';
+import { auctionHouses } from '@/lib/mock/auctionHouses';
+import { indexProfiles } from '@/lib/mock/indices';
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://whiskyindex.com';
 
@@ -8,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     '',
     '/market',
-    '/market/indices',
+    '/indices',
     '/screener',
     '/bottles',
     '/auctions',
@@ -56,5 +58,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...bottleRoutes, ...distilleryRoutes, ...articleRoutes];
+  const houseRoutes = auctionHouses.map((h) => ({
+    url: `${BASE}/auctions/${h.slug}`,
+    lastModified: new Date('2026-03-01'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  const indexRoutes = indexProfiles.map((i) => ({
+    url: `${BASE}/indices/${i.slug}`,
+    lastModified: new Date('2026-03-01'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...bottleRoutes,
+    ...distilleryRoutes,
+    ...articleRoutes,
+    ...houseRoutes,
+    ...indexRoutes,
+  ];
 }

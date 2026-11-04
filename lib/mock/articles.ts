@@ -307,7 +307,7 @@ const raw: ArticleInput[] = [
       {
         type: 'marketCta',
         label: 'Planned market indices',
-        href: '/market/indices',
+        href: '/indices',
         description: 'Segment benchmarks remain methodology-pending until live coverage ships.',
       },
       {

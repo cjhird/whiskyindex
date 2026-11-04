@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { AuctionResultRow } from '@/lib/mock/auctions';
+import { auctionHouseSlug } from '@/lib/mock/auctionHouses';
 import { formatGBP } from '@/lib/format';
 import { cn } from '@/lib/format';
 
@@ -147,7 +148,11 @@ export function AuctionsDashboard({ rows }: { rows: AuctionResultRow[] }) {
                   {r.bottleName}
                 </Link>
                 <p className="mt-1 text-sm text-ink-muted">
-                  {r.house} · {r.date} · Lot {r.lot}
+                  <Link href={`/auctions/${auctionHouseSlug(r.house)}`} className="hover:text-ink">
+                    {r.house}
+                  </Link>
+                  {' · '}
+                  {r.date} · Lot {r.lot}
                 </p>
               </div>
               <p className="font-mono-num text-sm font-semibold">{formatGBP(r.totalGbp)}</p>
@@ -214,7 +219,14 @@ export function AuctionsDashboard({ rows }: { rows: AuctionResultRow[] }) {
                     </Link>
                     <p className="text-sm text-ink-muted">{r.brand}</p>
                   </td>
-                  <td className="text-ink-muted">{r.house}</td>
+                  <td className="text-ink-muted">
+                    <Link
+                      href={`/auctions/${auctionHouseSlug(r.house)}`}
+                      className="hover:text-ink hover:underline"
+                    >
+                      {r.house}
+                    </Link>
+                  </td>
                   <td className="font-mono-num text-ink-muted">{r.lot}</td>
                   <td className="text-ink-muted">{r.condition}</td>
                   <td className="text-right font-mono-num">

@@ -9,6 +9,7 @@ const groups = [
       { href: '/screener', label: 'Screener' },
       { href: '/bottles', label: 'Bottles' },
       { href: '/auctions', label: 'Auctions' },
+      { href: '/indices', label: 'Indices' },
       { href: '/pricing', label: 'Pricing' },
     ],
   },

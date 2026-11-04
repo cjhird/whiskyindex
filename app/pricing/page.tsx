@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { StatusChip } from '@/components/ui/StatusChip';
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -12,7 +13,12 @@ const plans = [
     price: '£0',
     cadence: 'forever',
     blurb: 'Market overview, screener, and insights.',
-    features: ['Market board & indices', 'Whisky screener', 'Insights hub', 'Bottle pages (limited)'],
+    features: [
+      { label: 'Market board & indices', status: null },
+      { label: 'Whisky screener', status: null },
+      { label: 'Insights hub', status: null },
+      { label: 'Bottle pages', status: 'limited' as const },
+    ],
     cta: { href: '/screener', label: 'Browse market' },
     emphasized: false,
   },
@@ -22,10 +28,10 @@ const plans = [
     cadence: '/ month',
     blurb: 'Portfolio marks, watchlists, and deeper comps.',
     features: [
-      'Everything in Public',
-      'Portfolio tracking',
-      'Watchlists & alerts (soon)',
-      'Full auction history',
+      { label: 'Everything in Public', status: null },
+      { label: 'Portfolio tracking', status: 'demo' as const },
+      { label: 'Watchlists & alerts', status: 'planned' as const },
+      { label: 'Full auction history', status: null },
     ],
     cta: { href: '/signup', label: 'Start demo' },
     emphasized: true,
@@ -36,12 +42,12 @@ const plans = [
     cadence: '/ month',
     blurb: 'For advisors and multi-collection desks.',
     features: [
-      'Everything in Collector',
-      'Multi-portfolio workspaces',
-      'Export & API (soon)',
-      'Priority support',
+      { label: 'Everything in Collector', status: null },
+      { label: 'Multi-portfolio workspaces', status: 'planned' as const },
+      { label: 'Export & API', status: 'planned' as const },
+      { label: 'Priority support', status: 'planned' as const },
     ],
-    cta: { href: '/signup', label: 'Talk to us' },
+    cta: { href: '/contact', label: 'Talk to us' },
     emphasized: false,
   },
 ];
@@ -53,21 +59,24 @@ export default function PricingPage() {
         <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-4xl">Pricing</h1>
         <p className="mt-3 text-sm leading-6 text-ink-muted sm:text-base">
           Public market data stays open. Member plans unlock portfolio tracking and watchlists.
-          Demo signup is free in this build.
+          This build is a product demo — signup is free and illustrative.
         </p>
       </div>
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-3">
+      <div className="mt-12 divide-y divide-line border-y border-line lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0">
         {plans.map((plan) => (
           <div
             key={plan.name}
             className={
               plan.emphasized
-                ? 'border border-ink px-6 py-8'
-                : 'border border-line px-6 py-8'
+                ? 'bg-surface-muted/40 px-6 py-8 sm:px-8'
+                : 'px-6 py-8 sm:px-8'
             }
           >
-            <p className="label-meta">{plan.name}</p>
+            <div className="flex items-baseline justify-between gap-3">
+              <p className="text-sm font-semibold text-ink">{plan.name}</p>
+              {plan.emphasized && <StatusChip tone="demo">Demo</StatusChip>}
+            </div>
             <p className="mt-4 flex items-baseline gap-1">
               <span className="font-mono-num text-4xl font-semibold tracking-tight text-ink">
                 {plan.price}
@@ -75,11 +84,18 @@ export default function PricingPage() {
               <span className="text-sm text-ink-muted">{plan.cadence}</span>
             </p>
             <p className="mt-3 text-sm text-ink-muted">{plan.blurb}</p>
-            <ul className="mt-6 space-y-2 text-sm text-ink">
+            <ul className="mt-6 space-y-3 text-sm text-ink">
               {plan.features.map((f) => (
-                <li key={f} className="flex gap-2">
-                  <span className="text-ink-faint">·</span>
-                  <span>{f}</span>
+                <li key={f.label} className="flex items-start justify-between gap-3">
+                  <span className="flex gap-2">
+                    <span className="text-ink-faint" aria-hidden>
+                      ·
+                    </span>
+                    <span>{f.label}</span>
+                  </span>
+                  {f.status === 'planned' && <StatusChip>Planned</StatusChip>}
+                  {f.status === 'demo' && <StatusChip tone="demo">Demo</StatusChip>}
+                  {f.status === 'limited' && <StatusChip tone="limited">Limited</StatusChip>}
                 </li>
               ))}
             </ul>

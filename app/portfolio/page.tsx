@@ -1,28 +1,64 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { AUTH_COOKIE } from '@/lib/mock/auth';
+import { getBottleBySlug } from '@/lib/mock/bottles';
 import { getPortfolioRows, portfolioSummary } from '@/lib/mock/portfolio';
+import { AccountGatePreview } from '@/components/AccountGatePreview';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { Sparkline } from '@/components/ui/Sparkline';
-import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { formatGBP, formatPct } from '@/lib/format';
 
 export const metadata: Metadata = {
   title: 'Portfolio',
 };
 
-export default function PortfolioPage() {
+type Props = { searchParams?: { add?: string } };
+
+export default function PortfolioPage({ searchParams }: Props) {
+  const session = cookies().get(AUTH_COOKIE)?.value;
+  const addSlug = searchParams?.add?.trim();
+  const addBottle = addSlug ? getBottleBySlug(addSlug) : null;
+  const redirectTo = addSlug ? `/portfolio?add=${encodeURIComponent(addSlug)}` : '/portfolio';
+
+  if (!session) {
+    return (
+      <AccountGatePreview
+        title="Portfolio"
+        description="Track holdings against observed auction marks. Demo portfolio marks appear after you sign in."
+        redirectTo={redirectTo}
+        intentNote={
+          addBottle
+            ? `Ready to add: ${addBottle.name}. Sign in to record the holding.`
+            : undefined
+        }
+      />
+    );
+  }
+
   const summary = portfolioSummary();
   const rows = getPortfolioRows();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Portfolio</h1>
         <p className="text-sm text-ink-muted">{summary.positions} positions</p>
       </div>
-      <div className="mb-8">
-        <DisclaimerBanner />
-      </div>
+
+      {addBottle && (
+        <div className="mb-8 border border-line px-4 py-4">
+          <p className="text-sm font-semibold text-ink">Add to portfolio</p>
+          <p className="mt-1 text-sm text-ink-muted">
+            {addBottle.name} — holding entry UI ships with live accounts. For this demo the bottle is
+            noted; open the{' '}
+            <Link href={`/bottles/${addBottle.slug}`} className="text-ink hover:underline">
+              bottle profile
+            </Link>{' '}
+            or browse your existing positions below.
+          </p>
+        </div>
+      )}
 
       <div className="grid gap-6 border-b border-line pb-8 sm:grid-cols-2 lg:grid-cols-4">
         <Metric label="Market value" value={formatGBP(summary.marketValue)} />

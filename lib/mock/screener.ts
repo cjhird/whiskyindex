@@ -19,6 +19,8 @@ export type ScreenerRow = Bottle & {
 export type ScreenerFilters = {
   q?: string;
   distillery?: string[];
+  /** Brand filter — also accepted via legacy `brand=` query */
+  brand?: string[];
   country?: string[];
   region?: string[];
   bottler?: string;
@@ -99,7 +101,7 @@ export function toScreenerRow(b: Bottle): ScreenerRow {
   const reliable = b.lotCount >= MIN_TXNS_FOR_PERFORMANCE;
   return {
     ...b,
-    bottler: b.brand === b.distillery ? 'Official' : 'Independent',
+    bottler: b.officialBottling ? 'Official' : 'Independent',
     median12m: med != null ? Math.round(med) : null,
     sales12m: Math.max(b.volume30d * 4, Math.round(b.lotCount * 0.35)),
     lastSold: b.history.at(-1)?.date ?? null,
@@ -142,22 +144,34 @@ export function parseScreenerParams(sp: URLSearchParams): ScreenerFilters {
     const n = Number(v);
     return Number.isFinite(n) ? n : undefined;
   };
+  // Legacy `brand=` deep-links alias into distillery when distillery is absent
+  const brand = list('brand');
+  const distilleryRaw = list('distillery');
+  const distillery =
+    distilleryRaw?.length
+      ? distilleryRaw
+      : brand?.length
+        ? brand
+        : undefined;
+
   return {
     q: sp.get('q') || undefined,
-    distillery: list('distillery'),
+    distillery,
+    brand: distilleryRaw?.length ? brand : undefined,
     country: list('country'),
     region: list('region'),
     bottler: sp.get('bottler') || undefined,
-    minAge: num('min_age'),
-    maxAge: num('max_age'),
-    minVintage: num('min_vintage'),
-    maxVintage: num('max_vintage'),
-    minAbv: num('min_abv'),
-    maxAbv: num('max_abv'),
+    // Prefer snake_case; accept camelCase aliases from older deep-links
+    minAge: num('min_age') ?? num('minAge'),
+    maxAge: num('max_age') ?? num('maxAge'),
+    minVintage: num('min_vintage') ?? num('minVintage'),
+    maxVintage: num('max_vintage') ?? num('maxVintage'),
+    minAbv: num('min_abv') ?? num('minAbv'),
+    maxAbv: num('max_abv') ?? num('maxAbv'),
     size: num('size'),
     cask: sp.get('cask') || undefined,
-    minPrice: num('min_price'),
-    maxPrice: num('max_price'),
+    minPrice: num('min_price') ?? num('minPrice'),
+    maxPrice: num('max_price') ?? num('maxPrice'),
     minMedian: num('min_median'),
     maxMedian: num('max_median'),
     minChange12m: num('min_change12m'),
@@ -184,6 +198,7 @@ export function filtersToParams(f: ScreenerFilters): URLSearchParams {
   };
   set('q', f.q);
   setList('distillery', f.distillery);
+  setList('brand', f.brand);
   setList('country', f.country);
   setList('region', f.region);
   set('bottler', f.bottler);
@@ -226,6 +241,9 @@ export function screenBottles(filters: ScreenerFilters) {
   }
   if (filters.distillery?.length) {
     rows = rows.filter((b) => filters.distillery!.includes(b.distillery));
+  }
+  if (filters.brand?.length) {
+    rows = rows.filter((b) => filters.brand!.includes(b.brand));
   }
   if (filters.country?.length) {
     rows = rows.filter((b) => filters.country!.includes(b.country));
@@ -313,6 +331,7 @@ export function activeFilterChips(f: ScreenerFilters): { key: string; label: str
     if (p) chips.push({ key: 'preset', label: `Preset: ${p.label}` });
   }
   f.distillery?.forEach((d, i) => chips.push({ key: `distillery:${i}`, label: `Distillery: ${d}` }));
+  f.brand?.forEach((d, i) => chips.push({ key: `brand:${i}`, label: `Brand: ${d}` }));
   f.country?.forEach((d, i) => chips.push({ key: `country:${i}`, label: `Country: ${d}` }));
   f.region?.forEach((d, i) => chips.push({ key: `region:${i}`, label: `Region: ${d}` }));
   if (f.bottler) chips.push({ key: 'bottler', label: `Bottler: ${f.bottler}` });
@@ -372,6 +391,10 @@ export function clearChip(f: ScreenerFilters, key: string): ScreenerFilters {
     const i = Number(key.split(':')[1]);
     next.distillery = next.distillery?.filter((_, idx) => idx !== i);
     if (!next.distillery?.length) delete next.distillery;
+  } else if (key.startsWith('brand:')) {
+    const i = Number(key.split(':')[1]);
+    next.brand = next.brand?.filter((_, idx) => idx !== i);
+    if (!next.brand?.length) delete next.brand;
   } else if (key.startsWith('country:')) {
     const i = Number(key.split(':')[1]);
     next.country = next.country?.filter((_, idx) => idx !== i);
@@ -410,3 +433,14 @@ export function clearChip(f: ScreenerFilters, key: string): ScreenerFilters {
 }
 
 export { brands, countries, regions };
+
+/** Canonical Screener URL builder — always emits snake_case query keys. */
+export function buildScreenerHref(partial: Partial<ScreenerFilters> = {}): string {
+  const params = filtersToParams({
+    sort: 'latest_price_desc',
+    page: 1,
+    ...partial,
+  });
+  const qs = params.toString();
+  return qs ? `/screener?${qs}` : '/screener';
+}

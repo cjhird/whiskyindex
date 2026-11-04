@@ -1,74 +1,74 @@
 import Link from 'next/link';
 import type { Bottle } from '@/lib/mock/types';
 import { slugifyName } from '@/lib/mock/bottles';
-import { ChangeBadge, ChangeText } from '@/components/ui/ChangeBadge';
-import { formatGBP } from '@/lib/format';
+import { BottleImage } from '@/components/bottle/BottleImage';
+import { BottleActions } from '@/components/bottle/BottleActions';
 
 export function BottleHeader({ bottle }: { bottle: Bottle }) {
   const distillerySlug = slugifyName(bottle.distillery);
+  const meta = [
+    bottle.ageYears != null ? `${bottle.ageYears} Year Old` : 'No age statement',
+    bottle.vintageYear ? `Distilled ${bottle.vintageYear}` : null,
+    bottle.bottlingYear ? `Bottled ${bottle.bottlingYear}` : null,
+    bottle.edition,
+    bottle.officialBottling ? 'Official bottling' : `Bottled by ${bottle.bottler}`,
+  ].filter(Boolean);
 
   return (
-    <div className="border-b border-line bg-white">
+    <header className="border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4 py-8">
-        <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-ink-muted">
+        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-muted">
           <Link href="/bottles" className="hover:text-ink">
             Bottles
           </Link>
-          <span className="text-ink-faint">/</span>
+          <span className="text-ink-faint" aria-hidden>
+            /
+          </span>
           <Link href={`/distilleries/${distillerySlug}`} className="hover:text-ink">
             {bottle.distillery}
           </Link>
-          <span className="text-ink-faint">/</span>
+          <span className="text-ink-faint" aria-hidden>
+            /
+          </span>
           <span className="text-ink">{bottle.name}</span>
         </nav>
 
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="min-w-0">
-            <h1 className="text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
-              {bottle.name}
-            </h1>
-            <p className="mt-2 text-sm text-ink-muted">
-              {bottle.country} · {bottle.region}
-              <span className="text-ink-faint"> · </span>
-              <Link href={`/distilleries/${distillerySlug}`} className="hover:text-ink">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+          <BottleImage bottle={bottle} className="shrink-0 self-center lg:self-start" />
+
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-ink-muted">
+              <Link href={`/distilleries/${distillerySlug}`} className="font-medium text-ink hover:underline">
                 {bottle.distillery}
               </Link>
               <span className="text-ink-faint"> · </span>
-              {bottle.ageYears ? `${bottle.ageYears}yo` : 'NAS'}
+              {bottle.country}
+              <span className="text-ink-faint"> · </span>
+              {bottle.region}
+            </p>
+
+            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
+              {bottle.name}
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">
+              {meta.join(' · ')}
               <span className="text-ink-faint"> · </span>
               {bottle.abv}% ABV
               <span className="text-ink-faint"> · </span>
-              {bottle.volumeMl}ml
-              <span className="text-ink-faint"> · </span>
-              {bottle.caskType}
+              {bottle.volumeMl} ml
             </p>
-          </div>
 
-          <div className="shrink-0 sm:text-right">
-            <p className="label-meta">Last auction mark</p>
-            <div className="mt-1 flex flex-wrap items-baseline gap-3 sm:justify-end">
-              <p className="font-mono-num text-4xl font-semibold tracking-tight text-ink">
-                {formatGBP(bottle.latestPrice)}
-              </p>
-              <ChangeBadge value={bottle.change1d} />
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm sm:justify-end">
-              <Stat label="1M" value={<ChangeText value={bottle.change1m} />} />
-              <Stat label="1Y" value={<ChangeText value={bottle.change1y} />} />
-              <Stat label="3Y" value={<ChangeText value={bottle.change3y} />} />
+            {bottle.description && (
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-muted">{bottle.description}</p>
+            )}
+
+            <div className="mt-6">
+              <BottleActions bottleId={bottle.id} bottleName={bottle.name} slug={bottle.slug} />
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-baseline gap-1.5">
-      <span className="label-meta">{label}</span>
-      <span className="font-mono-num font-medium">{value}</span>
-    </span>
+    </header>
   );
 }

@@ -17,13 +17,13 @@ export function HomeMarket() {
       <section>
         <div className="mb-6 flex items-end justify-between gap-4">
           <h2 className="text-lg font-semibold tracking-[-0.03em] text-ink">Market board</h2>
-          <Link href="/market/indices" className="text-sm text-ink-muted hover:text-ink">
+          <Link href="/indices" className="text-sm text-ink-muted hover:text-ink">
             All indices →
           </Link>
         </div>
         <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
           {marketIndices.map((idx) => (
-            <Link key={idx.slug} href="/market/indices" className="group block">
+            <Link key={idx.slug} href={`/indices/${idx.slug}`} className="group block">
               <p className="label-meta group-hover:text-ink">{idx.name}</p>
               <div className="mt-2 flex items-baseline gap-2">
                 <p className="font-mono-num text-2xl font-semibold text-ink">{idx.value.toFixed(1)}</p>

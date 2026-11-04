@@ -18,27 +18,32 @@ export function HomeFinalCta() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
-            Know the market. Invest with insight.
+            Research the market. Follow the evidence.
           </h2>
           <p className="mt-3 text-base leading-7 text-ink-muted">
-            Explore the data behind the world&apos;s collectible whisky market. Research bottles,
-            analyse historical prices and make more informed decisions.
+            Browse auction comps, bottle histories, and market activity. WhiskyIndex is a research
+            surface for collectors — not investment advice.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/market" className="btn btn-primary px-5 py-2.5">
-              Start Exploring
+              Open Market
             </Link>
             <Link href="/screener" className="btn btn-ghost px-5 py-2.5">
-              Explore the Screener
+              Open Screener
             </Link>
           </div>
         </div>
 
         <div className="mt-12 max-w-lg border-t border-line pt-8">
-          <p className="text-sm font-semibold text-ink">Monthly market briefing</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm font-semibold text-ink">Monthly market briefing</p>
+            <span className="font-mono-num text-[11px] font-medium uppercase tracking-[0.06em] text-ink-muted">
+              Planned
+            </span>
+          </div>
           <p className="mt-1 text-sm text-ink-muted">
-            Optional email digest of index closes and notable bottle moves. Demo only — nothing is
-            sent.
+            Optional email digest of index closes and notable bottle moves. Nothing is sent in this
+            demo.
           </p>
           {done ? (
             <p className="mt-4 text-sm text-ink">Thanks — we&apos;ll keep this illustrative for now.</p>

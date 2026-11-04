@@ -1,15 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { FormEvent, Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/components/Providers';
 import { Button } from '@/components/ui/Button';
 import { FieldLabel, TextField } from '@/components/ui/Field';
 
-export default function SignupPage() {
+function SignupForm() {
   const { login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/portfolio';
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
 
@@ -17,7 +19,7 @@ export default function SignupPage() {
     e.preventDefault();
     setBusy(true);
     await login(email || 'collector@whiskyindex.com');
-    router.push('/portfolio');
+    router.push(redirect);
     router.refresh();
   }
 
@@ -44,10 +46,21 @@ export default function SignupPage() {
 
       <p className="mt-8 text-sm text-ink-muted">
         Already collecting?{' '}
-        <Link href="/login" className="text-ink underline-offset-2 hover:underline">
+        <Link
+          href={`/login?redirect=${encodeURIComponent(redirect)}`}
+          className="text-ink underline-offset-2 hover:underline"
+        >
           Sign in
         </Link>
       </p>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-md px-4 py-12 text-sm text-ink-muted">Loading…</div>}>
+      <SignupForm />
+    </Suspense>
   );
 }

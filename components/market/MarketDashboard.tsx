@@ -16,6 +16,7 @@ import {
   sliceActivity,
   topAuctionHouses,
 } from '@/lib/mock/market';
+import { auctionHouseSlug } from '@/lib/mock/auctionHouses';
 import { ActivityBarChart } from '@/components/market/ActivityBarChart';
 import { ChangeText } from '@/components/ui/ChangeBadge';
 import { cn, formatGBP, formatPct } from '@/lib/format';
@@ -147,7 +148,6 @@ export function MarketDashboard() {
             </label>
           </div>
         </div>
-        <p className="mt-4 text-sm text-ink-faint">{marketSnapshot.disclaimer}</p>
       </header>
 
       {/* Headline metrics */}
@@ -177,8 +177,12 @@ export function MarketDashboard() {
               ships.
             </p>
           </div>
-          <Link href="/market/indices" className="text-sm text-ink-muted hover:text-ink">
-            Planned indices →
+          <Link
+            href="/indices"
+            className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
+          >
+            Indices
+            <span className="font-mono-num text-[11px] uppercase tracking-[0.06em]">Planned</span>
           </Link>
         </div>
         <div className="border border-line">
@@ -303,51 +307,91 @@ export function MarketDashboard() {
           </div>
         </div>
         <div className="overflow-hidden">
-          <div className="data-table-wrap">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>{segment === 'region' ? 'Region' : segment === 'country' ? 'Country' : 'Distillery'}</th>
-                  <th className="text-right">
-                    <SortBtn active={segSort === 'turnover'} onClick={() => setSegSort('turnover')}>
-                      Turnover
-                    </SortBtn>
-                  </th>
-                  <th className="text-right">
-                    <SortBtn active={segSort === 'bottlesSold'} onClick={() => setSegSort('bottlesSold')}>
-                      Bottles sold
-                    </SortBtn>
-                  </th>
-                  <th className="text-right">
-                    <SortBtn active={segSort === 'avgLot'} onClick={() => setSegSort('avgLot')}>
-                      Avg lot
-                    </SortBtn>
-                  </th>
-                  <th className="text-right">Share</th>
-                </tr>
-              </thead>
-              <tbody>
-                {segments.map((r) => (
-                  <tr key={r.name}>
-                    <td>
-                      {r.slug ? (
-                        <Link href={`/distilleries/${r.slug}`} className="font-medium text-ink hover:underline">
-                          {r.name}
-                        </Link>
-                      ) : (
-                        <span className="font-medium text-ink">{r.name}</span>
-                      )}
-                    </td>
-                    <td className="text-right font-mono-num">{formatGBP(r.turnover, { compact: true })}</td>
-                    <td className="text-right font-mono-num text-ink-muted">
-                      {r.bottlesSold.toLocaleString('en-GB')}
-                    </td>
-                    <td className="text-right font-mono-num">{formatGBP(r.avgLot)}</td>
-                    <td className="text-right font-mono-num text-ink-muted">{formatPct(r.sharePct, 1)}</td>
+          <div className="mobile-card-list">
+            {segments.map((r) => (
+              <div key={r.name} className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  {r.slug ? (
+                    <Link href={`/distilleries/${r.slug}`} className="font-medium text-ink hover:underline">
+                      {r.name}
+                    </Link>
+                  ) : (
+                    <p className="font-medium text-ink">{r.name}</p>
+                  )}
+                  <p className="mt-1 text-sm text-ink-muted">
+                    {r.bottlesSold.toLocaleString('en-GB')} bottles · {formatPct(r.sharePct, 1)} share
+                  </p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="font-mono-num text-sm font-semibold text-ink">
+                    {formatGBP(r.turnover, { compact: true })}
+                  </p>
+                  <p className="mt-0.5 font-mono-num text-sm text-ink-muted">
+                    avg {formatGBP(r.avgLot)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="desktop-table-only">
+            <div className="data-table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>
+                      {segment === 'region' ? 'Region' : segment === 'country' ? 'Country' : 'Distillery'}
+                    </th>
+                    <th className="text-right">
+                      <SortBtn active={segSort === 'turnover'} onClick={() => setSegSort('turnover')}>
+                        Turnover
+                      </SortBtn>
+                    </th>
+                    <th className="text-right">
+                      <SortBtn
+                        active={segSort === 'bottlesSold'}
+                        onClick={() => setSegSort('bottlesSold')}
+                      >
+                        Bottles sold
+                      </SortBtn>
+                    </th>
+                    <th className="text-right">
+                      <SortBtn active={segSort === 'avgLot'} onClick={() => setSegSort('avgLot')}>
+                        Avg lot
+                      </SortBtn>
+                    </th>
+                    <th className="text-right">Share</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {segments.map((r) => (
+                    <tr key={r.name}>
+                      <td>
+                        {r.slug ? (
+                          <Link
+                            href={`/distilleries/${r.slug}`}
+                            className="font-medium text-ink hover:underline"
+                          >
+                            {r.name}
+                          </Link>
+                        ) : (
+                          <span className="font-medium text-ink">{r.name}</span>
+                        )}
+                      </td>
+                      <td className="text-right font-mono-num">
+                        {formatGBP(r.turnover, { compact: true })}
+                      </td>
+                      <td className="text-right font-mono-num text-ink-muted">
+                        {r.bottlesSold.toLocaleString('en-GB')}
+                      </td>
+                      <td className="text-right font-mono-num">{formatGBP(r.avgLot)}</td>
+                      <td className="text-right font-mono-num text-ink-muted">
+                        {formatPct(r.sharePct, 1)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
           <p className="mt-3 text-sm text-ink-faint">
             Derived from the mock bottle universe for layout — production will use full auction
@@ -370,35 +414,58 @@ export function MarketDashboard() {
             Explore More in Screener →
           </Link>
         </div>
-        <div className="data-table-wrap">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Bottle</th>
-                <th>Distillery</th>
-                <th className="text-right">Latest price</th>
-                <th className="text-right">30D volume</th>
-                <th className="text-right">Transactions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {traded.map((r) => (
-                <tr key={r.bottle.id}>
-                  <td>
-                    <Link href={`/bottles/${r.bottle.slug}`} className="font-medium text-ink hover:underline">
-                      {r.bottle.name}
-                    </Link>
-                  </td>
-                  <td className="text-ink-muted">{r.bottle.distillery}</td>
-                  <td className="text-right font-mono-num font-medium">
-                    {formatGBP(r.bottle.latestPrice)}
-                  </td>
-                  <td className="text-right font-mono-num text-ink-muted">{r.recentVolume}</td>
-                  <td className="text-right font-mono-num text-ink-muted">{r.transactions}</td>
+        <div className="mobile-card-list">
+          {traded.map((r) => (
+            <Link key={r.bottle.id} href={`/bottles/${r.bottle.slug}`} className="block">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="font-medium text-ink">{r.bottle.name}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{r.bottle.distillery}</p>
+                </div>
+                <p className="font-mono-num text-sm font-semibold">
+                  {formatGBP(r.bottle.latestPrice)}
+                </p>
+              </div>
+              <p className="mt-2 text-sm text-ink-muted">
+                30D vol {r.recentVolume} · {r.transactions} txns
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div className="desktop-table-only">
+          <div className="data-table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Bottle</th>
+                  <th>Distillery</th>
+                  <th className="text-right">Latest price</th>
+                  <th className="text-right">30D volume</th>
+                  <th className="text-right">Transactions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {traded.map((r) => (
+                  <tr key={r.bottle.id}>
+                    <td>
+                      <Link
+                        href={`/bottles/${r.bottle.slug}`}
+                        className="font-medium text-ink hover:underline"
+                      >
+                        {r.bottle.name}
+                      </Link>
+                    </td>
+                    <td className="text-ink-muted">{r.bottle.distillery}</td>
+                    <td className="text-right font-mono-num font-medium">
+                      {formatGBP(r.bottle.latestPrice)}
+                    </td>
+                    <td className="text-right font-mono-num text-ink-muted">{r.recentVolume}</td>
+                    <td className="text-right font-mono-num text-ink-muted">{r.transactions}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -417,7 +484,12 @@ export function MarketDashboard() {
               {houses.map((h) => (
                 <li key={h.house} className="flex items-center justify-between gap-4 py-3">
                   <div>
-                    <p className="text-sm font-medium text-ink">{h.house}</p>
+                    <Link
+                      href={`/auctions/${auctionHouseSlug(h.house)}`}
+                      className="text-sm font-medium text-ink hover:underline"
+                    >
+                      {h.house}
+                    </Link>
                     <p className="text-sm text-ink-muted">{h.lots} lots in sample</p>
                   </div>
                   <p className="font-mono-num text-sm text-ink">{formatGBP(h.turnover, { compact: true })}</p>
@@ -441,7 +513,7 @@ export function MarketDashboard() {
                       </p>
                     </div>
                     <p className="shrink-0 font-mono-num text-sm font-medium text-ink">
-                      {formatGBP(r.total)}
+                      {formatGBP(r.totalGbp)}
                     </p>
                   </Link>
                 </li>
@@ -471,7 +543,7 @@ export function MarketDashboard() {
                       </Link>
                     </td>
                     <td className="text-ink-muted">{r.house}</td>
-                    <td className="text-right font-mono-num font-medium">{formatGBP(r.total)}</td>
+                    <td className="text-right font-mono-num font-medium">{formatGBP(r.totalGbp)}</td>
                   </tr>
                 ))}
               </tbody>

@@ -1,12 +1,13 @@
 import type { AuctionComp } from '@/lib/mock/auctions';
 import { formatGBP } from '@/lib/format';
 
+/** Compact comps table — prefer AuctionHistory on bottle profiles. */
 export function AuctionCompsTable({ comps }: { comps: AuctionComp[] }) {
   return (
     <div>
       <div className="mb-4">
         <h2 className="text-sm font-semibold text-ink">Auction comps</h2>
-        <p className="mt-1 text-sm text-ink-muted">Total includes hammer + buyer premium</p>
+        <p className="mt-1 text-sm text-ink-muted">Total includes hammer + buyer premium (GBP)</p>
       </div>
 
       <div className="mobile-card-list">
@@ -19,12 +20,14 @@ export function AuctionCompsTable({ comps }: { comps: AuctionComp[] }) {
                   {c.date} · Lot {c.lot}
                 </p>
               </div>
-              <p className="font-mono-num text-sm font-semibold">{formatGBP(c.total)}</p>
+              <p className="font-mono-num text-sm font-semibold">{formatGBP(c.totalGbp)}</p>
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-muted">
               <span>{c.condition}</span>
-              <span>Hammer {formatGBP(c.hammer)}</span>
-              <span>Premium {formatGBP(c.premium)}</span>
+              <span>
+                Hammer {c.currency} {c.hammer.toLocaleString('en-GB')}
+              </span>
+              <span>Premium {c.currency} {c.premium.toLocaleString('en-GB')}</span>
             </div>
           </div>
         ))}
@@ -41,7 +44,7 @@ export function AuctionCompsTable({ comps }: { comps: AuctionComp[] }) {
                 <th>Condition</th>
                 <th className="text-right">Hammer</th>
                 <th className="text-right">Premium</th>
-                <th className="text-right">Total</th>
+                <th className="text-right">Total (GBP)</th>
               </tr>
             </thead>
             <tbody>
@@ -51,9 +54,15 @@ export function AuctionCompsTable({ comps }: { comps: AuctionComp[] }) {
                   <td className="font-medium text-ink">{c.house}</td>
                   <td className="font-mono-num text-ink-muted">{c.lot}</td>
                   <td className="text-ink-muted">{c.condition}</td>
-                  <td className="text-right font-mono-num">{formatGBP(c.hammer)}</td>
-                  <td className="text-right font-mono-num text-ink-muted">{formatGBP(c.premium)}</td>
-                  <td className="text-right font-mono-num font-semibold">{formatGBP(c.total)}</td>
+                  <td className="text-right font-mono-num">
+                    {c.currency} {c.hammer.toLocaleString('en-GB')}
+                  </td>
+                  <td className="text-right font-mono-num text-ink-muted">
+                    {c.currency} {c.premium.toLocaleString('en-GB')}
+                  </td>
+                  <td className="text-right font-mono-num font-semibold">
+                    {formatGBP(c.totalGbp)}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { marketIndices } from '@/lib/mock/bottles';
-import { ChangeBadge, ChangeText } from '@/components/ui/ChangeBadge';
 
 export const metadata: Metadata = {
   title: 'Market indices',
-  description: 'WhiskyIndex segment indexes — Broad, Scotch, Japan, and Rare.',
+  description: 'Planned WhiskyIndex segment benchmarks — methodology pending.',
 };
+
+const planned = [
+  'WhiskyIndex 100',
+  'Scotch Whisky',
+  'Japanese Whisky',
+  'Speyside',
+  'Islay',
+  'Macallan',
+];
 
 export default function MarketIndicesPage() {
   return (
@@ -20,35 +28,43 @@ export default function MarketIndicesPage() {
       </nav>
       <h1 className="text-3xl font-semibold tracking-[-0.035em] text-ink">Market indices</h1>
       <p className="mt-2 max-w-2xl text-sm text-ink-muted">
-        Monthly volume-weighted segment indexes built from closed auction comps.
+        Proprietary price benchmarks are not yet live. Placeholder WI series below are illustrative
+        only and must not be treated as production index prints.
       </p>
 
-      <ul className="mt-10 divide-y divide-line border-t border-line">
+      <div className="mt-8 border border-line px-4 py-4 text-sm text-ink-muted">
+        <p className="font-medium text-ink">Status: methodology pending</p>
+        <p className="mt-2 leading-6">
+          We will not publish a market index calculated from simple average auction prices. When a
+          defensible construction ships, each index will have its own historical view here.
+        </p>
+        <Link href="/methodology" className="mt-3 inline-block font-medium text-ink hover:underline">
+          Read methodology →
+        </Link>
+      </div>
+
+      <h2 className="mt-10 text-sm font-semibold text-ink">Planned benchmarks</h2>
+      <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-muted">
+        {planned.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+
+      <h2 className="mt-10 text-sm font-semibold text-ink">Illustrative placeholders</h2>
+      <ul className="mt-4 divide-y divide-line border-t border-line">
         {marketIndices.map((idx) => (
-          <li key={idx.slug} className="py-6">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="min-w-0">
-                <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">{idx.name}</h2>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-ink-muted">{idx.description}</p>
-              </div>
-              <div className="shrink-0 sm:text-right">
-                <p className="font-mono-num text-3xl font-semibold text-ink">{idx.value.toFixed(1)}</p>
-                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm sm:justify-end">
-                  <span>
-                    1D <ChangeBadge value={idx.change1d} size="sm" />
-                  </span>
-                  <span className="text-ink-muted">
-                    1M <ChangeText value={idx.change1m} />
-                  </span>
-                  <span className="text-ink-muted">
-                    1Y <ChangeText value={idx.change1y} />
-                  </span>
-                </div>
-              </div>
+          <li key={idx.slug} className="flex flex-wrap items-baseline justify-between gap-3 py-4">
+            <div>
+              <p className="font-medium text-ink">{idx.name}</p>
+              <p className="mt-1 max-w-xl text-sm text-ink-muted">{idx.description}</p>
             </div>
+            <p className="font-mono-num text-xl font-semibold text-ink-faint">{idx.value.toFixed(1)}</p>
           </li>
         ))}
       </ul>
+      <p className="mt-4 text-sm text-ink-faint">
+        Values shown for UI layout only — not genuine index levels.
+      </p>
     </div>
   );
 }
